@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Spring Boot Web JSP Sample
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: kiran
+Implementation-Vendor-Id: com.innovatehub
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
