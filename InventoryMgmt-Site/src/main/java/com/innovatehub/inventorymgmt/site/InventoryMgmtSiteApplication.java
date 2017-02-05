@@ -32,14 +32,4 @@ public class InventoryMgmtSiteApplication {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(InventoryMgmtSiteApplication.class, args);
 	}
-	
-	@Bean
-	public InternalResourceViewResolver setupViewResolver()  {
-	        InternalResourceViewResolver resolver =  new InternalResourceViewResolver();
-	        resolver.setPrefix ("/WEB-INF/jsp/");
-	        resolver.setSuffix (".jsp");
-	        resolver.setViewClass (JstlView.class);
-	        return resolver;
-	    }
-
 }
