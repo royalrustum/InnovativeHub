@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
-<link rel="stylesheet" th:href="@{/css/site.css}" />
+<link rel="stylesheet" th:href="@{/static/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/static/css/site.css}" />
 </head>
 <!-- <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script> -->
 <body class="loginBackground">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-offset-2 col-md-6">
+			<div class="col-md-offset-4 col-md-3">
 				<section class="login-form">
 					<form method="post" action="#" role="login">
 						<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
@@ -18,8 +20,8 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-user"></span> </span> 
-								<input type="text" name="userName" class="form-control input-lg"
+									class="glyphicon glyphicon-user"></span> </span> <input type="text"
+									name="userName" class="form-control input-lg"
 									placeholder="User Name" />
 							</div>
 						</div>
@@ -32,7 +34,7 @@
 									placeholder="Password" />
 							</div>
 						</div>
-						
+
 						<button type="submit" name="go"
 							class="btn btn-lg btn-primary btn-block">Sign in</button>
 					</form>

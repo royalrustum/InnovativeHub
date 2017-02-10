@@ -1,5 +1,7 @@
 package com.innovatehub.inventorymgmt.site.config;
 
+import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -62,10 +64,17 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
-		registry.addResourceHandler("/css/**").addResourceLocations("/static/css/", "/static/uiframeworks/bootstrap-3.3.7/css/");
-		registry.addResourceHandler("/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/js/");
-		registry.addResourceHandler("/fonts/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/fonts/");
+		registry.addResourceHandler("static/css/**").addResourceLocations("/static/css/", "/static/uiframeworks/bootstrap-3.3.7/css/");
+		registry.addResourceHandler("static/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/js/");
+		registry.addResourceHandler("static/fonts/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/fonts/");
+		registry.addResourceHandler("static/images/**").addResourceLocations("/static/images/");
 
 	}
 
+	@Bean
+    ServletRegistrationBean h2servletRegistration(){
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+        registrationBean.addUrlMappings("/dbc/*");
+        return registrationBean;
+    }
 }

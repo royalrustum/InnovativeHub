@@ -9,16 +9,52 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<artifactId>inventorymgmt</artifactId>
 	</parent>
-	
+
 	<artifactId>inventorymgmt-services</artifactId>
 	<name>InventoryMgmg-Services</name>
 	<description>InventoryMgmg-Services</description>
 	<url>http://projects.spring.io/spring-boot/</url>
-	
+
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.innovatehub</groupId>
+			<artifactId>inventorymgmt-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

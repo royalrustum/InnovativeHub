@@ -25,8 +25,8 @@
 }
 
 .loginBackground {
-	background: url(http://i.imgur.com/GHr12sH.jpg) no-repeat center center
-		fixed;
+/* 	background: url("../images/logon-background.jpg"); */
+	background: white;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -60,3 +60,4 @@ form[role=login] input, form[role=login] button {
 form[role=login]>div {
 	text-align: center;
 }
+
