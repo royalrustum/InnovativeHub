@@ -12,8 +12,16 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-offset-4 col-md-3">
+
+
+
 				<section class="login-form">
-					<form method="post" action="#" role="login">
+					<div th:if="${param.error}" class="alert alert-danger alertStyle">
+					<span class="glyphicon glyphicon-remove-circle"></span>
+						Invalid Username and Password.</div>
+
+					<div th:if="${param.logout}">You have been logged out.</div>
+					<form method="post" th:action="@{/login}" role="login">
 						<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
 							alt="" />
 
@@ -21,7 +29,7 @@
 							<div class="input-group">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-user"></span> </span> <input type="text"
-									name="userName" class="form-control input-lg"
+									name="username" class="form-control input-lg"
 									placeholder="User Name" />
 							</div>
 						</div>

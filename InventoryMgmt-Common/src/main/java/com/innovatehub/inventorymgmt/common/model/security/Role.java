@@ -2,8 +2,10 @@ package com.innovatehub.inventorymgmt.common.model.security;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class Role {
 		this.roleId = roleId;
 	}
 
-	@ManyToMany(mappedBy="roles")
+	@ManyToMany(mappedBy="roles", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	public Set<User> getUsers() {
 		return users;
 	}

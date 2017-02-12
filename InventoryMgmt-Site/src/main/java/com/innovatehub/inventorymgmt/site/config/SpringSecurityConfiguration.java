@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.innovatehub.inventorymgmt.services.security.UserDetailsServiceImpl;
 
@@ -22,7 +23,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests().antMatchers("/dbc/**").permitAll()
 		.antMatchers("/static/**").permitAll()
 		.anyRequest().authenticated().and()
-		.formLogin().loginPage("/login").permitAll();
+		.formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll()
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+		.logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
+		.invalidateHttpSession(true) 
+		.and().exceptionHandling().accessDeniedPage("/error403");
+		
 		
 		// ToDo: Comment this later.
 		 httpSecurity.csrf().disable();

@@ -65,7 +65,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
 		registry.addResourceHandler("static/css/**").addResourceLocations("/static/css/", "/static/uiframeworks/bootstrap-3.3.7/css/");
-		registry.addResourceHandler("static/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/js/");
+		registry.addResourceHandler("static/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/jquery/", "/static/uiframeworks/bootstrap-3.3.7/js/");
 		registry.addResourceHandler("static/fonts/**").addResourceLocations("/static/js/", "/static/uiframeworks/bootstrap-3.3.7/fonts/");
 		registry.addResourceHandler("static/images/**").addResourceLocations("/static/images/");
 

@@ -19,13 +19,13 @@ import com.innovatehub.inventorymgmt.common.repository.security.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
 	UserRepository userRepository;
 
 	public UserRepository getUserRepository() {
 		return userRepository;
 	}
 
+	@Autowired
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}

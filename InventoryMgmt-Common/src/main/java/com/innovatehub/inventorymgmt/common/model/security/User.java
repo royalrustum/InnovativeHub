@@ -2,8 +2,10 @@ package com.innovatehub.inventorymgmt.common.model.security;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +36,7 @@ public class User {
 		this.userId = userId;
 	}
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name="USER_ROLE_T", 
 		joinColumns=@JoinColumn(name="USER_ID"),
 		inverseJoinColumns=@JoinColumn(name="ROLE_ID"))
