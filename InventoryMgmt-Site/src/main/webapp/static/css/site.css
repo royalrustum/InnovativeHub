@@ -71,3 +71,31 @@ form[role=login] input, form[role=login] button {
 form[role=login]>div {
 	text-align: center;
 }
+
+/* Header */
+.top-nav {
+	background-color: #007bc4;
+}
+
+.nav .form-group {
+    margin-bottom: 5px;
+    margin-top: 8px;
+}
+
+/* Html level */
+body {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial,
+		sans-serif;
+	font-weight: 400;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+    font-weight: 700;
+    
+    font-size: 20px;
+    width: 230px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}

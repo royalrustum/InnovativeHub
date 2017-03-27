@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
 <meta charset="utf-8">
@@ -14,6 +14,12 @@
 </head>
 <!--/* Standard layout can be mixed with Layout Dialect */-->
 <body>
+	<div th:include="layout/fragments/header :: header"></div>
+	
 	<div layout:fragment="content"></div>
+
+	<script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
 </body>
 </html>
