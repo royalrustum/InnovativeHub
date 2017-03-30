@@ -9,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +21,14 @@ public class Role {
 	private String name;
 
 	private Set<User> users;
-	
+
+	private Set<Screen> screens;
+
 	private Long roleId;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ROLE_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ROLE_ID")
 	public Long getRoleId() {
 		return roleId;
 	}
@@ -32,7 +37,7 @@ public class Role {
 		this.roleId = roleId;
 	}
 
-	@ManyToMany(mappedBy="roles", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -41,7 +46,17 @@ public class Role {
 		this.users = users;
 	}
 
-	@Column(name="NAME")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ROLE_SCREEN_T", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "SCREEN_ID"))
+	public Set<Screen> getScreens() {
+		return screens;
+	}
+
+	public void setScreens(Set<Screen> screens) {
+		this.screens = screens;
+	}
+
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}

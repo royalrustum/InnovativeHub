@@ -28,14 +28,14 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.innovatehub.inventorymgmt"})
+@ComponentScan(basePackages = { "com.innovatehub.inventorymgmt" })
 public class InventoryMgmtSiteApplication extends SpringBootServletInitializer {
 
-	 @Override
-	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-	        return application.sources(InventoryMgmtSiteApplication.class);
-	    }
-	 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(InventoryMgmtSiteApplication.class);
+	}
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(InventoryMgmtSiteApplication.class, args);
 	}

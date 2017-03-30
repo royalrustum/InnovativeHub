@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.innovatehub.inventorymgmt.common.model.security.Role;
+import com.innovatehub.inventorymgmt.common.model.security.Screen;
 import com.innovatehub.inventorymgmt.common.model.security.User;
 import com.innovatehub.inventorymgmt.common.repository.security.UserRepository;
 
@@ -34,10 +35,16 @@ public class DatabaseInitializer {
 	@PostConstruct
 	@Transactional(readOnly=false)
 	private void populateData() {
+		populateUserAndRoleData();
+		populateScreenDataForAdminRole();
+	}
 
+	private void populateUserAndRoleData() {
+		// Populate Admin role and their screens.
 		Role adminRole = new Role();
 		adminRole.setName("ADMIN_ROLE");
-
+		adminRole.setScreens(this.populateScreenDataForAdminRole());
+		
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(adminRole);
 
@@ -45,7 +52,25 @@ public class DatabaseInitializer {
 		adminUser.setUserName("admin");
 		adminUser.setPassword("admin");
 		adminUser.setRoles(roles);
-
+		
+		
 		this.userRepository.save(adminUser);
+	}
+	
+	private Set<Screen> populateScreenDataForAdminRole() {
+		Set<Screen> adminScreens = new HashSet<Screen>();
+		
+		Screen stockScreen = new Screen();
+		stockScreen.setScreenName("Stock");
+		stockScreen.setScreenIconName("cubes");
+		
+		stockScreen.setScreenCategory("Admin");
+		stockScreen.setScreenCategoryIconName("gears");
+		
+		stockScreen.setUrl("/admin/stock");
+		
+		adminScreens.add(stockScreen);
+		
+		return adminScreens;
 	}
 }
