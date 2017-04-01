@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
@@ -16,27 +17,24 @@
 			<div class="menu-list">
 
 				<ul id="menu-content" class="menu-content collapse out">
-					<li><a href="#"> <i class="fa fa-dashboard fa-lg"></i>
-							&nbsp;Dashboard
-					</a></li>
-
-					<li data-toggle="collapse" data-target="#products"
-						class="expand active"><a href="#"><i
-							class="fa fa-gift fa-lg"></i>&nbsp; UI Elements <span class="arrow"></span></a>
-					</li>
-					<ul class="sub-menu collapse" id="products">
-						<li class="active"><a href="#">CSS3 Animation</a></li>
-						<li><a href="#">General</a></li>
-						<li><a href="#">Buttons</a></li>
-						<li><a href="#">Tabs & Accordions</a></li>
-						<li><a href="#">Typography</a></li>
-						<li><a href="#">FontAwesome</a></li>
-						<li><a href="#">Slider</a></li>
-						<li><a href="#">Panels</a></li>
-						<li><a href="#">Widgets</a></li>
-						<li><a href="#">Bootstrap Model</a></li>
-					</ul>
-
+					<th:block
+						th:each="leftNavSection : ${sessionCache.leftNavSections}">
+						<li data-toggle="collapse"
+							th:attr="data-target='#'+${leftNavSection.header.name}"
+							class="expand active"><a href="#"><i
+								class="fa fa-lg fa-2x"
+								th:classappend="${leftNavSection.header.iconName}"></i>&nbsp;&nbsp;&nbsp;
+								<span th:text="${leftNavSection.header.name}"></span> <span
+								class="arrow"></span></a></li>
+						<ul class="sub-menu collapse"
+							th:id="${leftNavSection.header.name}">
+							<li class="active"
+								th:each="subSection : ${leftNavSection.leftNavItems}"><a
+								href="#"><i class="fa fa-lg fa-2x"
+									th:classappend="${subSection.screenIconName}"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+									th:text="${subSection.screenName}"></span></a></li>
+						</ul>
+					</th:block>
 
 					<!-- 					<li data-toggle="collapse" data-target="#service" class="collapsed">
 						<a href="#"><i class="fa fa-globe fa-lg"></i> Services <span

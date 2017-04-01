@@ -37,7 +37,7 @@ public class Role {
 		this.roleId = roleId;
 	}
 
-	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -46,7 +46,7 @@ public class Role {
 		this.users = users;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "ROLE_SCREEN_T", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "SCREEN_ID"))
 	public Set<Screen> getScreens() {
 		return screens;

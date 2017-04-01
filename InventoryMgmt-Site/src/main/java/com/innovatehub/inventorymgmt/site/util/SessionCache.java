@@ -1,5 +1,6 @@
 package com.innovatehub.inventorymgmt.site.util;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -10,15 +11,26 @@ import org.springframework.stereotype.Component;
 
 import com.innovatehub.inventorymgmt.common.model.security.Screen;
 import com.innovatehub.inventorymgmt.services.security.SecurityService;
+import com.innovatehub.inventorymgmt.site.model.LeftNavSection;
 
 @Component
-@Scope("session")
+//@Scope("session")
 public class SessionCache {
 	private Set<Screen> authorizedScreens;
+	
+	private List<LeftNavSection> leftNavSections;
 	
 	@Autowired
 	private SecurityService securityService;
 	
+	public List<LeftNavSection> getLeftNavSections() {
+		return leftNavSections;
+	}
+
+	public void setLeftNavSections(List<LeftNavSection> leftNavSections) {
+		this.leftNavSections = leftNavSections;
+	}
+
 	public Set<Screen> getAuthorizedScreens() {
 		return authorizedScreens;
 	}
@@ -38,5 +50,7 @@ public class SessionCache {
 	public void initialize() {
 		String currentUserName = securityService.getCurrentUserName();
 		this.setAuthorizedScreens(this.securityService.getUserScreens(currentUserName));
+		
+		this.setLeftNavSections(GUIUtilHelper.PopulateLeftNavigation(this.getAuthorizedScreens()));
 	}
 }

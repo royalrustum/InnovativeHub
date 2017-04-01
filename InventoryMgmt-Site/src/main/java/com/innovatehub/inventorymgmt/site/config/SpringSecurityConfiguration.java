@@ -17,13 +17,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
+	
+	@Autowired
+	LoginSuccessHandler loginSuccessHandler;
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.authorizeRequests().antMatchers("/dbc/**").permitAll()
 		.antMatchers("/static/**").permitAll()
 		.anyRequest().authenticated().and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll()
+		.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home").successHandler(loginSuccessHandler)
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
 		.logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
 		.invalidateHttpSession(true) 

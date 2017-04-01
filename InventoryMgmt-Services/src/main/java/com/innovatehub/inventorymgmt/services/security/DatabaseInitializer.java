@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.innovatehub.inventorymgmt.common.model.security.Role;
 import com.innovatehub.inventorymgmt.common.model.security.Screen;
+import com.innovatehub.inventorymgmt.common.model.security.ScreenCategory;
 import com.innovatehub.inventorymgmt.common.model.security.User;
 import com.innovatehub.inventorymgmt.common.repository.security.UserRepository;
 
@@ -60,14 +61,15 @@ public class DatabaseInitializer {
 	private Set<Screen> populateScreenDataForAdminRole() {
 		Set<Screen> adminScreens = new HashSet<Screen>();
 		
+		ScreenCategory adminCategory = new ScreenCategory();
+		adminCategory.setName("Admin");
+		adminCategory.setIconName("fa-gear");
+		
 		Screen stockScreen = new Screen();
 		stockScreen.setScreenName("Stock");
-		stockScreen.setScreenIconName("cubes");
-		
-		stockScreen.setScreenCategory("Admin");
-		stockScreen.setScreenCategoryIconName("gears");
-		
+		stockScreen.setScreenIconName("fa-cubes");
 		stockScreen.setUrl("/admin/stock");
+		stockScreen.setScreenCategory(adminCategory);
 		
 		adminScreens.add(stockScreen);
 		
