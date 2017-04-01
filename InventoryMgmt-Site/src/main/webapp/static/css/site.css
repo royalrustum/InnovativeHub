@@ -128,6 +128,7 @@ body {
 	margin: 0px;
 	line-height: 35px;
 	cursor: pointer;
+
 	/*    
     .collapsed{
        .arrow:before{
@@ -180,7 +181,7 @@ body {
 
 .nav-side-menu ul .sub-menu li:hover, .nav-side-menu li .sub-menu li:hover
 	{
-	background-color: #020203;
+	background-color: #1b95e0;
 }
 
 .nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
@@ -198,6 +199,8 @@ body {
 	padding-left: 0px;
 	border-left: 3px solid #2e353d;
 	border-bottom: 1px solid #23282e;
+	display: inline-block;
+	width: 100%;
 }
 
 .nav-side-menu li a {
@@ -207,6 +210,8 @@ body {
 	font-weight: 400;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 68px;
+	display: block;
+	width: 100%;
 }
 
 .nav-side-menu li a i {

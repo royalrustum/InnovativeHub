@@ -65,6 +65,20 @@ public class DatabaseInitializer {
 		adminCategory.setName("Admin");
 		adminCategory.setIconName("fa-gear");
 		
+		Screen productScreen = new Screen();
+		productScreen.setScreenName("Products");
+		productScreen.setScreenIconName("fa-tags");
+		productScreen.setUrl("/admin/products");
+		productScreen.setScreenCategory(adminCategory);
+		adminScreens.add(productScreen);
+		
+		Screen customerScreen = new Screen();
+		customerScreen.setScreenName("Customers");
+		customerScreen.setScreenIconName("fa-user-o");
+		customerScreen.setUrl("/admin/customers");
+		customerScreen.setScreenCategory(adminCategory);
+		adminScreens.add(customerScreen);
+		
 		Screen stockScreen = new Screen();
 		stockScreen.setScreenName("Stock");
 		stockScreen.setScreenIconName("fa-cubes");

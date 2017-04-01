@@ -6,7 +6,7 @@
 <body>
 	<div th:fragment="leftnav">
 		<link
-			href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+			href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 			rel="stylesheet">
 
 		<div class="nav-side-menu">
@@ -30,7 +30,7 @@
 							th:id="${leftNavSection.header.name}">
 							<li class="active"
 								th:each="subSection : ${leftNavSection.leftNavItems}"><a
-								href="#"><i class="fa fa-lg fa-2x"
+								th:href="${subSection.url}"><i class="fa fa-lg fa-2x"
 									th:classappend="${subSection.screenIconName}"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
 									th:text="${subSection.screenName}"></span></a></li>
 						</ul>
