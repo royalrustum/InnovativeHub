@@ -128,7 +128,7 @@ form[role=login]>div {
 }
 
 .left-nav ul {
-	padding-left: 0px; 
+	padding-left: 0px;
 }
 
 .left-nav li {
@@ -180,6 +180,14 @@ form[role=login]>div {
 	float: right;
 	vertical-align: middle;
 	top: 20px;
+}
+
+/*------------------ Footer -------------------------------*/
+.footer {
+	border-top: 1px solid #c3c4c4;
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 15px;
 }
 
 /* Header */
@@ -250,13 +258,21 @@ html {
 Left
 
 
+
+
  
+
+
 
 
 Nav
 
 
+
+
  
+
+
 
 
 --------------------------

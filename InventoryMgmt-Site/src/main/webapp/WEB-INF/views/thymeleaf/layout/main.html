@@ -22,11 +22,14 @@
 		<div th:include="layout/fragments/leftnav :: leftnav"></div>
 
 		<div class="col-md-offset-3" layout:fragment="content"></div>
+
+		<div class="col-md-offset-1 col-md-10"
+			th:include="layout/fragments/footer :: footer"></div>
 	</div>
-	
+
 	<script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
-	
+
 </body>
 </html>
