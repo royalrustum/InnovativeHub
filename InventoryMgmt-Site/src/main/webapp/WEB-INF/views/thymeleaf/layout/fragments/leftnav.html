@@ -9,34 +9,28 @@
 			href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 			rel="stylesheet">
 
-		<div class="nav-side-menu">
-			<div class="brand">Innovate Hub</div>
-			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
-				data-target="#menu-content"></i>
+		<div id="leftNavContainer" class="col-md-2 zero-pad full-height">
+			<nav class="navbar nav-pills nav-stacked left-nav" role="navigation">
+				<th:block th:each="leftNavSection : ${sessionCache.leftNavSections}">
+					<li data-toggle="collapse"
+						th:attr="data-target='#'+${leftNavSection.header.name}"><a
+						href="#"><i class="fa fa-lg fa-2x"
+							th:classappend="${leftNavSection.header.iconName}"></i>&nbsp;&nbsp;&nbsp;
+							<span th:text="${leftNavSection.header.name}"></span><span class="glyphicon glyphicon-chevron-up toggleIcon"></span> </a></li>
+					<ul class="collapse in" th:id="${leftNavSection.header.name}">
+						<li class="active"
+							th:each="subSection : ${leftNavSection.leftNavItems}"><a
+							th:href="${subSection.url}"><i
+								class="fa fa-lg fa-2x left-nav-submenu"
+								th:classappend="${subSection.screenIconName}"></i><span
+								th:text="${subSection.screenName}"></span></a></li>
+					</ul>
+				</th:block>
+			</nav>
+		</div>
 
-			<div class="menu-list">
-
-				<ul id="menu-content" class="menu-content collapse out">
-					<th:block
-						th:each="leftNavSection : ${sessionCache.leftNavSections}">
-						<li data-toggle="collapse"
-							th:attr="data-target='#'+${leftNavSection.header.name}"
-							class="expand active"><a href="#"><i
-								class="fa fa-lg fa-2x"
-								th:classappend="${leftNavSection.header.iconName}"></i>&nbsp;&nbsp;&nbsp;
-								<span th:text="${leftNavSection.header.name}"></span> <span
-								class="arrow"></span></a></li>
-						<ul class="sub-menu collapse"
-							th:id="${leftNavSection.header.name}">
-							<li class="active"
-								th:each="subSection : ${leftNavSection.leftNavItems}"><a
-								th:href="${subSection.url}"><i class="fa fa-lg fa-2x"
-									th:classappend="${subSection.screenIconName}"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-									th:text="${subSection.screenName}"></span></a></li>
-						</ul>
-					</th:block>
-
-					<!-- 					<li data-toggle="collapse" data-target="#service" class="collapsed">
+		<!--  
+										<li data-toggle="collapse" data-target="#service" class="collapsed">
 						<a href="#"><i class="fa fa-globe fa-lg"></i> Services <span
 							class="arrow"></span></a>
 					</li>
@@ -62,10 +56,43 @@
 					</a></li>
 
 					<li><a href="#"> <i class="fa fa-users fa-lg"></i> Users
-					</a></li> -->
+					</a></li>
 				</ul>
 			</div>
 		</div>
+	 -->
+
+		<script type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+								$('#leftNavContainer .collapse')
+										.on(
+												'hidden.bs.collapse',
+												function() {
+													$(this)
+															.prev()
+															.find(".glyphicon")
+															.removeClass(
+																	"glyphicon-chevron-up")
+															.addClass(
+																	"glyphicon-chevron-down");
+												});
+
+								$('#leftNavContainer .collapse')
+										.on(
+												'shown.bs.collapse',
+												function() {
+													$(this)
+															.prev()
+															.find(".glyphicon")
+															.removeClass(
+																	"glyphicon-chevron-down")
+															.addClass(
+																	"glyphicon-chevron-up");
+												});
+							});
+		</script>
 	</div>
 </body>
 </html>
