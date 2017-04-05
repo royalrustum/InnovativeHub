@@ -16,20 +16,33 @@
 </head>
 <!--/* Standard layout can be mixed with Layout Dialect */-->
 <body>
-	<div class="container-fluid zero-pad">
-		<div th:include="layout/fragments/header :: header"></div>
-
-		<div th:include="layout/fragments/leftnav :: leftnav"></div>
-
-		<div class="col-md-offset-3" layout:fragment="content"></div>
-
-		<div class="col-md-offset-1 col-md-10"
-			th:include="layout/fragments/footer :: footer"></div>
-	</div>
 
 	<script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
 
+	<div class="container-fluid zero-pad">
+		<div th:include="layout/fragments/header :: header"></div>
+
+		<div th:include="layout/fragments/leftnav :: leftnav"></div>
+
+		<div class="col-md-offset-2 pageContentContainer row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span
+							th:text="#{'pageTitle.' + ${#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/') + 1)}}"></span>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div layout:fragment="content"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-offset-2 col-md-10"
+			th:include="layout/fragments/footer :: footer"></div>
+	</div>
 </body>
 </html>
