@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.innovatehub.inventorymgmt.common.model.security.Screen;
+import com.innovatehub.inventorymgmt.common.entity.security.Screen;
 import com.innovatehub.inventorymgmt.services.security.SecurityService;
-import com.innovatehub.inventorymgmt.site.model.LeftNavSection;
+import com.innovatehub.inventorymgmt.site.model.util.LeftNavSection;
 
 @Component
 //@Scope("session")
 public class SessionCache {
-	private Set<Screen> authorizedScreens;
+	private List<Screen> authorizedScreens;
 	
 	private List<LeftNavSection> leftNavSections;
 	
@@ -31,11 +31,11 @@ public class SessionCache {
 		this.leftNavSections = leftNavSections;
 	}
 
-	public Set<Screen> getAuthorizedScreens() {
+	public List<Screen> getAuthorizedScreens() {
 		return authorizedScreens;
 	}
 
-	public void setAuthorizedScreens(Set<Screen> authorizedScreens) {
+	public void setAuthorizedScreens(List<Screen> authorizedScreens) {
 		this.authorizedScreens = authorizedScreens;
 	}
 	

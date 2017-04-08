@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.innovatehub.inventorymgmt.common.model.security.Role;
-import com.innovatehub.inventorymgmt.common.model.security.User;
+import com.innovatehub.inventorymgmt.common.entity.security.Role;
+import com.innovatehub.inventorymgmt.common.entity.security.User;
 import com.innovatehub.inventorymgmt.common.repository.security.UserRepository;
 
 @Service

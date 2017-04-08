@@ -1,4 +1,4 @@
-package com.innovatehub.inventorymgmt.common.model.security;
+package com.innovatehub.inventorymgmt.common.entity.security;
 
 import java.util.Set;
 

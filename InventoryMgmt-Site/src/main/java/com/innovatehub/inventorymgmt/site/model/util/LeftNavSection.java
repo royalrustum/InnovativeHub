@@ -1,9 +1,9 @@
-package com.innovatehub.inventorymgmt.site.model;
+package com.innovatehub.inventorymgmt.site.model.util;
 
 import java.util.List;
 
-import com.innovatehub.inventorymgmt.common.model.security.Screen;
-import com.innovatehub.inventorymgmt.common.model.security.ScreenCategory;
+import com.innovatehub.inventorymgmt.common.entity.security.Screen;
+import com.innovatehub.inventorymgmt.common.entity.security.ScreenCategory;
 
 public class LeftNavSection {
 

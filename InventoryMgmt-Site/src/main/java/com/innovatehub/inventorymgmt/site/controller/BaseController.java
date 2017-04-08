@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.innovatehub.inventorymgmt.site.util.SessionCache;
 
 public abstract class BaseController {
-	protected SessionCache sessionCache;
+	private SessionCache sessionCache;
 	
 	@ModelAttribute("sessionCache")
 	public SessionCache getSessionCache() {

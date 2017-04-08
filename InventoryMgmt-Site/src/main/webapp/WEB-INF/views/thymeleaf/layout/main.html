@@ -24,14 +24,27 @@
 	<div class="container-fluid zero-pad">
 		<div th:include="layout/fragments/header :: header"></div>
 
+		<!-- Alert message. -->
+		<th:block th:if="${alertMsg != null && !#strings.isEmpty(alertMsg)}">
+			<div class="col-md-offset-2 pageContentContainer">
+				<div class="alert alert-dismissible" th:classappend="${alertCSS}"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<strong><span th:text="${alertMsg}"></span></strong>
+				</div>
+			</div>
+		</th:block>
+
 		<div th:include="layout/fragments/leftnav :: leftnav"></div>
 
 		<div class="col-md-offset-2 pageContentContainer row">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span
-							th:text="#{'pageTitle.' + ${#httpServletRequest.requestURI.substring(#httpServletRequest.requestURI.lastIndexOf('/') + 1)}}"></span>
+						<span th:text="${pageTitle}"></span>
 					</h3>
 				</div>
 				<div class="panel-body">

@@ -1,5 +1,6 @@
-package com.innovatehub.inventorymgmt.common.model.security;
+package com.innovatehub.inventorymgmt.common.entity.security;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ public class Role {
 
 	private Set<User> users;
 
-	private Set<Screen> screens;
+	private List<Screen> screens;
 
 	private Long roleId;
 
@@ -48,11 +49,11 @@ public class Role {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "ROLE_SCREEN_T", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "SCREEN_ID"))
-	public Set<Screen> getScreens() {
+	public List<Screen> getScreens() {
 		return screens;
 	}
 
-	public void setScreens(Set<Screen> screens) {
+	public void setScreens(List<Screen> screens) {
 		this.screens = screens;
 	}
 

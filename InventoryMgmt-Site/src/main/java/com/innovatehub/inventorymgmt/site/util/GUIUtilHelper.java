@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.innovatehub.inventorymgmt.common.model.security.Screen;
-import com.innovatehub.inventorymgmt.common.model.security.ScreenCategory;
-import com.innovatehub.inventorymgmt.site.model.LeftNavSection;
+import com.innovatehub.inventorymgmt.common.entity.security.Screen;
+import com.innovatehub.inventorymgmt.common.entity.security.ScreenCategory;
+import com.innovatehub.inventorymgmt.site.model.util.LeftNavSection;
 
 public class GUIUtilHelper {
-	public static List<LeftNavSection> PopulateLeftNavigation(Set<Screen> authorizedScreens) {
+	public static List<LeftNavSection> PopulateLeftNavigation(List<Screen> authorizedScreens) {
 		// Get all the screen categories.
 		List<ScreenCategory> screenCategories = authorizedScreens.stream().map(screen -> screen.getScreenCategory())
 				.collect(Collectors.toList());

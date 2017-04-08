@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
+	layout:decorator="layout/main">
+<body>
+	<div layout:fragment="content">
+		<form th:object="${prodCategory}" class="form-horizontal">
+			<div class="form-group row">
+				<label for="categoryName" class="col-md-2 control-label">Category
+					Name</label>
+				<div class="col-md-5">
+					<label th:text="*{categoryName}"></label>
+				</div>
+			</div>
+
+			<div class="pull-right">
+				<button type="submit" class="btn">Cancel</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

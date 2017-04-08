@@ -12,9 +12,8 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.innovatehub.inventorymgmt.site.util.GUIUtilHelper;
 import com.innovatehub.inventorymgmt.site.util.SessionCache;
-import com.innovatehub.inventorymgmt.site.util.SiteConstants;
+import com.innovatehub.inventorymgmt.common.util.SiteConstants;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
@@ -45,6 +44,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		// Initialize SessionCache.
 		this.sessionCache.initialize();
 
-		redirectStrategy.sendRedirect(request, response, SiteConstants.DEFAULT_SUCCESS_URL);
+		redirectStrategy.sendRedirect(request, response, SiteConstants.PAGE_URI_DEFAULT_SUCCESS_URL);
 	}
 }
