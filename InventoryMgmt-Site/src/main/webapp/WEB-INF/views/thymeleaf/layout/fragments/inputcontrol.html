@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<body>
+	<div th:fragment="text(label, textValue)">
+		<div class="form-group">
+			<label for="categoryName" class="col-md-2 control-label"
+				th:text="${label}"></label>
+			<div class="col-md-3"
+				th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'has-feedback has-error' : 'has-feedback has-success')}">
+				<input type="text" class="form-control"
+					th:field="*{__${textValue}__}"> <span
+					th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'glyphicon form-control-feedback glyphicon-remove' : 'glyphicon form-control-feedback glyphicon-ok')}"
+					class=""></span>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="label(label, textValue)">
+		<div class="form-group row-label">
+			<label for="categoryName" class="col-md-2 control-label text-muted"
+				th:text="${label}"></label>
+			<div class="col-md-5">
+				<label class="control-label" th:text="*{__${textValue}__}"></label>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -6,13 +6,11 @@
 <body>
 	<div layout:fragment="content">
 		<form th:object="${prodCategory}" class="form-horizontal">
-			<div class="form-group row">
-				<label for="categoryName" class="col-md-2 control-label">Category
-					Name</label>
-				<div class="col-md-5">
-					<label th:text="*{categoryName}"></label>
-				</div>
-			</div>
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='Category', textValue='categoryName')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='Tax', textValue='taxPercent')"></div>
 
 			<div class="pull-right">
 				<button type="submit" class="btn">Cancel</button>

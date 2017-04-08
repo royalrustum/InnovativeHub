@@ -136,7 +136,7 @@ body {
 	height: 100%;
 	padding-left: 0px;
 	/* border-bottom: 1px solid #e1e4e8; */
-	background-color:white;
+	background-color: white;
 }
 
 .left-nav ul {
@@ -214,6 +214,15 @@ body {
 	font-weight: 700;
 }
 
+/*------------------ Form Controls --------------------------------------------*/
+.form-group {
+	height: 50px;
+}
+
+.row-label {
+	height: 25px;	
+}
+
 /* Header */
 /* .top-nav {
 	background-color: #fafafa;
@@ -269,28 +278,7 @@ html {
 	padding-right: 0px;
 	height: 100%;
 }*/
----------------------
-Left
-
-
-
-
- 
-
-
-
-
-Nav
-
-
-
-
- 
-
-
-
-
---------------------------
+/*--------------------- Left Nav --------------------------
 /*.navbar {
 	margin-bottom: 0px;
 	height: 100%;

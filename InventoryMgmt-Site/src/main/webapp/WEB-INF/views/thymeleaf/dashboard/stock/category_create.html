@@ -7,14 +7,11 @@
 	<div layout:fragment="content">
 		<form th:object="${prodCategory}" class="form-horizontal"
 			th:action="@{/stock/category/create}" method="post">
-			<div class="form-group row">
-				<label for="categoryName" class="col-md-2 control-label">Category
-					Name</label>
-				<div class="col-md-3">
-					<input type="text" class="form-control" th:field="*{categoryName}"
-						th:classappend="${#fields.hasErrors('categoryName')} ? fieldError">
-				</div>
-			</div>
+			<div
+				th:include="layout/fragments/inputcontrol :: text(label='Category', textValue='categoryName')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: text(label='Tax', textValue='taxPercent')"></div>
 
 			<div class="pull-right">
 				<button type="submit" class="btn">Cancel</button>

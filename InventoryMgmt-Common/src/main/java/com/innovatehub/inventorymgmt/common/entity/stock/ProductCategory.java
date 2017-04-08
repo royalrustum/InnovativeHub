@@ -1,11 +1,14 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCT_CATEGORY_T")
@@ -14,6 +17,8 @@ public class ProductCategory {
 	
 	private String categoryName;
 
+	private BigDecimal taxPercent;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PRODUCT_CATEGORY_ID")
@@ -34,4 +39,13 @@ public class ProductCategory {
 		this.categoryName = categoryName;
 	}
 
+	@Column(name = "TAX_PERCENT")
+	@NotNull
+	public BigDecimal getTaxPercent() {
+		return taxPercent;
+	}
+
+	public void setTaxPercent(BigDecimal taxPercent) {
+		this.taxPercent = taxPercent;
+	}
 }
