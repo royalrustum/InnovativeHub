@@ -51,11 +51,14 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/stock/category/create", method = RequestMethod.POST)
-	public String saveCategory(@Valid @ModelAttribute ProductCategory prodCategory, BindingResult bindResult,
+	public String saveCategory(@Valid @ModelAttribute("prodCategory") ProductCategory prodCategory, BindingResult bindResult,
 			Model model, Locale locale, final RedirectAttributes redirectAttributes) {
 		if (bindResult.hasErrors()) {
 			model.addAttribute(MODEL_ATTRIB_PROD_CAT, prodCategory);
-
+			model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+					messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CATEGORY_CREATE, null, locale));
+			model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_FORM_ERRORS, true);
+			
 			return SiteConstants.VIEW_NAME_STOCK_PRODUCT_CATEGORY_CREATE;
 		}
 

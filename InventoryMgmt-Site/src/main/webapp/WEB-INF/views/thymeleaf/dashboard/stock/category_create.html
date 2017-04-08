@@ -11,7 +11,8 @@
 				<label for="categoryName" class="col-md-2 control-label">Category
 					Name</label>
 				<div class="col-md-3">
-					<input type="text" class="form-control" th:field="*{categoryName}">
+					<input type="text" class="form-control" th:field="*{categoryName}"
+						th:classappend="${#fields.hasErrors('categoryName')} ? fieldError">
 				</div>
 			</div>
 

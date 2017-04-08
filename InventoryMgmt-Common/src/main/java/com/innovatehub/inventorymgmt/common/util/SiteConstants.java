@@ -27,6 +27,7 @@ public class SiteConstants {
 	
 	//------------------- Model Attributes ---------------------
 	public static final String MODEL_ATTRIBUTE_PAGE_TITLE = "pageTitle";
+	public static final String MODEL_ATTRIBUTE_FORM_ERRORS = "formErrors";
 	
 	//-------------------- CSS Attributes -----------------------
 	public static final String CSS_ALERT = "alertCSS";

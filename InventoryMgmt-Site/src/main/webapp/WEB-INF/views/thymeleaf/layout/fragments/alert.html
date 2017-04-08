@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<body>
+	<div th:fragment="alertGlobal">
+		<!-- Alert message. -->
+		<th:block th:if="${alertMsg != null && !#strings.isEmpty(alertMsg)}">
+			<div class="col-md-offset-2 pageContentContainer">
+				<div class="alert alert-dismissible" th:classappend="${alertCSS}"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<strong><span th:text="${alertMsg}"></span></strong>
+				</div>
+			</div>
+		</th:block>
+	</div>
+
+	<div th:fragment="formErrors">
+		<!-- Inline Form Errors-->
+		<th:block
+			th:if="${formErrors != null && formErrors == true}">
+			<div class="col-md-offset-2 pageContentContainer">
+				<div class="alert alert-dismissible alert-danger" role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<strong><span th:text="#{global.form.errors}"></span></strong>
+				</div>
+			</div>
+		</th:block>
+	</div>
+</body>
+</html>
+
+
+

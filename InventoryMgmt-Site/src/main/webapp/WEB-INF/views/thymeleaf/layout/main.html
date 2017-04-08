@@ -24,19 +24,11 @@
 	<div class="container-fluid zero-pad">
 		<div th:include="layout/fragments/header :: header"></div>
 
-		<!-- Alert message. -->
-		<th:block th:if="${alertMsg != null && !#strings.isEmpty(alertMsg)}">
-			<div class="col-md-offset-2 pageContentContainer">
-				<div class="alert alert-dismissible" th:classappend="${alertCSS}"
-					role="alert">
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<strong><span th:text="${alertMsg}"></span></strong>
-				</div>
-			</div>
-		</th:block>
+		<!-- Show the Global Alert -->
+		<div th:include="layout/fragments/alert :: alertGlobal"></div>
+
+		<!-- Show the Error Alert for forms -->
+		<div th:include="layout/fragments/alert :: formErrors"></div>
 
 		<div th:include="layout/fragments/leftnav :: leftnav"></div>
 
@@ -52,7 +44,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div class="col-md-offset-2 col-md-10"
 			th:include="layout/fragments/footer :: footer"></div>
