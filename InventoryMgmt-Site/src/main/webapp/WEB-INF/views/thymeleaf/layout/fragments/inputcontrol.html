@@ -26,5 +26,27 @@
 			</div>
 		</div>
 	</div>
+
+	<div th:fragment="file(label)">
+		<div class="form-group">
+			<label for="categoryName" class="col-md-2 control-label"
+				th:text="${label}"></label>
+			<div class="col-md-3">
+				<input type="file" name="file" class="form-control">
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="image(label, imageByteString)">
+		<div class="row">
+			<label for="categoryName" class="col-md-2 control-label" th:text="${label}"></label>
+			<div class="col-md-3">
+				<img class="img-fluid img-thumbnail"
+					th:src="|data:image/jpeg;base64,${imageByteString}|" />
+			</div>
+		</div>
+	</div>
+
+
 </body>
 </html>

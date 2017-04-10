@@ -223,6 +223,11 @@ body {
 	height: 25px;	
 }
 
+.form-group-img {
+	width: 250px;
+	height: 170px;
+}
+
 /* Header */
 /* .top-nav {
 	background-color: #fafafa;

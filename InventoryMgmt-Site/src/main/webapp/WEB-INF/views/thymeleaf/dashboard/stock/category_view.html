@@ -12,6 +12,10 @@
 			<div
 				th:include="layout/fragments/inputcontrol :: label(label='Tax', textValue='taxPercent')"></div>
 
+			<div
+				th:include="layout/fragments/inputcontrol :: image(label='Image', imageByteString=*{getBase64FileBytesString()})"></div>
+
+
 			<div class="pull-right">
 				<button type="submit" class="btn">Cancel</button>
 			</div>
