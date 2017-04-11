@@ -39,10 +39,17 @@
 
 	<div th:fragment="image(label, imageByteString)">
 		<div class="row">
-			<label for="categoryName" class="col-md-2 control-label" th:text="${label}"></label>
+			<label for="categoryName" class="col-md-2 control-label"
+				th:text="${label}"></label>
 			<div class="col-md-3">
-				<img class="img-fluid img-thumbnail"
-					th:src="|data:image/jpeg;base64,${imageByteString}|" />
+				<th:block th:if="${imageByteString != null}">
+					<img class="img-fluid img-thumbnail"
+						th:src="|data:image/jpeg;base64,${imageByteString}|" />
+				</th:block>
+				<th:block th:if="${imageByteString == null}">
+					<img class="img-fluid img-thumbnail"
+						th:src="@{/static/images/img-placeholder.png}" />
+				</th:block>
 			</div>
 		</div>
 	</div>

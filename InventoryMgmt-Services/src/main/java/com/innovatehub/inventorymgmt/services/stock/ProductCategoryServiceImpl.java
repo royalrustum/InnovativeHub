@@ -36,8 +36,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public int saveProductCategory(com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory) {
 		ProductCategory prodCategoryEntity = new ProductCategory();
 		BeanUtils.copyProperties(productCategory, prodCategoryEntity);
-		prodCategoryEntity.setCategoryImage(Hibernate.getLobCreator(sessionFactory.getCurrentSession())
-				.createBlob(productCategory.getUploadedFileBytes()));
+
+		if (productCategory.getUploadedFileBytes() != null) {
+			prodCategoryEntity.setCategoryImage(Hibernate.getLobCreator(sessionFactory.getCurrentSession())
+					.createBlob(productCategory.getUploadedFileBytes()));
+		}
+
 		return this.getProductCategoryRepo().save(prodCategoryEntity).getProductCategoryId();
 	}
 
@@ -49,8 +53,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
 		BeanUtils.copyProperties(prodCategoryEntity, productCategory);
 
-		productCategory
-				.setUploadedFileBytes(CommonUtilHelper.getByteArrayFromBlob(prodCategoryEntity.getCategoryImage()));
+		if (prodCategoryEntity.getCategoryImage() != null) {
+			productCategory
+					.setUploadedFileBytes(CommonUtilHelper.getByteArrayFromBlob(prodCategoryEntity.getCategoryImage()));
+		}
 
 		return productCategory;
 

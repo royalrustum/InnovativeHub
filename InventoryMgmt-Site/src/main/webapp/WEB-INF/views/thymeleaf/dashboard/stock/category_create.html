@@ -17,10 +17,8 @@
 			<div
 				th:include="layout/fragments/inputcontrol :: file(label='Image')"></div>
 
-			<div class="pull-right">
-				<button type="submit" class="btn">Cancel</button>
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</div>
+			<div
+				th:include="layout/fragments/actions :: submitCancel"></div>
 		</form>
 	</div>
 </body>

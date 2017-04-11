@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class GenericUtilHelper {
 	public static byte[] getByteArrayFromMultiPart(MultipartFile multiPartFile) throws IOException {
-		if (!multiPartFile.isEmpty()) {
+		if ((multiPartFile !=null) && !multiPartFile.isEmpty()) {
 			return multiPartFile.getBytes();
 		} else {
 			return null;

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<body>
+	<div th:fragment="submitCancel">
+		<div class="pull-right">
+			<a th:href="@{/home}" class="btn btn-lg ih-btn-cancel"
+				role="button">Cancel</a>
+			<button type="submit" class="btn btn-primary btn-lg active">Submit</button>
+		</div>
+	</div>
+
+	<div th:fragment="cancel">
+		<div class="pull-right">
+			<a th:href="@{/home}"
+				class="btn btn-lg ih-btn-cancel" role="button">Cancel</a>
+		</div>
+	</div>
+</body>
+</html>

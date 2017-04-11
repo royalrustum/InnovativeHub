@@ -1,8 +1,6 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
-import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
-import java.util.Base64;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;

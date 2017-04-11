@@ -228,6 +228,11 @@ body {
 	height: 170px;
 }
 
+.ih-btn-cancel {
+	background-color: lightgray;
+	color: black;
+}
+
 /* Header */
 /* .top-nav {
 	background-color: #fafafa;
