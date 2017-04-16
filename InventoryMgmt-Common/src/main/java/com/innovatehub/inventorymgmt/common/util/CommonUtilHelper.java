@@ -5,12 +5,17 @@ import java.sql.SQLException;
 import java.util.Base64;
 
 public class CommonUtilHelper {
-	public static byte[] getByteArrayFromBlob(Blob blob) throws SQLException {
-		if (blob != null) {
-			return blob.getBytes(1, (int) blob.length());
-		} else {
-			return null;
+	public static byte[] getByteArrayFromBlob(Blob blob) {
+		try {
+			if (blob != null) {
+				return blob.getBytes(1, (int) blob.length());
+			} else {
+				return null;
+			}
+		} catch (SQLException exception) {
+			//Fail gracefully.
 		}
+		return null;
 	}
 
 	public static String getBase64ImageString(byte[] imagesBytes) {

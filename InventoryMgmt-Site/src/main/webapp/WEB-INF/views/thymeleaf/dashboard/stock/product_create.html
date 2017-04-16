@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
+	layout:decorator="layout/main">
+<body>
+	<div layout:fragment="content">
+		<form th:object="${product}" class="form-horizontal"
+			th:action="@{/stock/product/create}" method="post"
+			enctype="multipart/form-data">
+			<div
+				th:include="layout/fragments/inputcontrol :: text(label='Product Name', textValue='productName')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: text(label='Margin %', textValue='margin')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: file(label='Product Image')"></div>
+
+			<div
+				th:include="layout/fragments/actions :: submitCancel"></div>
+		</form>
+	</div>
+</body>
+</html>

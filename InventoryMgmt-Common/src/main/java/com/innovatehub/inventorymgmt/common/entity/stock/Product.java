@@ -1,5 +1,6 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Product {
 	private ProductCategory productCategory;
 
 	private Blob productImage;
+	
+	private BigDecimal margin;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,4 +70,14 @@ public class Product {
 	public void setProductImage(Blob categoryImage) {
 		this.productImage = categoryImage;
 	}
+	
+	@Column(name = "PROFIT_MARGIN")
+	public BigDecimal getMargin() {
+		return margin;
+	}
+
+	public void setMargin(BigDecimal margin) {
+		this.margin = margin;
+	}
+
 }

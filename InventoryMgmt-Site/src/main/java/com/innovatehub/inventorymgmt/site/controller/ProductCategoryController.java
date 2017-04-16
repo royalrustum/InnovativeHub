@@ -75,7 +75,7 @@ public class ProductCategoryController extends BaseController {
 		// Show the Success alert.
 		redirectAttributes.addFlashAttribute(SiteConstants.CSS_ALERT, SiteConstants.CSS_MSG_SUCCESS);
 		redirectAttributes.addFlashAttribute(SiteConstants.ALERT_MSG, messageSource.getMessage(
-				SiteConstants.MSG_PROD_CAT_SUCCESS, new Object[] { prodCategory.getCategoryName() }, locale));
+				SiteConstants.MSG_PROD_CAT_CREATE_SUCCESS, new Object[] { prodCategory.getCategoryName() }, locale));
 
 		String categoryViewUrl = String.format(PAGE_URI_STOCK_PRODUCT_CATEGORY_VIEW_FMT, productCatId);
 		return "redirect:" + categoryViewUrl;

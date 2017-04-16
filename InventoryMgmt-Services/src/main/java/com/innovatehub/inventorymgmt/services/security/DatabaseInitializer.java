@@ -77,7 +77,7 @@ public class DatabaseInitializer {
 		Screen productScreen = new Screen();
 		productScreen.setScreenName("Product");
 		productScreen.setScreenIconName("fa-tags");
-		productScreen.setUrl("/stock/product");
+		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CREATE);
 		productScreen.setScreenCategory(stockCategory);
 		adminScreens.add(productScreen);
 		
