@@ -1,6 +1,7 @@
 package com.innovatehub.inventorymgmt.services.stock;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -46,20 +47,42 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public com.innovatehub.inventorymgmt.common.model.stock.ProductCategory getProductCategory(int productCategoryId)
-			throws SQLException {
+	public com.innovatehub.inventorymgmt.common.model.stock.ProductCategory getProductCategory(int productCategoryId) {
 		ProductCategory prodCategoryEntity = this.getProductCategoryRepo().findOne(productCategoryId);
 
-		com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
-		BeanUtils.copyProperties(prodCategoryEntity, productCategory);
+		if (prodCategoryEntity != null) {
+			com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
+			BeanUtils.copyProperties(prodCategoryEntity, productCategory);
 
-		if (prodCategoryEntity.getCategoryImage() != null) {
-			productCategory
-					.setUploadedFileBytes(CommonUtilHelper.getByteArrayFromBlob(prodCategoryEntity.getCategoryImage()));
+			if (prodCategoryEntity.getCategoryImage() != null) {
+				productCategory.setUploadedFileBytes(
+						CommonUtilHelper.getByteArrayFromBlob(prodCategoryEntity.getCategoryImage()));
+			}
+			
+			return productCategory;
+		} else {
+			return null;
 		}
+	}
 
-		return productCategory;
+	@Override
+	public List<com.innovatehub.inventorymgmt.common.model.stock.ProductCategory> getAllProductCategories() {
+		List<ProductCategory> prodCategoryEntities = this.getProductCategoryRepo().findAll();
 
+		List<com.innovatehub.inventorymgmt.common.model.stock.ProductCategory> prodCategories = new ArrayList<com.innovatehub.inventorymgmt.common.model.stock.ProductCategory>();
+
+		for (ProductCategory productCategoryEntity : prodCategoryEntities) {
+			com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
+			BeanUtils.copyProperties(productCategoryEntity, productCategory);
+
+			if (productCategoryEntity.getCategoryImage() != null) {
+				productCategory.setUploadedFileBytes(
+						CommonUtilHelper.getByteArrayFromBlob(productCategoryEntity.getCategoryImage()));
+			}
+
+			prodCategories.add(productCategory);
+		}
+		return prodCategories;
 	}
 
 }

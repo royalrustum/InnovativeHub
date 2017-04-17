@@ -39,7 +39,7 @@
 
 	<div th:fragment="image(label, imageByteString)">
 		<div class="row">
-			<label for="categoryName" class="col-md-2 control-label"
+			<label for="categoryName" class="col-md-2 control-label text-muted"
 				th:text="${label}"></label>
 			<div class="col-md-3">
 				<th:block th:if="${imageByteString != null}">
@@ -54,6 +54,24 @@
 		</div>
 	</div>
 
-
+	<div
+		th:fragment="dropdown(label, itemList, objField, objFieldName, textField, valueField)">
+		<div class="form-group">
+			<label for="categoryName" class="col-md-2 control-label"
+				th:text="${label}"></label>
+			<div class="col-md-3"
+				th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${objFieldName}__') ? 'has-feedback has-error' : 'has-feedback has-success')}">
+				<select th:name="selectedProdCategory" class="form-control">
+					<option value="-1">Select</option>
+					<option th:each="item : ${itemList}"
+						th:value="${item.__${valueField}__}"
+						th:text="${item.__${textField}__}"
+						th:selected="${(objField != null) and (objField.__${valueField}__ == item.__${valueField}__)}"></option>
+				</select> <span
+					th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${objFieldName}__') ? 'glyphicon form-control-feedback glyphicon-remove' : 'glyphicon form-control-feedback glyphicon-ok')}"
+					class=""></span>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

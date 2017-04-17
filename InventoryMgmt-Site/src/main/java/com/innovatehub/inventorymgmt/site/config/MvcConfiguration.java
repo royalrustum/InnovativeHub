@@ -3,6 +3,7 @@ package com.innovatehub.inventorymgmt.site.config;
 import java.util.Locale;
 
 import org.h2.server.web.WebServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -10,9 +11,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,15 +21,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert;
 
 @Configuration
 @EnableWebMvc
@@ -38,8 +32,19 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	private ApplicationContext applicationContext;
 
+	private StringToProductCatConvert stringToProdCatConvert;
+	
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
+	}
+	
+	public StringToProductCatConvert getStringToProdCatConvert() {
+		return stringToProdCatConvert;
+	}
+
+	@Autowired
+	public void setStringToProdCatConvert(StringToProductCatConvert stringToProdCatConvert) {
+		this.stringToProdCatConvert = stringToProdCatConvert;
 	}
 
 	@Override
@@ -96,8 +101,14 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	@Bean
 	public HibernateJpaSessionFactoryBean sessionFactory() {
-	    return new HibernateJpaSessionFactoryBean();
+		return new HibernateJpaSessionFactoryBean();
 	}
+
+	@Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(this.getStringToProdCatConvert());
+    }
+
 	
 	// @Bean
 	// public ThymeleafViewResolver thymeleafViewResolver() {

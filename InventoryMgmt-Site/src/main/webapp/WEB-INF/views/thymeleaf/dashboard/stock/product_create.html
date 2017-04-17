@@ -15,10 +15,14 @@
 				th:include="layout/fragments/inputcontrol :: text(label='Margin %', textValue='margin')"></div>
 
 			<div
-				th:include="layout/fragments/inputcontrol :: file(label='Product Image')"></div>
+				th:include="layout/fragments/inputcontrol :: dropdown(label='Product Category', 
+				itemList=*{productCategories}, objField=*{selectedProdCategory}, objFieldName='selectedProdCategory', textField='categoryName', 
+				valueField='productCategoryId')"></div>
 
 			<div
-				th:include="layout/fragments/actions :: submitCancel"></div>
+				th:include="layout/fragments/inputcontrol :: file(label='Product Image')"></div>
+
+			<div th:include="layout/fragments/actions :: submitCancel"></div>
 		</form>
 	</div>
 </body>

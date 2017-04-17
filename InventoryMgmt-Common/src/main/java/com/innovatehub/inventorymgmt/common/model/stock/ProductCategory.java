@@ -1,7 +1,6 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
 import java.math.BigDecimal;
-
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
 
 public class ProductCategory {
-	
+
 	@NotEmpty
 	private String categoryName;
 
@@ -19,11 +18,17 @@ public class ProductCategory {
 	private BigDecimal taxPercent;
 
 	private byte[] uploadedFileBytes;
+
+	private Integer productCategoryId;
 	
-	public String getBase64FileBytesString() {
-		return CommonUtilHelper.getBase64ImageString(this.getUploadedFileBytes());
+	public Integer getProductCategoryId() {
+		return productCategoryId;
 	}
 
+	public void setProductCategoryId(Integer productCategoryId) {
+		this.productCategoryId = productCategoryId;
+	}
+	
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -31,7 +36,7 @@ public class ProductCategory {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
+
 	public BigDecimal getTaxPercent() {
 		return taxPercent;
 	}
@@ -39,7 +44,7 @@ public class ProductCategory {
 	public void setTaxPercent(BigDecimal taxPercent) {
 		this.taxPercent = taxPercent;
 	}
-	
+
 	public byte[] getUploadedFileBytes() {
 		return uploadedFileBytes;
 	}
@@ -47,4 +52,9 @@ public class ProductCategory {
 	public void setUploadedFileBytes(byte[] uploadedFileBytes) {
 		this.uploadedFileBytes = uploadedFileBytes;
 	}
+
+	public String getBase64FileBytesString() {
+		return CommonUtilHelper.getBase64ImageString(this.getUploadedFileBytes());
+	}
+
 }

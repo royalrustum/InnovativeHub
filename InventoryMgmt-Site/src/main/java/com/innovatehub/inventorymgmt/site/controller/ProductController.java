@@ -21,8 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
-import com.innovatehub.inventorymgmt.common.model.stock.ProductCategory;
 import com.innovatehub.inventorymgmt.common.util.SiteConstants;
+import com.innovatehub.inventorymgmt.services.stock.ProductCategoryService;
 import com.innovatehub.inventorymgmt.services.stock.ProductService;
 import com.innovatehub.inventorymgmt.site.util.GenericUtilHelper;
 
@@ -32,10 +32,21 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ProductCategoryService prodCatService;
 
 	@Autowired
 	MessageSource messageSource;
 
+	public ProductCategoryService getProdCatService() {
+		return prodCatService;
+	}
+
+	public void setProdCatService(ProductCategoryService prodCatService) {
+		this.prodCatService = prodCatService;
+	}
+	
 	public ProductService getProductService() {
 		return productService;
 	}
@@ -45,9 +56,12 @@ public class ProductController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/stock/product/create")
-	public String displayCreateCategory(Locale locale, Model model) {
+	public String displayCreateProduct(Locale locale, Model model) {
 
-		model.addAttribute(MODEL_ATTRIB_PROD, new Product());
+		Product product = new Product();
+		product.setProductCategories(prodCatService.getAllProductCategories());
+		model.addAttribute(MODEL_ATTRIB_PROD, product);
+		
 		model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CREATE, null, locale));
 
@@ -55,10 +69,13 @@ public class ProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/stock/product/create", method = RequestMethod.POST)
-	public String saveCategory(@Valid @ModelAttribute(MODEL_ATTRIB_PROD) Product product, BindingResult bindResult,
+	public String saveProduct(@Valid @ModelAttribute(MODEL_ATTRIB_PROD) Product product, BindingResult bindResult,
 			@RequestParam("file") MultipartFile file, Model model, Locale locale,
 			final RedirectAttributes redirectAttributes) throws IOException {
 		if (bindResult.hasErrors()) {
+			
+			product.setProductCategories(prodCatService.getAllProductCategories());
+			
 			model.addAttribute(MODEL_ATTRIB_PROD, product);
 			model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 					messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CREATE, null, locale));
@@ -81,7 +98,7 @@ public class ProductController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/stock/product/view/{id}")
-	public ModelAndView viewCategory(@PathVariable("id") Long productId, Locale locale) throws SQLException {
+	public ModelAndView viewProduct(@PathVariable("id") Long productId, Locale locale) {
 
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_PRODUCT_VIEW);

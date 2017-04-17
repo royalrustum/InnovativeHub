@@ -1,6 +1,7 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,11 @@ public class Product {
 	private BigDecimal margin;
 
 	private byte[] productImage;
+
+	private List<ProductCategory> productCategories;
+
+	@NotNull
+	private ProductCategory selectedProdCategory;
 
 	public String getProductName() {
 		return productName;
@@ -52,7 +58,23 @@ public class Product {
 	public void setMargin(BigDecimal margin) {
 		this.margin = margin;
 	}
-	
+
+	public List<ProductCategory> getProductCategories() {
+		return productCategories;
+	}
+
+	public void setProductCategories(List<ProductCategory> productCategories) {
+		this.productCategories = productCategories;
+	}
+
+	public ProductCategory getSelectedProdCategory() {
+		return selectedProdCategory;
+	}
+
+	public void setSelectedProdCategory(ProductCategory selectedProdCategory) {
+		this.selectedProdCategory = selectedProdCategory;
+	}
+
 	public String getBase64FileBytesString() {
 		return CommonUtilHelper.getBase64ImageString(this.getProductImage());
 	}
