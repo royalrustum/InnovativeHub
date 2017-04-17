@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "PRODUCT_CATEGORY_T")
 public class ProductCategory {
-	private int productCategoryId;
+	private Integer productCategoryId;
 	
 	private String categoryName;
 
@@ -34,11 +34,11 @@ public class ProductCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PRODUCT_CATEGORY_ID")
-	public int getProductCategoryId() {
+	public Integer getProductCategoryId() {
 		return productCategoryId;
 	}
 
-	public void setProductCategoryId(int productCategoryId) {
+	public void setProductCategoryId(Integer productCategoryId) {
 		this.productCategoryId = productCategoryId;
 	}
 	
