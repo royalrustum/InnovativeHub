@@ -14,8 +14,6 @@ public class Product {
 	@NotEmpty
 	private String productName;
 
-	private String productCategory;
-
 	@NotNull
 	@DecimalMin(value = "0.0")
 	private BigDecimal margin;
@@ -33,14 +31,6 @@ public class Product {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public String getProductCategory() {
-		return productCategory;
-	}
-
-	public void setProductCategory(String productCategory) {
-		this.productCategory = productCategory;
 	}
 
 	public byte[] getProductImage() {
