@@ -76,10 +76,17 @@ public class DatabaseInitializer {
 		
 		Screen productScreen = new Screen();
 		productScreen.setScreenName("Product");
-		productScreen.setScreenIconName("fa-tags");
+		productScreen.setScreenIconName("fa-cube");
 		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CREATE);
 		productScreen.setScreenCategory(stockCategory);
 		adminScreens.add(productScreen);
+		
+		Screen skuScreen = new Screen();
+		skuScreen.setScreenName("SKU");
+		skuScreen.setScreenIconName("fa-tags");
+		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_CREATE);
+		skuScreen.setScreenCategory(stockCategory);
+		adminScreens.add(skuScreen);
 		
 		/*Screen customerScreen = new Screen();
 		customerScreen.setScreenName("Customers");

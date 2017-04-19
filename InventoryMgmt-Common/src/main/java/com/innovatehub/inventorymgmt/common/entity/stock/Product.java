@@ -25,8 +25,6 @@ public class Product {
 
 	private Blob productImage;
 	
-	private BigDecimal margin;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PRODUCT_ID")
@@ -65,15 +63,6 @@ public class Product {
 
 	public void setProductImage(Blob categoryImage) {
 		this.productImage = categoryImage;
-	}
-	
-	@Column(name = "PROFIT_MARGIN")
-	public BigDecimal getMargin() {
-		return margin;
-	}
-
-	public void setMargin(BigDecimal margin) {
-		this.margin = margin;
 	}
 
 }

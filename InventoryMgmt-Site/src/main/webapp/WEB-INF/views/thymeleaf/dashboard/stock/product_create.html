@@ -12,9 +12,6 @@
 				th:include="layout/fragments/inputcontrol :: text(label='Product Name', textValue='productName')"></div>
 
 			<div
-				th:include="layout/fragments/inputcontrol :: text(label='Margin %', textValue='margin')"></div>
-
-			<div
 				th:include="layout/fragments/inputcontrol :: dropdown(label='Product Category', 
 				itemList=*{productCategories}, objField=*{selectedProdCategory}, objFieldName='selectedProdCategory', textField='categoryName', 
 				valueField='productCategoryId')"></div>

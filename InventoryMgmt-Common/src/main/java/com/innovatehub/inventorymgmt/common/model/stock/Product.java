@@ -1,9 +1,7 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -11,12 +9,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
 
 public class Product {
+	
+	private Long productId;
+	
 	@NotEmpty
 	private String productName;
-
-	@NotNull
-	@DecimalMin(value = "0.0")
-	private BigDecimal margin;
 
 	private byte[] productImage;
 
@@ -25,6 +22,14 @@ public class Product {
 	@NotNull
 	private ProductCategory selectedProdCategory;
 
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+	
 	public String getProductName() {
 		return productName;
 	}
@@ -39,14 +44,6 @@ public class Product {
 
 	public void setProductImage(byte[] productImage) {
 		this.productImage = productImage;
-	}
-
-	public BigDecimal getMargin() {
-		return margin;
-	}
-
-	public void setMargin(BigDecimal margin) {
-		this.margin = margin;
 	}
 
 	public List<ProductCategory> getProductCategories() {

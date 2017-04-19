@@ -19,13 +19,15 @@ import javax.persistence.Table;
 public class SKU {
 	private Long skuId;
 
+	private String skuName;
+	
 	private Product product;
-
-	private String description;
 
 	private BigDecimal priceOffset;
 
 	private StockDetail stockDetail;
+	
+	private BigDecimal margin;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,15 +50,15 @@ public class SKU {
 		this.product = product;
 	}
 
-	@Column(name = "DESCRIPTION", unique=true)
-	public String getDescription() {
-		return description;
+	@Column(name = "SKU_NAME", unique=true)
+	public String getSkuName() {
+		return skuName;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSkuName(String skuName) {
+		this.skuName = skuName;
 	}
-
+	
 	@Column(name = "PRICE_OFFSET")
 	public BigDecimal getPriceOffset() {
 		return priceOffset;
@@ -74,5 +76,14 @@ public class SKU {
 
 	public void setStockDetail(StockDetail stockDetail) {
 		this.stockDetail = stockDetail;
+	}
+	
+	@Column(name = "PROFIT_MARGIN")
+	public BigDecimal getMargin() {
+		return margin;
+	}
+
+	public void setMargin(BigDecimal margin) {
+		this.margin = margin;
 	}
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
+	layout:decorator="layout/main">
+<body>
+	<div layout:fragment="content">
+		<form th:object="${sku}" class="form-horizontal">
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='SKU Name', textValue='skuName')"></div>
+				
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='Product', textValue='selectedProduct.productName')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='Margin %', textValue='margin')"></div>
+
+			<div th:include="layout/fragments/actions :: cancel"></div>
+		</form>
+	</div>
+</body>
+</html>

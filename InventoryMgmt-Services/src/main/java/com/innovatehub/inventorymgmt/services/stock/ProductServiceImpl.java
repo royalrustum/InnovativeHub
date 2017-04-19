@@ -1,5 +1,8 @@
 package com.innovatehub.inventorymgmt.services.stock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Hibernate;
@@ -51,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
 		this.prodCatRepo = prodCatRepo;
 	}
 
+	@Override
 	public Product getProduct(Long productId) {
 		com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity = this.getProductRepo()
 				.findOne(productId);
@@ -65,6 +69,7 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+	@Override
 	public Long saveProduct(Product product) {
 		com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity = new com.innovatehub.inventorymgmt.common.entity.stock.Product();
 		BeanUtils.copyProperties(product, productEntity);
@@ -75,7 +80,8 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		if (product.getSelectedProdCategory() != null) {
-			// Get the session tracked object from hibernate. Product Category will exist prior to product creation
+			// Get the session tracked object from hibernate. Product Category
+			// will exist prior to product creation
 			com.innovatehub.inventorymgmt.common.entity.stock.ProductCategory prodCategoryEntity = this.getProdCatRepo()
 					.findOne(product.getSelectedProdCategory().getProductCategoryId());
 
@@ -83,6 +89,27 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return this.getProductRepo().save(productEntity).getProductId();
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		List<com.innovatehub.inventorymgmt.common.entity.stock.Product> productEntities = this.getProductRepo()
+				.findAll();
+
+		List<com.innovatehub.inventorymgmt.common.model.stock.Product> products = new ArrayList<com.innovatehub.inventorymgmt.common.model.stock.Product>();
+
+		for (com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity : productEntities) {
+			com.innovatehub.inventorymgmt.common.model.stock.Product product = new com.innovatehub.inventorymgmt.common.model.stock.Product();
+			BeanUtils.copyProperties(productEntity, product);
+
+			if (productEntity.getProductImage() != null) {
+				product.setProductImage(
+						CommonUtilHelper.getByteArrayFromBlob(productEntity.getProductImage()));
+			}
+
+			products.add(product);
+		}
+		return products;
 	}
 
 }

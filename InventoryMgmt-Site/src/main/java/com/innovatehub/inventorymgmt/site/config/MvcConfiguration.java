@@ -23,6 +23,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToProductConvert;
 
 @Configuration
 @EnableWebMvc
@@ -32,7 +33,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	private ApplicationContext applicationContext;
 
+	@Autowired
 	private StringToProductCatConvert stringToProdCatConvert;
+	
+	@Autowired
+	private StringToProductConvert stringToProductConvert;
 	
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -42,11 +47,19 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		return stringToProdCatConvert;
 	}
 
-	@Autowired
+	
 	public void setStringToProdCatConvert(StringToProductCatConvert stringToProdCatConvert) {
 		this.stringToProdCatConvert = stringToProdCatConvert;
 	}
 
+	public StringToProductConvert getStringToProductConvert() {
+		return stringToProductConvert;
+	}
+
+	public void setStringToProductConvert(StringToProductConvert stringToProductConvert) {
+		this.stringToProductConvert = stringToProductConvert;
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
@@ -107,6 +120,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	@Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(this.getStringToProdCatConvert());
+        registry.addConverter(this.getStringToProductConvert());
     }
 
 	
