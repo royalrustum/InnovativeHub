@@ -18,9 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "PRODUCT_CATEGORY_T")
-public class ProductCategory {
+public class ProductCategory extends EntityBase {
 	private Integer productCategoryId;
 	
 	private String categoryName;

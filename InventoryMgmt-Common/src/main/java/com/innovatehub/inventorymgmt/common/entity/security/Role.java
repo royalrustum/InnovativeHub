@@ -13,7 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+import com.innovatehub.inventorymgmt.common.util.SiteConstants;
 
 @Entity
 @Table(name = "ROLE_T")
@@ -22,7 +27,7 @@ public class Role {
 
 	private Set<User> users;
 
-	private List<Screen> screens;
+	private List<Role_Screen> roleScreens;
 
 	private Long roleId;
 
@@ -46,14 +51,14 @@ public class Role {
 		this.users = users;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "ROLE_SCREEN_T", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "SCREEN_ID"))
-	public List<Screen> getScreens() {
-		return screens;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="role")
+	//@JoinTable(name = "ROLE_SCREEN_T", joinColumns = @JoinColumn(name = "ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "SCREEN_ID"))
+	public List<Role_Screen> getRoleScreens() {
+		return roleScreens;
 	}
 
-	public void setScreens(List<Screen> screens) {
-		this.screens = screens;
+	public void setRoleScreens(List<Role_Screen> roleScreens) {
+		this.roleScreens = roleScreens;
 	}
 
 	@Column(name = "NAME")

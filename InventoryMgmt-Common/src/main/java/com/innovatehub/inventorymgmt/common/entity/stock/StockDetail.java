@@ -13,9 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "STOCK_DETAIL_T")
-public class StockDetail {
+public class StockDetail extends EntityBase {
 	private Long stockDetailId;
 
 	private SKU sku;

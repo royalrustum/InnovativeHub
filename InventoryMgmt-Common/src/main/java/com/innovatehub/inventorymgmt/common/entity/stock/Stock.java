@@ -13,9 +13,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "STOCK_T")
-public class Stock {
+public class Stock extends EntityBase {
 	private Long stockId;
 
 	private Date stockDate;

@@ -14,9 +14,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "PRODUCT_T")
-public class Product {
+public class Product extends EntityBase {
 	private Long productId;
 
 	private String productName;

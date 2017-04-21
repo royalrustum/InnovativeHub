@@ -7,10 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "SCREEN_CATEGORY_T")
-public class ScreenCategory {
-	private int id;
+public class ScreenCategory extends EntityBase {
+	private Long id;
 
 	private String name;
 
@@ -19,11 +21,11 @@ public class ScreenCategory {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="SCREEN_CATEGORY_ID")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

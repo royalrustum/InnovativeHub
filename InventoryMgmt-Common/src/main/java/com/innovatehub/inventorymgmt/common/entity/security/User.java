@@ -14,9 +14,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name="USER_T")
-public class User {
+public class User extends EntityBase {
 
 	private String userName;
 	
@@ -36,7 +38,7 @@ public class User {
 		this.userId = userId;
 	}
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="USER_ROLE_T", 
 		joinColumns=@JoinColumn(name="USER_ID"),
 		inverseJoinColumns=@JoinColumn(name="ROLE_ID"))

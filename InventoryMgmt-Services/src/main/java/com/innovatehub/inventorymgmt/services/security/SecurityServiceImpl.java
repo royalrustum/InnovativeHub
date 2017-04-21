@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.innovatehub.inventorymgmt.common.entity.security.Role;
+import com.innovatehub.inventorymgmt.common.entity.security.Role_Screen;
 import com.innovatehub.inventorymgmt.common.entity.security.Screen;
 import com.innovatehub.inventorymgmt.common.repository.security.RoleRepository;
 
@@ -66,8 +67,9 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public List<Screen> getUserScreens(Set<Role> roles) {
-		List<List<Screen>> userRoles = roles.stream().map(role -> role.getScreens()).collect(Collectors.toList());
-		return userRoles.stream().flatMap(screenSet -> screenSet.stream()).collect(Collectors.toList());
+		List<List<Role_Screen>> userRoles = roles.stream().map(role -> role.getRoleScreens()).collect(Collectors.toList());
+		List<Role_Screen> flatMapRoleScreen = userRoles.stream().flatMap(roleScreen -> roleScreen.stream()).collect(Collectors.toList());;
+		return flatMapRoleScreen.stream().map(screenRole -> screenRole.getScreen()).collect(Collectors.toList());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.innovatehub.inventorymgmt.common.entity.security;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,31 +13,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+import com.innovatehub.inventorymgmt.common.util.SiteConstants;
+
 @Entity
-@Table(name = "Screen_T")
+@Table(name = "SCREEN_T")
 public class Screen {
-	private int id;
-	
+	private Long id;
+
 	private String url;
-	
+
 	private String screenName;
-	
+
 	private String screenIconName;
-	
-	private Set<Role> roles;
-	
+
+	private List<Role_Screen> roleScreens;
+
 	private ScreenCategory screenCategory;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "SCREEN_ID")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -57,8 +62,8 @@ public class Screen {
 	public void setScreenName(String screenName) {
 		this.screenName = screenName;
 	}
-	
-	@Column(name="SCREEN_ICON_NAME")
+
+	@Column(name = "SCREEN_ICON_NAME")
 	public String getScreenIconName() {
 		return screenIconName;
 	}
@@ -66,18 +71,18 @@ public class Screen {
 	public void setScreenIconName(String screenIconName) {
 		this.screenIconName = screenIconName;
 	}
-	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="screens")
-	public Set<Role> getRoles() {
-		return roles;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "screen")
+	public List<Role_Screen> getRoleScreens() {
+		return roleScreens;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRoleScreens(List<Role_Screen> roleScreens) {
+		this.roleScreens = roleScreens;
 	}
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="SCREEN_CATEGORY_ID")
+
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "SCREEN_CATEGORY_ID")
 	public ScreenCategory getScreenCategory() {
 		return screenCategory;
 	}

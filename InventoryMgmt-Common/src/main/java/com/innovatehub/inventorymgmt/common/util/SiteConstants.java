@@ -53,4 +53,6 @@ public class SiteConstants {
 	public static final String MSG_PRODUCT_CREATE_SUCCESS = "stock.product.alert.success";
 	public static final String MSG_SKU_CREATE_SUCCESS = "stock.sku.alert.success";
 	
+
+	
 }
