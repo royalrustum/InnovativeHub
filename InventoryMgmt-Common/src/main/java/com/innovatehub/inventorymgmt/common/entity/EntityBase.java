@@ -12,9 +12,9 @@ public class EntityBase {
 
 	private Date recordCreatedDate;
 
-	private Date recordCreatedBy;
+	private String recordCreatedBy;
 	
-	private Date recordUpdatedBy;
+	private String recordUpdatedBy;
 	
 	private Date recordUpdatedDate;
 
@@ -29,22 +29,20 @@ public class EntityBase {
 	}
 
 	@Column(name="CREATED_BY")
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getRecordCreatedBy() {
+	public String getRecordCreatedBy() {
 		return recordCreatedBy;
 	}
 
-	public void setRecordCreatedBy(Date recordCreatedBy) {
+	public void setRecordCreatedBy(String recordCreatedBy) {
 		this.recordCreatedBy = recordCreatedBy;
 	}
 
 	@Column(name="UPDATED_BY")
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getRecordUpdatedBy() {
+	public String getRecordUpdatedBy() {
 		return recordUpdatedBy;
 	}
 
-	public void setRecordUpdatedBy(Date recordUpdatedBy) {
+	public void setRecordUpdatedBy(String recordUpdatedBy) {
 		this.recordUpdatedBy = recordUpdatedBy;
 	}
 	

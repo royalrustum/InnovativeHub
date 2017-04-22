@@ -8,12 +8,15 @@
 		<form th:object="${sku}" class="form-horizontal">
 			<div
 				th:include="layout/fragments/inputcontrol :: label(label='SKU Name', textValue='skuName')"></div>
-				
+
 			<div
 				th:include="layout/fragments/inputcontrol :: label(label='Product', textValue='selectedProduct.productName')"></div>
 
 			<div
-				th:include="layout/fragments/inputcontrol :: label(label='Margin %', textValue='margin')"></div>
+				th:include="layout/fragments/inputcontrol :: label(label='Buying Price', textValue='price.buyingPrice')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: label(label='Selling Price', textValue='price.sellingPrice')"></div>
 
 			<div th:include="layout/fragments/actions :: cancel"></div>
 		</form>

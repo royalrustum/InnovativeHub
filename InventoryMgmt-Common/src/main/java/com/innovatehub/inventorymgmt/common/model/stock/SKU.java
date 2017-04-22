@@ -1,12 +1,12 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.constraints.DecimalMin;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 public class SKU {
 	private Long skuId;
@@ -14,15 +14,15 @@ public class SKU {
 	@NotEmpty
 	private String skuName;
 
-	@NotNull
-	@DecimalMin(value = "0.0")
-	private BigDecimal margin;
-
 	private List<Product> allProducts;
-	
+
 	@NotNull
 	private Product selectedProduct;
-	
+
+	@NotNull
+	@Valid
+	private Price price;
+
 	public Long getSkuId() {
 		return skuId;
 	}
@@ -39,14 +39,6 @@ public class SKU {
 		this.skuName = skuName;
 	}
 
-	public BigDecimal getMargin() {
-		return margin;
-	}
-
-	public void setMargin(BigDecimal margin) {
-		this.margin = margin;
-	}
-	
 	public List<Product> getAllProducts() {
 		return allProducts;
 	}
@@ -54,7 +46,7 @@ public class SKU {
 	public void setAllProducts(List<Product> allProducts) {
 		this.allProducts = allProducts;
 	}
-	
+
 	public Product getSelectedProduct() {
 		return selectedProduct;
 	}
@@ -62,4 +54,14 @@ public class SKU {
 	public void setSelectedProduct(Product selectedProduct) {
 		this.selectedProduct = selectedProduct;
 	}
+
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
+	}
+	
+	
 }

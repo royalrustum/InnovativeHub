@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,11 +26,9 @@ public class SKU extends EntityBase {
 	
 	private Product product;
 
-	private BigDecimal priceOffset;
-
-	private StockDetail stockDetail;
+	private Price price;
 	
-	private BigDecimal margin;
+	private StockDetail stockDetail;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,16 +59,17 @@ public class SKU extends EntityBase {
 	public void setSkuName(String skuName) {
 		this.skuName = skuName;
 	}
-	
-	@Column(name = "PRICE_OFFSET")
-	public BigDecimal getPriceOffset() {
-		return priceOffset;
+
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name = "PRICE_ID")
+	public Price getPrice() {
+		return price;
 	}
 
-	public void setPriceOffset(BigDecimal priceOffset) {
-		this.priceOffset = priceOffset;
+	public void setPrice(Price price) {
+		this.price = price;
 	}
-	
+
 	@OneToOne
 	@JoinColumn(name = "STOCK_DETAIL_ID")
 	public StockDetail getStockDetail() {
@@ -78,14 +78,5 @@ public class SKU extends EntityBase {
 
 	public void setStockDetail(StockDetail stockDetail) {
 		this.stockDetail = stockDetail;
-	}
-	
-	@Column(name = "PROFIT_MARGIN")
-	public BigDecimal getMargin() {
-		return margin;
-	}
-
-	public void setMargin(BigDecimal margin) {
-		this.margin = margin;
 	}
 }

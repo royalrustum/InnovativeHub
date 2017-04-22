@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 import com.innovatehub.inventorymgmt.common.entity.stock.ProductCategory;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductCategoryRepository;
 import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
+import com.innovatehub.inventorymgmt.services.ServiceBase;
 
 @Service
 @Transactional
-public class ProductCategoryServiceImpl implements ProductCategoryService {
+public class ProductCategoryServiceImpl extends ServiceBase implements ProductCategoryService {
 
 	@Autowired
 	ProductCategoryRepository productCategoryRepo;
@@ -43,6 +44,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 					.createBlob(productCategory.getUploadedFileBytes()));
 		}
 
+		this.populateAuditInfo(prodCategoryEntity);
 		return this.getProductCategoryRepo().save(prodCategoryEntity).getProductCategoryId();
 	}
 

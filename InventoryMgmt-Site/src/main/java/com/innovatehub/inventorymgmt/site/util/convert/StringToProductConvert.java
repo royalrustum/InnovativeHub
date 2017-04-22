@@ -5,8 +5,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
-import com.innovatehub.inventorymgmt.common.model.stock.ProductCategory;
-import com.innovatehub.inventorymgmt.services.stock.ProductCategoryService;
 import com.innovatehub.inventorymgmt.services.stock.ProductService;
 
 @Component

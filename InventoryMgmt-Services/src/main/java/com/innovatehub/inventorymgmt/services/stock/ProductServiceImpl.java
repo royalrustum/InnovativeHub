@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
-import com.innovatehub.inventorymgmt.common.model.stock.ProductCategory;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductCategoryRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductRepository;
 import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
+import com.innovatehub.inventorymgmt.services.ServiceBase;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends ServiceBase implements ProductService {
 
 	private ProductRepository productRepo;
 
@@ -88,6 +88,7 @@ public class ProductServiceImpl implements ProductService {
 			productEntity.setProductCategory(prodCategoryEntity);
 		}
 
+		this.populateAuditInfo(productEntity);
 		return this.getProductRepo().save(productEntity).getProductId();
 	}
 

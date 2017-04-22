@@ -1,6 +1,5 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
-import java.math.BigDecimal;
 import java.sql.Blob;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

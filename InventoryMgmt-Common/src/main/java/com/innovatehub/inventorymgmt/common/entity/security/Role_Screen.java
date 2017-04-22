@@ -1,6 +1,5 @@
 package com.innovatehub.inventorymgmt.common.entity.security;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+
 @Entity
 @Table(name = "ROLE_SCREEN_T")
-public class Role_Screen {
+public class Role_Screen extends EntityBase {
 	private Long roleScreenId;
 	
 	private Role role;

@@ -1,7 +1,6 @@
 package com.innovatehub.inventorymgmt.site.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.validation.Valid;
