@@ -29,9 +29,12 @@ import com.innovatehub.inventorymgmt.site.util.GenericUtilHelper;
 public class ProductController extends BaseController {
 	private static final String MODEL_ATTRIB_PROD = "product";
 
+	private static final String THLF_TEMPLATE_NAME_PRODUCT = SiteConstants.THYMELEAF_FRAGMENTS_HOME
+			+ "/dyn_controls :: product";
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private ProductCategoryService prodCatService;
 
@@ -45,7 +48,7 @@ public class ProductController extends BaseController {
 	public void setProdCatService(ProductCategoryService prodCatService) {
 		this.prodCatService = prodCatService;
 	}
-	
+
 	public ProductService getProductService() {
 		return productService;
 	}
@@ -53,14 +56,14 @@ public class ProductController extends BaseController {
 	public void setProductService(ProductService productCatService) {
 		this.productService = productCatService;
 	}
-	
+
 	@RequestMapping(value = "/stock/product/create")
 	public String displayCreateProduct(Locale locale, Model model) {
 
 		Product product = new Product();
 		product.setProductCategories(prodCatService.getAllProductCategories());
 		model.addAttribute(MODEL_ATTRIB_PROD, product);
-		
+
 		model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CREATE, null, locale));
 
@@ -72,9 +75,9 @@ public class ProductController extends BaseController {
 			@RequestParam("file") MultipartFile file, Model model, Locale locale,
 			final RedirectAttributes redirectAttributes) throws IOException {
 		if (bindResult.hasErrors()) {
-			
+
 			product.setProductCategories(prodCatService.getAllProductCategories());
-			
+
 			model.addAttribute(MODEL_ATTRIB_PROD, product);
 			model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 					messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CREATE, null, locale));
@@ -89,13 +92,13 @@ public class ProductController extends BaseController {
 
 		// Show the Success alert.
 		redirectAttributes.addFlashAttribute(SiteConstants.CSS_ALERT, SiteConstants.CSS_MSG_SUCCESS);
-		redirectAttributes.addFlashAttribute(SiteConstants.ALERT_MSG, messageSource
-				.getMessage(SiteConstants.MSG_PRODUCT_CREATE_SUCCESS, new Object[] { product.getProductName() }, locale));
+		redirectAttributes.addFlashAttribute(SiteConstants.ALERT_MSG, messageSource.getMessage(
+				SiteConstants.MSG_PRODUCT_CREATE_SUCCESS, new Object[] { product.getProductName() }, locale));
 
 		String viewProductURL = String.format("%s/%s", SiteConstants.PAGE_URI_STOCK_PRODUCT_VIEW, productId);
 		return "redirect:" + viewProductURL;
 	}
-	
+
 	@RequestMapping(value = "/stock/product/view/{id}")
 	public ModelAndView viewProduct(@PathVariable("id") Long productId, Locale locale) {
 

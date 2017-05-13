@@ -153,6 +153,13 @@ public class DatabaseInitializer {
 		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_CREATE);
 		skuScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(skuScreen);
+		
+		Screen stockScreen = new Screen();
+		stockScreen.setScreenName("Stock");
+		stockScreen.setScreenIconName("fa-truck");
+		stockScreen.setUrl(SiteConstants.PAGE_URI_STOCK_STOCK_CREATE);
+		stockScreen.setScreenCategory(stockCategory);
+		this.getScreenRepository().save(stockScreen);
 
 		/*
 		 * Screen customerScreen = new Screen();

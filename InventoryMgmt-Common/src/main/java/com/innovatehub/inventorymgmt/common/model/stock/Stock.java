@@ -1,4 +1,4 @@
-package com.innovatehub.inventorymgmt.common.entity.stock;
+package com.innovatehub.inventorymgmt.common.model.stock;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,10 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+import com.innovatehub.inventorymgmt.common.model.ModelBase;
 
-@Entity
-@Table(name = "STOCK_T")
-public class Stock extends EntityBase {
+public class Stock extends ModelBase {
 	private Long stockId;
 
 	private Date stockDate;
@@ -32,10 +31,11 @@ public class Stock extends EntityBase {
 	private Long units;
 
 	private BigDecimal unitPrice;
+	
+	private List<ProductCategory> allProductCategories;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "STOCK_ID")
+	private ProductCategory selectedProdCategory;
+	
 	public Long getStockId() {
 		return stockId;
 	}
@@ -44,7 +44,6 @@ public class Stock extends EntityBase {
 		this.stockId = stockId;
 	}
 
-	@Temporal(TemporalType.DATE)
 	public Date getStockDate() {
 		return stockDate;
 	}
@@ -53,8 +52,6 @@ public class Stock extends EntityBase {
 		this.stockDate = stockDate;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "SKU_ID")
 	public SKU getSku() {
 		return sku;
 	}
@@ -63,7 +60,6 @@ public class Stock extends EntityBase {
 		this.sku = sku;
 	}
 
-	@Column(name = "UNITS")
 	public Long getUnits() {
 		return units;
 	}
@@ -72,12 +68,27 @@ public class Stock extends EntityBase {
 		this.units = units;
 	}
 
-	@Column(name = "UNIT_PRICE")
 	public BigDecimal getUnitPrice() {
 		return unitPrice;
 	}
 
 	public void setUnitPrice(BigDecimal price) {
 		this.unitPrice = price;
+	}
+	
+	public List<ProductCategory> getAllProductCategories() {
+		return allProductCategories;
+	}
+
+	public void setAllProductCategories(List<ProductCategory> allProductCategories) {
+		this.allProductCategories = allProductCategories;
+	}
+	
+	public ProductCategory getSelectedProdCategory() {
+		return selectedProdCategory;
+	}
+
+	public void setSelectedProdCategory(ProductCategory selectedProdCategory) {
+		this.selectedProdCategory = selectedProdCategory;
 	}
 }

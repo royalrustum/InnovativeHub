@@ -28,8 +28,6 @@ public class SKU extends EntityBase {
 
 	private Price price;
 	
-	private StockDetail stockDetail;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "SKU_ID")
@@ -68,15 +66,5 @@ public class SKU extends EntityBase {
 
 	public void setPrice(Price price) {
 		this.price = price;
-	}
-
-	@OneToOne
-	@JoinColumn(name = "STOCK_DETAIL_ID")
-	public StockDetail getStockDetail() {
-		return stockDetail;
-	}
-
-	public void setStockDetail(StockDetail stockDetail) {
-		this.stockDetail = stockDetail;
 	}
 }

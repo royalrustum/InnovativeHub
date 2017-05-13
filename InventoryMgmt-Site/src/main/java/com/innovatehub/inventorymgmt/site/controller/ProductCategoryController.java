@@ -2,6 +2,7 @@ package com.innovatehub.inventorymgmt.site.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +32,9 @@ public class ProductCategoryController extends BaseController {
 	private static final String PAGE_URI_STOCK_PRODUCT_CATEGORY_VIEW_FMT = "/stock/category/view/%s";
 
 	private static final String MODEL_ATTRIB_PROD_CAT = "prodCategory";
+
+	private static final String THLF_TEMPLATE_NAME_PROD_CAT = SiteConstants.THYMELEAF_FRAGMENTS_HOME
+			+ "/dyn_controls :: prod_category";
 
 	@Autowired
 	private ProductCategoryService productCatService;
@@ -91,5 +96,12 @@ public class ProductCategoryController extends BaseController {
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CATEGORY_VIEW, null, locale));
 
 		return modelView;
+	}
+
+	@RequestMapping(value = "/dyn/stock/allCategories")
+	public String getAllCategories(Model model) {
+		model.addAttribute(MODEL_ATTRIB_PROD_CAT, this.getProductCatService().getAllProductCategories());
+
+		return THLF_TEMPLATE_NAME_PROD_CAT;
 	}
 }

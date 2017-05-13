@@ -10,4 +10,6 @@ public interface ProductService {
 	List<Product> getAllProducts();
 
 	Long saveProduct(Product product);
+	
+	List<Product> getAllProductsInCategory(Long categoryId);
 }

@@ -97,6 +97,20 @@ public class ProductServiceImpl extends ServiceBase implements ProductService {
 		List<com.innovatehub.inventorymgmt.common.entity.stock.Product> productEntities = this.getProductRepo()
 				.findAll();
 
+		List<com.innovatehub.inventorymgmt.common.model.stock.Product> products = convertToProductModel(
+				productEntities);
+		return products;
+	}
+
+	public List<Product> getAllProductsInCategory(Long categoryId) {
+		List<com.innovatehub.inventorymgmt.common.entity.stock.Product> productEntities = this.getProductRepo()
+				.findByProductCategoryProductCategoryId(categoryId);
+		
+		return this.convertToProductModel(productEntities);
+	}
+
+	private List<com.innovatehub.inventorymgmt.common.model.stock.Product> convertToProductModel(
+			List<com.innovatehub.inventorymgmt.common.entity.stock.Product> productEntities) {
 		List<com.innovatehub.inventorymgmt.common.model.stock.Product> products = new ArrayList<com.innovatehub.inventorymgmt.common.model.stock.Product>();
 
 		for (com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity : productEntities) {
@@ -104,13 +118,11 @@ public class ProductServiceImpl extends ServiceBase implements ProductService {
 			BeanUtils.copyProperties(productEntity, product);
 
 			if (productEntity.getProductImage() != null) {
-				product.setProductImage(
-						CommonUtilHelper.getByteArrayFromBlob(productEntity.getProductImage()));
+				product.setProductImage(CommonUtilHelper.getByteArrayFromBlob(productEntity.getProductImage()));
 			}
 
 			products.add(product);
 		}
 		return products;
 	}
-
 }
