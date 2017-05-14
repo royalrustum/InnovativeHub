@@ -6,7 +6,7 @@
 <body>
 	<div layout:fragment="content">
 		<form th:object="${stock}" class="form-horizontal"
-			th:action="@{/stock/sku/create}" method="post">
+			th:action="@{/stock/stock/create}" method="post">
 			<div
 				th:include="layout/fragments/inputcontrol :: text(label='Stock Date', textValue='stockDate')"></div>
 
@@ -14,6 +14,16 @@
 				th:include="layout/fragments/inputcontrol :: dropdown(label='Product Category', 
 				itemList=*{allProductCategories}, objField=*{selectedProdCategory}, objFieldName='selectedProdCategory', textField='categoryName', 
 				valueField='productCategoryId')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: dropdown(label='Product', 
+				itemList=*{allProducts}, objField=*{selectedProduct}, objFieldName='selectedProduct', textField='productName', 
+				valueField='productId')"></div>
+
+			<div
+				th:include="layout/fragments/inputcontrol :: dropdown(label='SKU', 
+				itemList=*{allSKU}, objField=*{selectedSKU}, objFieldName='selectedSKU', textField='skuName', 
+				valueField='product.productId')"></div>
 
 			<div
 				th:include="layout/fragments/inputcontrol :: text(label='Stocking Price', textValue='unitPrice')"></div>
@@ -24,6 +34,72 @@
 
 			<div th:include="layout/fragments/actions :: submitCancel"></div>
 		</form>
+
+		<script type="text/javascript">
+			$('#selectedProdCategory')
+					.change(
+							function() {
+								var htmlOption = '<option value="-1">Select</option>';
+								var selectedProdCat = $(
+										'#selectedProdCategory option:selected')
+										.val();
+
+								// Get products for selected prod cat.
+								var productsUrl = '/stock/product/prodCat/'
+										+ selectedProdCat;
+								$
+										.getJSON(
+												productsUrl,
+												function(products) {
+													$
+															.each(
+																	products,
+																	function(
+																			index,
+																			product) {
+																		htmlOption += '<option value="' + product.productId + '">'
+																				+ product.productName
+																				+ '</option>';
+																	});
+
+													$('#selectedProduct').html(
+															htmlOption);
+
+												});
+							});
+
+			$('#selectedProduct')
+					.change(
+							function() {
+								var htmlOption = '<option value="-1">Select</option>';
+								var selectedProductId = $(
+										'#selectedProduct option:selected')
+										.val();
+
+								// Get products for selected prod cat.
+								var skusUrl = '/stock/sku/product/'
+										+ selectedProductId;
+								$
+										.getJSON(
+												skusUrl,
+												function(skus) {
+													$
+															.each(
+																	skus,
+																	function(
+																			index,
+																			sku) {
+																		htmlOption += '<option value="' + sku.skuId + '">'
+																				+ sku.skuName
+																				+ '</option>';
+																	});
+
+													$('#selectedSKU').html(
+															htmlOption);
+
+												});
+							});
+		</script>
 	</div>
 </body>
 </html>

@@ -4,21 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import com.innovatehub.inventorymgmt.common.entity.EntityBase;
+import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.model.ModelBase;
 
 public class Stock extends ModelBase {
@@ -35,6 +23,14 @@ public class Stock extends ModelBase {
 	private List<ProductCategory> allProductCategories;
 
 	private ProductCategory selectedProdCategory;
+	
+	private List<Product> allProducts;
+
+	private Product selectedProduct;
+	
+	private SKU selectedSKU;
+	
+	private List<SKU> allSKU;
 	
 	public Long getStockId() {
 		return stockId;
@@ -90,5 +86,37 @@ public class Stock extends ModelBase {
 
 	public void setSelectedProdCategory(ProductCategory selectedProdCategory) {
 		this.selectedProdCategory = selectedProdCategory;
+	}
+	
+	public List<Product> getAllProducts() {
+		return allProducts;
+	}
+
+	public void setAllProducts(List<Product> allProducts) {
+		this.allProducts = allProducts;
+	}
+	
+	public Product getSelectedProduct() {
+		return selectedProduct;
+	}
+
+	public void setSelectedProduct(Product selectedProduct) {
+		this.selectedProduct = selectedProduct;
+	}
+	
+	public SKU getSelectedSKU() {
+		return selectedSKU;
+	}
+
+	public void setSelectedSKU(SKU selectedSKU) {
+		this.selectedSKU = selectedSKU;
+	}
+	
+	public List<SKU> getAllSKU() {
+		return allSKU;
+	}
+
+	public void setAllSKU(List<SKU> allSKU) {
+		this.allSKU = allSKU;
 	}
 }

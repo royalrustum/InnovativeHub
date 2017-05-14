@@ -2,7 +2,6 @@ package com.innovatehub.inventorymgmt.site.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -75,7 +73,7 @@ public class ProductCategoryController extends BaseController {
 
 		prodCategory.setUploadedFileBytes(GenericUtilHelper.getByteArrayFromMultiPart(file));
 
-		int productCatId = this.productCatService.saveProductCategory(prodCategory);
+		Long productCatId = this.productCatService.saveProductCategory(prodCategory);
 
 		// Show the Success alert.
 		redirectAttributes.addFlashAttribute(SiteConstants.CSS_ALERT, SiteConstants.CSS_MSG_SUCCESS);
@@ -87,7 +85,7 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/stock/category/view/{id}")
-	public ModelAndView viewCategory(@PathVariable("id") int prodCategoryId, Locale locale) throws SQLException {
+	public ModelAndView viewCategory(@PathVariable("id") Long prodCategoryId, Locale locale) throws SQLException {
 
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_PRODUCT_CATEGORY_VIEW);

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductConvert;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToSKUConvert;
 
 @Configuration
 @EnableWebMvc
@@ -38,6 +39,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	
 	@Autowired
 	private StringToProductConvert stringToProductConvert;
+	
+	@Autowired
+	private StringToSKUConvert stringToSKUConvert;
 	
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -58,6 +62,14 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	public void setStringToProductConvert(StringToProductConvert stringToProductConvert) {
 		this.stringToProductConvert = stringToProductConvert;
+	}
+	
+	public StringToSKUConvert getStringToSKUConvert() {
+		return stringToSKUConvert;
+	}
+
+	public void setStringToSKUConvert(StringToSKUConvert stringToSKUConvert) {
+		this.stringToSKUConvert = stringToSKUConvert;
 	}
 	
 	@Override
@@ -121,6 +133,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(this.getStringToProdCatConvert());
         registry.addConverter(this.getStringToProductConvert());
+        registry.addConverter(this.getStringToSKUConvert());
     }
 
 	

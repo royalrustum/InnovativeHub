@@ -1,6 +1,7 @@
 package com.innovatehub.inventorymgmt.site.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -109,5 +111,10 @@ public class ProductController extends BaseController {
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_VIEW, null, locale));
 
 		return modelView;
+	}
+	
+	@RequestMapping(value = "/stock/product/prodCat/{id}")
+	public @ResponseBody List<Product> getProductsInProductCat(@PathVariable("id") Long productCat) {
+		return this.getProductService().getAllProductsInCategory(productCat);
 	}
 }

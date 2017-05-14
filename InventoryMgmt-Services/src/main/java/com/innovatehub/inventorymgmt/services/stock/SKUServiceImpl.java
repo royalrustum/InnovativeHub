@@ -1,5 +1,8 @@
 package com.innovatehub.inventorymgmt.services.stock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -43,12 +46,12 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 	public Long saveSKU(SKU sku) {
 		com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = new com.innovatehub.inventorymgmt.common.entity.stock.SKU();
 		com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = new com.innovatehub.inventorymgmt.common.entity.stock.Price();
-		
+
 		BeanUtils.copyProperties(sku, skuEntity);
 		BeanUtils.copyProperties(sku.getPrice(), priceEntity);
 
 		skuEntity.setPrice(priceEntity);
-		
+
 		if (sku.getSelectedProduct() != null) {
 			// Get the session tracked object from hibernate. Product
 			// will exist prior to sku creation
@@ -60,7 +63,7 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 
 		this.populateAuditInfo(skuEntity);
 		this.populateAuditInfo(priceEntity);
-		
+
 		return this.getSkuRepo().save(skuEntity).getSkuId();
 	}
 
@@ -77,9 +80,25 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 		Price price = new Price();
 		BeanUtils.copyProperties(skuEntity.getPrice(), price);
 		sku.setPrice(price);
-		
+
 		sku.setSelectedProduct(product);
 
 		return sku;
+	}
+
+	@Override
+	public List<SKU> getAllSKUForProduct(Long productId) {
+		List<com.innovatehub.inventorymgmt.common.entity.stock.SKU> skuEntities = this.getSkuRepo()
+				.findByProductProductId(productId);
+
+		List<SKU> skuModels = new ArrayList<SKU>();
+		for (com.innovatehub.inventorymgmt.common.entity.stock.SKU sku : skuEntities) {
+			SKU skuModel = new SKU();
+			BeanUtils.copyProperties(sku, skuModel);
+
+			skuModels.add(skuModel);
+		}
+
+		return skuModels;
 	}
 }

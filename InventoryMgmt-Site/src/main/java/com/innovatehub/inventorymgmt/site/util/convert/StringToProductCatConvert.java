@@ -27,7 +27,7 @@ public class StringToProductCatConvert implements Converter<String, ProductCateg
 
 	@Override
 	public ProductCategory convert(String prodCat) {
-		return this.getProdCatService().getProductCategory(Integer.valueOf(prodCat));
+		return this.getProdCatService().getProductCategory(Long.valueOf(prodCat));
 	}
 
 }

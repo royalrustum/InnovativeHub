@@ -8,6 +8,6 @@ import com.innovatehub.inventorymgmt.common.entity.stock.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 
 }

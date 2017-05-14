@@ -16,6 +16,7 @@ public class SiteConstants {
 	public static final String PAGE_URI_STOCK_SKU_CREATE= "/stock/sku/create";
 	public static final String PAGE_URI_STOCK_SKU_VIEW= "/stock/sku/view";
 	public static final String PAGE_URI_STOCK_STOCK_CREATE= "/stock/stock/create";
+	public static final String PAGE_URI_STOCK_STOCK_VIEW= "/stock/stock/view";
 	
 	// -----------------View Names----------------------------
 	public static final String VIEW_NAME_HOME = "dashboard/home";
@@ -28,6 +29,7 @@ public class SiteConstants {
 	public static final String VIEW_NAME_STOCK_SKU_CREATE = "dashboard/stock/sku_create";
 	public static final String VIEW_NAME_STOCK_SKU_VIEW = "dashboard/stock/sku_view";
 	public static final String VIEW_NAME_STOCK_STOCK_CREATE = "dashboard/stock/stock_create";
+	public static final String VIEW_NAME_STOCK_STOCK_VIEW = "dashboard/stock/stock_view";
 	
 	//------------------- Page Titles -------------------------
 	public static final String PAGE_TITLE_HOME = "pageTitle.home";
@@ -38,6 +40,7 @@ public class SiteConstants {
 	public static final String PAGE_TITLE_STOCK_SKU_CREATE = "pageTitle.stock.sku.create";
 	public static final String PAGE_TITLE_STOCK_SKU_VIEW = "pageTitle.stock.sku.view";
 	public static final String PAGE_TITLE_STOCK_STOCK_CREATE = "pageTitle.stock.stock.create";
+	public static final String PAGE_TITLE_STOCK_STOCK_VIEW = "pageTitle.stock.stock.view";
 	
 	//------------------- Model Attributes ---------------------
 	public static final String MODEL_ATTRIBUTE_PAGE_TITLE = "pageTitle";
@@ -54,6 +57,7 @@ public class SiteConstants {
 	public static final String MSG_PROD_CAT_CREATE_SUCCESS = "stock.prodCategory.alert.success";
 	public static final String MSG_PRODUCT_CREATE_SUCCESS = "stock.product.alert.success";
 	public static final String MSG_SKU_CREATE_SUCCESS = "stock.sku.alert.success";
+	public static final String MSG_STOCK_CREATE_SUCCESS = "stock.stock.alert.success";
 	
 	//--------------------- Thymeleaf constants -----------------
 	public static final String THYMELEAF_FRAGMENTS_HOME = "/views/thymeleaf/layout/fragments";

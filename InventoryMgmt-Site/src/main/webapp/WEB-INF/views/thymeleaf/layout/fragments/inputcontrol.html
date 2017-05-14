@@ -61,7 +61,7 @@
 				th:text="${label}"></label>
 			<div class="col-md-3"
 				th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${objFieldName}__') ? 'has-feedback has-error' : 'has-feedback has-success')}">
-				<select th:name="${objFieldName}" class="form-control">
+				<select th:name="${objFieldName}" class="form-control" th:id="${objFieldName}">
 					<option value="-1">Select</option>
 					<option th:each="item : ${itemList}"
 						th:value="${item.__${valueField}__}"

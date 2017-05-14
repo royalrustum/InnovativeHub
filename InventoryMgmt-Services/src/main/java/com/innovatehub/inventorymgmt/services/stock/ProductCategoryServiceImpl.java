@@ -35,7 +35,7 @@ public class ProductCategoryServiceImpl extends ServiceBase implements ProductCa
 	}
 
 	@Override
-	public int saveProductCategory(com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory) {
+	public Long saveProductCategory(com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategory) {
 		ProductCategory prodCategoryEntity = new ProductCategory();
 		BeanUtils.copyProperties(productCategory, prodCategoryEntity);
 
@@ -49,7 +49,7 @@ public class ProductCategoryServiceImpl extends ServiceBase implements ProductCa
 	}
 
 	@Override
-	public com.innovatehub.inventorymgmt.common.model.stock.ProductCategory getProductCategory(int productCategoryId) {
+	public com.innovatehub.inventorymgmt.common.model.stock.ProductCategory getProductCategory(Long productCategoryId) {
 		ProductCategory prodCategoryEntity = this.getProductCategoryRepo().findOne(productCategoryId);
 
 		if (prodCategoryEntity != null) {

@@ -19,13 +19,13 @@ public class ProductCategory {
 
 	private byte[] uploadedFileBytes;
 
-	private Integer productCategoryId;
+	private Long productCategoryId;
 	
-	public Integer getProductCategoryId() {
+	public Long getProductCategoryId() {
 		return productCategoryId;
 	}
 
-	public void setProductCategoryId(Integer productCategoryId) {
+	public void setProductCategoryId(Long productCategoryId) {
 		this.productCategoryId = productCategoryId;
 	}
 	

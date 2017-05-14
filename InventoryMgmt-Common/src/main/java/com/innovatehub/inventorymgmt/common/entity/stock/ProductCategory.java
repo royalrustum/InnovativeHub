@@ -21,7 +21,7 @@ import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 @Entity
 @Table(name = "PRODUCT_CATEGORY_T")
 public class ProductCategory extends EntityBase {
-	private Integer productCategoryId;
+	private Long productCategoryId;
 	
 	private String categoryName;
 
@@ -34,11 +34,11 @@ public class ProductCategory extends EntityBase {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PRODUCT_CATEGORY_ID")
-	public Integer getProductCategoryId() {
+	public Long getProductCategoryId() {
 		return productCategoryId;
 	}
 
-	public void setProductCategoryId(Integer productCategoryId) {
+	public void setProductCategoryId(Long productCategoryId) {
 		this.productCategoryId = productCategoryId;
 	}
 	
