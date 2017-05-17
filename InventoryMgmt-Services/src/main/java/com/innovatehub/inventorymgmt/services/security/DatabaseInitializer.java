@@ -131,36 +131,10 @@ public class DatabaseInitializer {
 
 	private ArrayList<Screen> populateLeftNavScreens() {
 		ArrayList<Screen> adminScreens = new ArrayList<Screen>();
-		ScreenCategory stockCategory = populateScreenCategories();
-
-		Screen categoryScreen = new Screen();
-		categoryScreen.setScreenName("Product Category");
-		categoryScreen.setScreenIconName("fa-th-list");
-		categoryScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CATEGORY_CREATE);
-		categoryScreen.setScreenCategory(stockCategory);
-		this.getScreenRepository().save(categoryScreen);
+		adminScreens.addAll(this.populateCustomerCategoryNavItems());
+		adminScreens.addAll(this.populateStockCategoryNavItems());
 		
-		Screen productScreen = new Screen();
-		productScreen.setScreenName("Product");
-		productScreen.setScreenIconName("fa-cube");
-		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CREATE);
-		productScreen.setScreenCategory(stockCategory);
-		this.getScreenRepository().save(productScreen);
-
-		Screen skuScreen = new Screen();
-		skuScreen.setScreenName("SKU");
-		skuScreen.setScreenIconName("fa-tags");
-		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_CREATE);
-		skuScreen.setScreenCategory(stockCategory);
-		this.getScreenRepository().save(skuScreen);
 		
-		Screen stockScreen = new Screen();
-		stockScreen.setScreenName("Stock");
-		stockScreen.setScreenIconName("fa-truck");
-		stockScreen.setUrl(SiteConstants.PAGE_URI_STOCK_STOCK_CREATE);
-		stockScreen.setScreenCategory(stockCategory);
-		this.getScreenRepository().save(stockScreen);
-
 		/*
 		 * Screen customerScreen = new Screen();
 		 * customerScreen.setScreenName("Customers");
@@ -173,13 +147,67 @@ public class DatabaseInitializer {
 		return adminScreens;
 	}
 
-	private ScreenCategory populateScreenCategories() {
+	private List<Screen> populateStockCategoryNavItems() {
+		ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
+		
 		ScreenCategory stockCategory = new ScreenCategory();
 		stockCategory.setName("Stock");
 		stockCategory.setIconName("fa-cubes");
 
 		stockCategory = this.getScreenCatRepo().save(stockCategory);
 
-		return stockCategory;
+		Screen categoryScreen = new Screen();
+		categoryScreen.setScreenName("Product Category");
+		categoryScreen.setScreenIconName("fa-th-list");
+		categoryScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CATEGORY_CREATE);
+		categoryScreen.setScreenCategory(stockCategory);
+		this.getScreenRepository().save(categoryScreen);
+		stockCatScreens.add(categoryScreen);
+		
+		Screen productScreen = new Screen();
+		productScreen.setScreenName("Product");
+		productScreen.setScreenIconName("fa-cube");
+		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CREATE);
+		productScreen.setScreenCategory(stockCategory);
+		this.getScreenRepository().save(productScreen);
+		stockCatScreens.add(productScreen);
+		
+		Screen skuScreen = new Screen();
+		skuScreen.setScreenName("SKU");
+		skuScreen.setScreenIconName("fa-tags");
+		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_CREATE);
+		skuScreen.setScreenCategory(stockCategory);
+		this.getScreenRepository().save(skuScreen);
+		stockCatScreens.add(skuScreen);
+		
+		Screen stockScreen = new Screen();
+		stockScreen.setScreenName("Stock Diary");
+		stockScreen.setScreenIconName("fa-truck");
+		stockScreen.setUrl(SiteConstants.PAGE_URI_STOCK_STOCK_CREATE);
+		stockScreen.setScreenCategory(stockCategory);
+		this.getScreenRepository().save(stockScreen);
+		stockCatScreens.add(stockScreen);
+		
+		return stockCatScreens;
+	}
+	
+	private List<Screen> populateCustomerCategoryNavItems() {
+		ArrayList<Screen> customerCatScreens = new ArrayList<Screen>();
+		
+		ScreenCategory customerCategory = new ScreenCategory();
+		customerCategory.setName("Customer");
+		customerCategory.setIconName("fa-address-card");
+
+		customerCategory = this.getScreenCatRepo().save(customerCategory);
+
+		Screen categoryScreen = new Screen();
+		categoryScreen.setScreenName("Profile");
+		categoryScreen.setScreenIconName("fa-address-book-o");
+		categoryScreen.setUrl(SiteConstants.PAGE_URI_CUSTOMER_PROFILE_CREATE);
+		categoryScreen.setScreenCategory(customerCategory);
+		this.getScreenRepository().save(categoryScreen);
+		
+		customerCatScreens.add(categoryScreen);
+		return 	customerCatScreens;
 	}
 }

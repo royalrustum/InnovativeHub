@@ -17,6 +17,9 @@ public class SiteConstants {
 	public static final String PAGE_URI_STOCK_SKU_VIEW= "/stock/sku/view";
 	public static final String PAGE_URI_STOCK_STOCK_CREATE= "/stock/stock/create";
 	public static final String PAGE_URI_STOCK_STOCK_VIEW= "/stock/stock/view";
+	public static final String PAGE_URI_CUSTOMER_PROFILE_CREATE= "/customer/profile/create";
+	public static final String PAGE_URI_CUSTOMER_PROFILE_VIEW= "/customer/profile/view";
+	
 	
 	// -----------------View Names----------------------------
 	public static final String VIEW_NAME_HOME = "dashboard/home";
@@ -30,6 +33,8 @@ public class SiteConstants {
 	public static final String VIEW_NAME_STOCK_SKU_VIEW = "dashboard/stock/sku_view";
 	public static final String VIEW_NAME_STOCK_STOCK_CREATE = "dashboard/stock/stock_create";
 	public static final String VIEW_NAME_STOCK_STOCK_VIEW = "dashboard/stock/stock_view";
+	public static final String VIEW_NAME_CUSTOMER_PROFILE_CREATE = "dashboard/customer/customer_create";
+	public static final String VIEW_NAME_CUSTOMER_PROFILE_VIEW = "dashboard/customer/customer_view";
 	
 	//------------------- Page Titles -------------------------
 	public static final String PAGE_TITLE_HOME = "pageTitle.home";
@@ -41,6 +46,8 @@ public class SiteConstants {
 	public static final String PAGE_TITLE_STOCK_SKU_VIEW = "pageTitle.stock.sku.view";
 	public static final String PAGE_TITLE_STOCK_STOCK_CREATE = "pageTitle.stock.stock.create";
 	public static final String PAGE_TITLE_STOCK_STOCK_VIEW = "pageTitle.stock.stock.view";
+	public static final String PAGE_TITLE_CUSTOMER_PROFILE_CREATE = "pageTitle.customer.profile.create";
+	public static final String PAGE_TITLE_CUSTOMER_PROFILE_VIEW = "pageTitle.customer.profile.view";
 	
 	//------------------- Model Attributes ---------------------
 	public static final String MODEL_ATTRIBUTE_PAGE_TITLE = "pageTitle";
@@ -58,6 +65,7 @@ public class SiteConstants {
 	public static final String MSG_PRODUCT_CREATE_SUCCESS = "stock.product.alert.success";
 	public static final String MSG_SKU_CREATE_SUCCESS = "stock.sku.alert.success";
 	public static final String MSG_STOCK_CREATE_SUCCESS = "stock.stock.alert.success";
+	public static final String MSG_CUSTOMER_CREATE_SUCCESS = "stock.customer.alert.success";
 	
 	//--------------------- Thymeleaf constants -----------------
 	public static final String THYMELEAF_FRAGMENTS_HOME = "/views/thymeleaf/layout/fragments";

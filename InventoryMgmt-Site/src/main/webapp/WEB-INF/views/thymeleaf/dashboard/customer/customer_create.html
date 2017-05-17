@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
+	layout:decorator="layout/main">
+<body>
+	<div layout:fragment="content">
+		<form th:object="${customer}" class="form-horizontal"
+			th:action="@{/customer/profile/create}" method="post">
+
+			<div class="panel-title">Personal Information</div>
+			<div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='First Name', textValue='firstName')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Last Name', textValue='lastName')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Phone', textValue='phone')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Email', textValue='email')"></div>
+
+			</div>
+
+
+			<div class="panel-title">Address</div>
+			<div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Line 1', textValue='address.addressLine1')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Line 2', textValue='address.addressLine2')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='City', textValue='address.city')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='State', textValue='address.state')"></div>
+
+				<div
+					th:include="layout/fragments/inputcontrol :: text(label='Pin Code', textValue='address.zip')"></div>
+
+			</div>
+
+
+			<div th:include="layout/fragments/actions :: submitCancel"></div>
+		</form>
+	</div>
+</body>
+</html>
