@@ -24,13 +24,13 @@
 	<div class="container-fluid zero-pad">
 		<div th:include="layout/fragments/header :: header"></div>
 
+		<div th:include="layout/fragments/leftnav :: leftnav"></div>
+
 		<!-- Show the Global Alert -->
 		<div th:include="layout/fragments/alert :: alertGlobal"></div>
 
 		<!-- Show the Error Alert for forms -->
 		<div th:include="layout/fragments/alert :: formErrors"></div>
-
-		<div th:include="layout/fragments/leftnav :: leftnav"></div>
 
 		<div class="col-md-offset-2 pageContentContainer row">
 			<!-- <div class="panel panel-primary"> -->

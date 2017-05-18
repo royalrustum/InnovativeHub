@@ -231,7 +231,7 @@ body {
 
 /*------------------ Form Controls --------------------------------------------*/
 .form-group {
-	height: 50px;
+	height: 35px;
 }
 
 .row-label {
@@ -254,6 +254,11 @@ body {
 
 .white-fg-color {
 	color: white;
+}
+
+/*------------------ Alert --------------------------------------------*/
+.alert {
+	margin-bottom: 0px !important;
 }
 
 /* Header */
