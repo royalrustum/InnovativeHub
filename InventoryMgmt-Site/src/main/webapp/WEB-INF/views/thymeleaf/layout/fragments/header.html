@@ -17,7 +17,11 @@
 					<a class="navbar-brand">Innovate Hub</a>
 				</div>
 
-				<div class="collapse navbar-collapse" id="top-navbar">
+				<div class="pull-left pageTitle panel-title">
+					<p th:text="${pageTitle}"></p>
+				</div>
+
+				<div class="collapse navbar-collapse pull-right top-nav-right-area" id="top-navbar">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							<form id="logout" role="form" th:action="@{/logout}"

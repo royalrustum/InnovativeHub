@@ -133,7 +133,7 @@ public class DatabaseInitializer {
 		ArrayList<Screen> adminScreens = new ArrayList<Screen>();
 		adminScreens.addAll(this.populateCustomerCategoryNavItems());
 		adminScreens.addAll(this.populateStockCategoryNavItems());
-		
+		adminScreens.addAll(this.populatePOSNavItems());
 		
 		/*
 		 * Screen customerScreen = new Screen();
@@ -209,5 +209,25 @@ public class DatabaseInitializer {
 		
 		customerCatScreens.add(categoryScreen);
 		return 	customerCatScreens;
+	}
+	
+	private List<Screen> populatePOSNavItems() {
+		ArrayList<Screen> posCatScreens = new ArrayList<Screen>();
+		
+		ScreenCategory posCategory = new ScreenCategory();
+		posCategory.setName("Sale");
+		posCategory.setIconName("fa-shopping-cart");
+
+		posCategory = this.getScreenCatRepo().save(posCategory);
+
+		Screen categoryScreen = new Screen();
+		categoryScreen.setScreenName("Checkout");
+		categoryScreen.setScreenIconName("fa-money");
+		categoryScreen.setUrl(SiteConstants.PAGE_URI_POS_CHECKOUT_CREATE);
+		categoryScreen.setScreenCategory(posCategory);
+		this.getScreenRepository().save(categoryScreen);
+		
+		posCatScreens.add(categoryScreen);
+		return 	posCatScreens;
 	}
 }

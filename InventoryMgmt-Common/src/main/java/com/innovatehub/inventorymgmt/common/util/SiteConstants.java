@@ -19,6 +19,7 @@ public class SiteConstants {
 	public static final String PAGE_URI_STOCK_STOCK_VIEW= "/stock/stock/view";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_CREATE= "/customer/profile/create";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_VIEW= "/customer/profile/view";
+	public static final String PAGE_URI_POS_CHECKOUT_CREATE= "/pos/checkout/create";
 	
 	
 	// -----------------View Names----------------------------

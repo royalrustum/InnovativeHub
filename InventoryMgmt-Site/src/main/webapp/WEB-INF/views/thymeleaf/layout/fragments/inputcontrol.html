@@ -4,12 +4,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <body>
 	<div th:fragment="text(label, textValue)">
-		<div class="form-group">
+		<div class="form-group form-group-sm">
 			<label for="categoryName" class="col-md-2 control-label"
 				th:text="${label}"></label>
 			<div class="col-md-3"
 				th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'has-feedback has-error' : 'has-feedback has-success')}">
-				<input type="text" class="form-control"
+				<input type="text" class="form-control input-sm"
 					th:field="*{__${textValue}__}"> <span
 					th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'glyphicon form-control-feedback glyphicon-remove' : 'glyphicon form-control-feedback glyphicon-ok')}"
 					class=""></span>
@@ -18,7 +18,7 @@
 	</div>
 
 	<div th:fragment="label(label, textValue)">
-		<div class="form-group row-label">
+		<div class="form-group form-group-sm row-label">
 			<label for="categoryName" class="col-md-2 control-label text-muted"
 				th:text="${label}"></label>
 			<div class="col-md-5">
@@ -28,7 +28,7 @@
 	</div>
 
 	<div th:fragment="file(label)">
-		<div class="form-group">
+		<div class="form-group form-group-sm">
 			<label for="categoryName" class="col-md-2 control-label"
 				th:text="${label}"></label>
 			<div class="col-md-3">
@@ -56,7 +56,7 @@
 
 	<div
 		th:fragment="dropdown(label, itemList, objField, objFieldName, textField, valueField)">
-		<div class="form-group">
+		<div class="form-group form-group-sm">
 			<label for="categoryName" class="col-md-2 control-label"
 				th:text="${label}"></label>
 			<div class="col-md-3"
