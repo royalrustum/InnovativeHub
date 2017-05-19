@@ -1,10 +1,14 @@
 package com.innovatehub.inventorymgmt.common.model.customer;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.innovatehub.inventorymgmt.common.model.ModelBase;
 
 public class Customer extends ModelBase {
+	@NotEmpty
 	private String firstName;
 	
+	@NotEmpty
 	private String lastName;
 	
 	private String email;

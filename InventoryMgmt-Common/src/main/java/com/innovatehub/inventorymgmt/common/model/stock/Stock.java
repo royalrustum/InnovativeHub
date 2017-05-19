@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
@@ -12,22 +14,30 @@ import com.innovatehub.inventorymgmt.common.model.ModelBase;
 public class Stock extends ModelBase {
 	private Long stockId;
 
+	@NotNull
 	private Date stockDate;
 
 	private SKU sku;
 
+	@NotNull
+	@Min(value= 1)
 	private Long units;
 
+	@NotNull
+	@DecimalMin(value = "0.0")
 	private BigDecimal unitPrice;
 	
 	private List<ProductCategory> allProductCategories;
 
+	@NotNull
 	private ProductCategory selectedProdCategory;
 	
 	private List<Product> allProducts;
 
+	@NotNull
 	private Product selectedProduct;
 	
+	@NotNull
 	private SKU selectedSKU;
 	
 	private List<SKU> allSKU;
