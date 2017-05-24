@@ -122,8 +122,8 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/stock/product/matches/{q}")
 	public @ResponseBody List<Product> getAllProducts(@PathVariable("q") String productName) {
 		List<Product> allProducts = this.getProductService().getAllProducts();
-		allProducts = allProducts.stream().filter(prod -> (prod.getProductName().indexOf(productName) >= 0))
-				.collect(Collectors.toList());
+		allProducts = allProducts.stream().filter(prod -> (prod.getProductName().toUpperCase()
+				.indexOf(productName.toUpperCase())) >= 0).collect(Collectors.toList());
 		return allProducts;
 	}
 

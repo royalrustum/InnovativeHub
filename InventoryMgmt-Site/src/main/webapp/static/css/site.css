@@ -90,12 +90,12 @@ body {
 /*---------------------------- Header -----------------------------------------*/
 .top-nav {
 	/*background-color: #fafafa;*/
-	background-color:#337ab7;
+	background-color: #337ab7;
 }
 
 .pageTitle {
 	color: white !important;
-	 margin-left: 6%;
+	margin-left: 6%;
 	/*  margin-top: 6%;  */
 	text-align: center;
 	padding-top: 1%;
@@ -117,7 +117,7 @@ body {
 
 .navbar-brand {
 	/*  background-color: #fafafa; */
-	background-color:#337ab7;
+	background-color: #337ab7;
 	color: white !important;
 	display: block;
 	text-align: center;
@@ -169,8 +169,7 @@ body {
 	padding-left: 0px;
 	border-left: 2px solid #e1e4e8;
 	/* border-right: 2px solid #e1e4e8; */
-	 border-bottom: 1px solid #e1e4e8; 
-	
+	border-bottom: 1px solid #e1e4e8;
 	display: inline-block;
 	width: 100%;
 	/* background-color: rgb(55,57,66); */
@@ -241,7 +240,7 @@ body {
 }
 
 .row-label {
-	height: 25px;	
+	height: 25px;
 }
 
 .form-group-img {
@@ -324,9 +323,96 @@ body {
 .twitter-typeahead {
 	line-height: 30px;
 	height: 30px;
-	width: 80%;
+	width: 100%;
 }
 
+.saleProductSearchSaleInfo {
+	background-color: #F2FFED;
+	border: 1px solid #85EF60;
+	border-right-width: 1px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	padding: 1px !important;
+	color: #85EF60;
+	font-size: 16px;
+}
+
+#scrollable-dropdown-menu .tt-dropdown-menu {
+	max-height: 150px;
+	overflow-y: auto;
+	background-color: red;
+	width: 100%;
+}
+
+.list-group-item {
+	line-height: 26px;
+	border-width: 1px;
+	padding: 1px 15px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-color: #E9ECF2;
+	line-height: 32px !important;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 300;
+	color: #707780;
+	border-color: #e9ecf2;
+	width: 100%;
+	color: #0a6ebd;
+	margin-right: 10px;
+	font-size: 16px;
+}
+
+.tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
+	.tt-hint {
+	width: 396px;
+	height: 30px;
+	padding: 8px 12px;
+	font-size: 24px;
+	line-height: 30px;
+	border: 2px solid #ccc;
+	border-radius: 8px;
+	outline: none;
+}
+
+.tt-query {
+	/* UPDATE: newer versions use tt-input instead of tt-query */
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+	color: #999;
+}
+
+.tt-menu {
+	/* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+	width: 100%;
+	/* margin-top: 12px; */
+	padding: 8px 0;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	/* box-shadow: 0 5px 10px rgba(0, 0, 0, .2); */
+}
+
+.tt-suggestion {
+	/* padding: 3px 20px; */
+	font-size: 18px;
+	line-height: 24px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+	/* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+	color: #fff;
+	background-color: #0097cf;
+}
+
+.tt-dataset .tt-dataset-matchedProductsList {
+	margin-top: 0px;
+	paddint-top: 0px;
+}
 /*------------------ Alert --------------------------------------------*/
 .alert {
 	margin-bottom: 0px !important;
