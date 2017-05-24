@@ -36,22 +36,21 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	@Autowired
 	private StringToProductCatConvert stringToProdCatConvert;
-	
+
 	@Autowired
 	private StringToProductConvert stringToProductConvert;
-	
+
 	@Autowired
 	private StringToSKUConvert stringToSKUConvert;
-	
+
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
-	
+
 	public StringToProductCatConvert getStringToProdCatConvert() {
 		return stringToProdCatConvert;
 	}
 
-	
 	public void setStringToProdCatConvert(StringToProductCatConvert stringToProdCatConvert) {
 		this.stringToProdCatConvert = stringToProdCatConvert;
 	}
@@ -63,7 +62,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	public void setStringToProductConvert(StringToProductConvert stringToProductConvert) {
 		this.stringToProductConvert = stringToProductConvert;
 	}
-	
+
 	public StringToSKUConvert getStringToSKUConvert() {
 		return stringToSKUConvert;
 	}
@@ -71,14 +70,15 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	public void setStringToSKUConvert(StringToSKUConvert stringToSKUConvert) {
 		this.stringToSKUConvert = stringToSKUConvert;
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
 		registry.addResourceHandler("static/css/**").addResourceLocations("/static/css/",
 				"/static/uiframeworks/bootstrap-3.3.7/css/");
 		registry.addResourceHandler("static/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/jquery/",
-				"/static/uiframeworks/bootstrap-3.3.7/js/");
+				"/static/uiframeworks/bootstrap-3.3.7/js/", "/static/uiframeworks/angular-1.6/js/",
+				"/static/uiframeworks/typeahead-0.11.1/js/");
 		registry.addResourceHandler("static/fonts/**").addResourceLocations("/static/js/",
 				"/static/uiframeworks/bootstrap-3.3.7/fonts/");
 		registry.addResourceHandler("static/images/**").addResourceLocations("/static/images/");
@@ -130,13 +130,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	}
 
 	@Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(this.getStringToProdCatConvert());
-        registry.addConverter(this.getStringToProductConvert());
-        registry.addConverter(this.getStringToSKUConvert());
-    }
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(this.getStringToProdCatConvert());
+		registry.addConverter(this.getStringToProductConvert());
+		registry.addConverter(this.getStringToSKUConvert());
+	}
 
-	
 	// @Bean
 	// public ThymeleafViewResolver thymeleafViewResolver() {
 	// ThymeleafViewResolver thymeleafViewResolver = new

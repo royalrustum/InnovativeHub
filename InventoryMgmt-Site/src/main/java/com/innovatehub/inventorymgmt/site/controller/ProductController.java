@@ -3,6 +3,7 @@ package com.innovatehub.inventorymgmt.site.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -112,9 +113,18 @@ public class ProductController extends BaseController {
 
 		return modelView;
 	}
-	
+
 	@RequestMapping(value = "/stock/product/prodCat/{id}")
 	public @ResponseBody List<Product> getProductsInProductCat(@PathVariable("id") Long productCat) {
 		return this.getProductService().getAllProductsInCategory(productCat);
 	}
+
+	@RequestMapping(value = "/stock/product/matches/{q}")
+	public @ResponseBody List<Product> getAllProducts(@PathVariable("q") String productName) {
+		List<Product> allProducts = this.getProductService().getAllProducts();
+		allProducts = allProducts.stream().filter(prod -> (prod.getProductName().indexOf(productName) >= 0))
+				.collect(Collectors.toList());
+		return allProducts;
+	}
+
 }

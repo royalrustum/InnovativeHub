@@ -15,13 +15,15 @@
 	Hub</title>
 </head>
 <!--/* Standard layout can be mixed with Layout Dialect */-->
-<body>
+<body class="full-height">
 
 	<script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/angular.js}"></script>
-
+	<script type="text/javascript" th:src="@{/static/js/bloodhound.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/typeahead.jquery.js}"></script>
+	
 	<div class="container-fluid zero-pad">
 		<div th:include="layout/fragments/header :: header"></div>
 
@@ -34,17 +36,10 @@
 		<div th:include="layout/fragments/alert :: formErrors"></div>
 
 		<div class="col-md-offset-2 pageContentContainer row">
-			<!-- <div class="panel panel-primary"> -->
-			<div class="panel">
-				<!-- <div class="panel-heading">
-					<h3 class="panel-title">
-						<span th:text="${pageTitle}"></span>
-					</h3>
-				</div> -->
-				<div class="panel-body">
-					<div layout:fragment="content"></div>
-				</div>
-			</div>
+
+
+			<div layout:fragment="content"></div>
+
 		</div>
 
 		<div class="col-md-offset-2 col-md-10"

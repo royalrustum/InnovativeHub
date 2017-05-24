@@ -262,6 +262,71 @@ body {
 	color: white;
 }
 
+/*------------------ Sale --------------------------------------------*/
+.saleReceiptPanel {
+	padding-bottom: 15%;
+}
+
+.saleItemsPanel {
+	overflow-y: scroll;
+	height: 300px
+}
+
+.saleTotalPanel {
+	width: 100%;
+}
+
+.zeroMargin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.salePanelItemHt {
+	height: 25px;
+}
+
+.customerPanel {
+	padding-bottom: 3%;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.productPanel {
+	margin-right: 5px;
+	padding-bottom: 117%;
+}
+
+.searchPanel {
+	margin-top: 5px;
+	/* padding-bottom: 1%; */
+}
+
+.productSearchTxtbox {
+	font-size: 12px;
+	border-radius: 3px !important;
+}
+
+.fontRed {
+	color: red;
+}
+
+.grayBgColor {
+	background-color: #ededed;
+}
+
+.saleCheckoutActionStrip {
+	margin-top: 6%;
+	margin-right: 1%;
+}
+
+.twitter-typeahead {
+	line-height: 30px;
+	height: 30px;
+	width: 80%;
+}
+
 /*------------------ Alert --------------------------------------------*/
 .alert {
 	margin-bottom: 0px !important;
