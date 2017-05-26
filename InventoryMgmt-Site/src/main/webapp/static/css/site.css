@@ -415,7 +415,7 @@ body {
 }
 
 .saleSearchResultImg {
-	width: 50px;
+	width: 100px;
 	height: 50px;
 }
 
@@ -433,6 +433,11 @@ body {
 	padding-left: 15px;
 }
 
+.img-thumbnail {
+    border:0;
+    box-shadow:0;
+    border-radius:0;
+}
 /*------------------ Alert --------------------------------------------*/
 .alert {
 	margin-bottom: 0px !important;
