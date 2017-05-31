@@ -47,137 +47,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!-- <tr>
-										<th scope="row">1</th>
-										<td>{{greeting}}</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
-									</tr> -->
-
 									<tr ng-repeat="row in checkoutProductsList">
-										<td><img class="img-thumbnail img-responsive" alt="image"
-											src="" style="width: 50px; height: 50px;" /></td>
-										<td>{{row.productImage}}</td>
-										<td>{{row.sellingPrice}}</td>
-										<td>{{row.quantity}}</td>
-										<td><a type="button" class="btn btn-sm btn-info"> <i
-												class="glyphicon glyphicon-eye-open"> </i>
-										</a></td>
+										<td>{{row.sNo}}</td>
+										<td>{{row.selectedProduct.productName}} - {{row.skuName}}</td>
+										<td>{{row.price.sellingPrice}}</td>
+										<td>1</td>
+										<td>0%</td>
+										<td>{{row.price.sellingPrice}}</td>
+										<td><p class="text-center">
+												<span class="fa fa-close fontRed text-center"></span>
+											</p></td>
 									</tr>
 								</tbody>
 							</table>
@@ -188,7 +67,7 @@
 							<label class="control-label col-md-offset-7 col-md-2" for="email">Sub
 								Total:</label>
 							<div class="col-md-2">
-								<label class="control-label">{{total}}</label>
+								<label class="control-label">{{checkoutProductsListSubTotal}}</label>
 							</div>
 						</div>
 
@@ -276,9 +155,15 @@
 																	+ sku.selectedProduct.base64FileBytesString + '" />'
 																	+ '</div>'
 																	+ '<span class="saleSearchResultProductName">'
-																	+ '<b>' + sku.selectedProduct.productName + '</b>'
-																	+ '  -  ' + sku.skuName + '  -  '
-																	+ '<b>' + sku.price.sellingPrice + '</b>'
+																	+ '<b>'
+																	+ sku.selectedProduct.productName
+																	+ '</b>'
+																	+ '  -  '
+																	+ sku.skuName
+																	+ '  -  '
+																	+ '<b>'
+																	+ sku.price.sellingPrice
+																	+ '</b>'
 																	+ '</span>'
 																	+ '</span>'
 																	+ '</a>';
@@ -288,7 +173,7 @@
 												})
 										.on(
 												'typeahead:selected',
-												function(selectedItem, datum) {
+												function(event, selectedItem) {
 													angular
 															.element(
 																	$('#checkoutContainer'))
