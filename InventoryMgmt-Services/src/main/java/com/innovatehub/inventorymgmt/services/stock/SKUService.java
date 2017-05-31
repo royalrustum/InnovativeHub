@@ -8,4 +8,5 @@ public interface SKUService {
 	public Long saveSKU(SKU sku);
 	public SKU getSKU(Long skuId);
 	public List<SKU> getAllSKUForProduct(Long productId);
+	public List<SKU> getAllSKUForAllProducts();
 }

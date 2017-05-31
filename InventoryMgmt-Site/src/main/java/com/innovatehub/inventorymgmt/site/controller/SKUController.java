@@ -3,6 +3,7 @@ package com.innovatehub.inventorymgmt.site.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -117,5 +118,16 @@ public class SKUController extends BaseController {
 	@RequestMapping(value = "/stock/sku/product/{id}")
 	public @ResponseBody List<SKU> getAllSKUInProduct(@PathVariable("id") Long productId) {
 		return this.getSkuService().getAllSKUForProduct(productId);
+	}
+	
+	@RequestMapping(value = "/stock/sku/matches/{q}")
+	public @ResponseBody List<SKU> getAllSKUInAllProducts(@PathVariable("q") String skuName) {
+		List<SKU> allSku = this.getSkuService().getAllSKUForAllProducts();
+		
+		allSku = allSku.stream().filter(sku -> 
+			sku.getSelectedProduct().getProductName().toUpperCase().indexOf(skuName.toUpperCase()) >= 0)
+		.collect(Collectors.toList());
+		
+		return allSku;
 	}
 }

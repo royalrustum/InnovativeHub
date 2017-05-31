@@ -14,6 +14,7 @@ import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
+import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
 import com.innovatehub.inventorymgmt.services.ServiceBase;
 
 @Service
@@ -92,13 +93,43 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 				.findByProductProductId(productId);
 
 		List<SKU> skuModels = new ArrayList<SKU>();
-		for (com.innovatehub.inventorymgmt.common.entity.stock.SKU sku : skuEntities) {
-			SKU skuModel = new SKU();
-			BeanUtils.copyProperties(sku, skuModel);
-
-			skuModels.add(skuModel);
+		for (com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity : skuEntities) {
+			skuModels.add(this.convertSKUEntityToModel(skuEntity));
 		}
 
 		return skuModels;
+	}
+
+	@Override
+	public List<SKU> getAllSKUForAllProducts() {
+		List<com.innovatehub.inventorymgmt.common.entity.stock.SKU> skuEntities = this.getSkuRepo().findAll();
+		
+		List<SKU> skuModels = new ArrayList<SKU>();
+		for (com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity : skuEntities) {
+			skuModels.add(this.convertSKUEntityToModel(skuEntity));
+		}
+
+		return skuModels;
+	}
+	
+	private SKU convertSKUEntityToModel(com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity) {
+		SKU skuModel = new SKU();
+		BeanUtils.copyProperties(skuEntity, skuModel);
+
+		Product product = new Product();
+		BeanUtils.copyProperties(skuEntity.getProduct(), product);
+
+		if (skuEntity.getProduct().getProductImage() != null) {
+			product.setProductImage(
+					CommonUtilHelper.getByteArrayFromBlob(skuEntity.getProduct().getProductImage()));
+		}
+		
+		Price price = new Price();
+		BeanUtils.copyProperties(skuEntity.getPrice(), price);
+		skuModel.setPrice(price);
+
+		skuModel.setSelectedProduct(product);
+
+		return skuModel;
 	}
 }
