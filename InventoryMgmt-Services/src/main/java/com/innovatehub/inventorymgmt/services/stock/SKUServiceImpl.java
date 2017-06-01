@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.innovatehub.inventorymgmt.common.model.stock.Price;
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
+import com.innovatehub.inventorymgmt.common.model.stock.ProductCategory;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
@@ -123,6 +124,11 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 			product.setProductImage(
 					CommonUtilHelper.getByteArrayFromBlob(skuEntity.getProduct().getProductImage()));
 		}
+		
+		ProductCategory productCat = new ProductCategory();
+		BeanUtils.copyProperties(skuEntity.getProduct().getProductCategory(), productCat);
+		
+		product.setSelectedProdCategory(productCat);
 		
 		Price price = new Price();
 		BeanUtils.copyProperties(skuEntity.getPrice(), price);

@@ -1,5 +1,8 @@
 package com.innovatehub.inventorymgmt.services.customer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,15 +79,45 @@ public class CustomerServiceImpl extends ServiceBase implements CustomerService 
 	public Customer getCustomer(Long customerId) {
 		// Get Customer.
 		Customer customerModel = new Customer();
-		
+
 		BeanUtils.copyProperties(this.getCustomerRepo().findOne(customerId), customerModel);
-		
+
 		// Get Address.
 		CustomerAddress customerAddress = this.getCustomerAddressRepo().findByCustomerCustomerId(customerId);
-		
+
 		Address addressModel = new Address();
 		BeanUtils.copyProperties(customerAddress.getAddress(), addressModel);
+
+		customerModel.setAddress(addressModel);
+
+		return customerModel;
+	}
+
+	@Override
+	public List<Customer> getAllCustomers() {
+		List<Customer> allCustomers = new ArrayList<Customer>();
+
+		for(com.innovatehub.inventorymgmt.common.entity.customer.Customer customerEntity : 
+			this.getCustomerRepo().findAll())
+		{
+			allCustomers.add(this.convertCustomerEntityToModel(customerEntity));
+		}
 		
+		return allCustomers;
+	}
+
+	private Customer convertCustomerEntityToModel(
+			com.innovatehub.inventorymgmt.common.entity.customer.Customer customerEntity) {
+		Customer customerModel = new Customer();
+
+		BeanUtils.copyProperties(customerEntity, customerModel);
+
+		// Get Address.
+		CustomerAddress customerAddress = this.getCustomerAddressRepo().findByCustomerCustomerId(customerEntity.getCustomerId());
+
+		Address addressModel = new Address();
+		BeanUtils.copyProperties(customerAddress.getAddress(), addressModel);
+
 		customerModel.setAddress(addressModel);
 		
 		return customerModel;

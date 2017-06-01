@@ -1,7 +1,9 @@
 package com.innovatehub.inventorymgmt.site.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -63,8 +66,9 @@ public class CustomerController extends BaseController {
 	}
 
 	@RequestMapping(value = "/customer/profile/create", method = RequestMethod.POST)
-	public String saveCustomer(@Valid @ModelAttribute(MODEL_ATTRIB_CUSTOMER) Customer customer, BindingResult bindResult,
-			Model model, Locale locale, final RedirectAttributes redirectAttributes) throws IOException {
+	public String saveCustomer(@Valid @ModelAttribute(MODEL_ATTRIB_CUSTOMER) Customer customer,
+			BindingResult bindResult, Model model, Locale locale, final RedirectAttributes redirectAttributes)
+			throws IOException {
 		if (bindResult.hasErrors()) {
 
 			model.addAttribute(MODEL_ATTRIB_CUSTOMER, customer);
@@ -97,5 +101,17 @@ public class CustomerController extends BaseController {
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_CUSTOMER_PROFILE_VIEW, null, locale));
 
 		return modelView;
+	}
+
+	@RequestMapping(value = "/customer/profile/matches/{q}")
+	public @ResponseBody List<Customer> getAllSKUInAllProducts(@PathVariable("q") String customerName) {
+		List<Customer> allCustomers = this.getCustomerService().getAllCustomers();
+		
+		allCustomers = allCustomers.stream().filter(customer -> 
+			((customer.getFirstName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0) || 
+					(customer.getLastName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0)))
+		.collect(Collectors.toList());
+		
+		return allCustomers;
 	}
 }

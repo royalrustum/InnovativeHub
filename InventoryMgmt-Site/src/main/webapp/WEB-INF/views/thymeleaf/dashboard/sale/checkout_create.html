@@ -18,7 +18,7 @@
 								class="input-group-addon glyphicon glyphicon-pencil productSearchTxtbox"
 								id="searchEditBtn" aria-hidden="true"></span> <input type="text"
 								class="form-control productSearchTxtbox typeahead"
-								placeholder="Enter Product name..." id="saleSearchBox"
+								placeholder="Search Product name..." id="saleSearchBox"
 								autocomplete="off" aria-describedby="searchEditBtn">
 
 							<div class="input-group-addon saleProductSearchSaleInfo">
@@ -50,13 +50,14 @@
 									<tr ng-repeat="row in checkoutProductsList">
 										<td>{{row.sNo}}</td>
 										<td>{{row.selectedProduct.productName}} - {{row.skuName}}</td>
-										<td>{{row.price.sellingPrice}}</td>
-										<td>1</td>
+										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+										<td>{{row.selectedProduct.productName}}</td>
 										<td>0%</td>
-										<td>{{row.price.sellingPrice}}</td>
-										<td><p class="text-center">
-												<span class="fa fa-close fontRed text-center"></span>
-											</p></td>
+										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+										<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
+													class="text-center">
+													<span class="fa fa-close fontRed text-center"></span>
+												</p></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -64,24 +65,24 @@
 					</div>
 					<form class="form-horizontal">
 						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2" for="email">Sub
+							<label class="control-label col-md-offset-7 col-md-2">Sub
 								Total:</label>
 							<div class="col-md-2">
-								<label class="control-label">{{checkoutProductsListSubTotal}}</label>
+								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
 							</div>
 						</div>
 
 						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2" for="email">Tax:</label>
+							<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
 							<div class="col-md-2">
-								<label class="control-label">12</label>
+								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
 							</div>
 						</div>
 
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2" for="email">Total:</label>
+						<div class="form-group zeroMargin salePanelItemHt saleTotal">
+							<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
 							<div class="col-md-2">
-								<label class="control-label">16</label>
+								<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
 							</div>
 						</div>
 
@@ -96,7 +97,23 @@
 				<div class="row">
 					<div class="panel customerPanel">
 						<div class="panel-body ">
-							<p>Hello...</p>
+							<div id="customerSearchContainer"
+								class="input-group saleScreenFont" ng-show="!isCustomerSelected">
+								<span
+									class="input-group-addon glyphicon glyphicon-pencil saleCustomerSearchTxtbox"
+									id="searchCustomerBtn" aria-hidden="true"></span> <input
+									type="text"
+									class="form-control typeahead saleCustomerSearchTxtbox"
+									placeholder="Search Customer name..." id="searchCustomerTxtbox"
+									autocomplete="off" aria-describedby="searchCustomerBtn">
+							</div>
+							
+							<div id="customerDisplayContainer" ng-show="isCustomerSelected">
+								<span class="fa fa-2x fa-user-o saleTotal"></span>
+								<span class="saleScreenSelectedCustomer">{{selectedCustomer.firstName}}, {{selectedCustomer.lastName}}</span>
+								<a ng-href="#" ng-click="removeCustomer()"><span class="fa fa-times-circle fontRed pull-right"></span></a>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -116,7 +133,7 @@
 					.ready(
 							function($) {
 								// Set the Options for "Bloodhound" suggestion engine
-								var engine = new Bloodhound(
+								var productEngine = new Bloodhound(
 										{
 											remote : {
 												url : '/stock/sku/matches/%QUERY%',
@@ -132,12 +149,13 @@
 								$('#saleSearchBox')
 										.typeahead(
 												{
-													hint : true,
-													highlight : true,
+													/* hint : true, */
+													/* highlight : true, */
 													minLength : 1
 												},
 												{
-													source : engine.ttAdapter(),
+													source : productEngine
+															.ttAdapter(),
 
 													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
 													name : 'matchedProductsList',
@@ -160,7 +178,7 @@
 																	+ '</b>'
 																	+ '  -  '
 																	+ sku.skuName
-																	+ '  -  '
+																	+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8377; '
 																	+ '<b>'
 																	+ sku.price.sellingPrice
 																	+ '</b>'
@@ -178,11 +196,72 @@
 															.element(
 																	$('#checkoutContainer'))
 															.scope()
-															.addItem(
+															.addProductItem(
 																	selectedItem);
 												});
 								$('#saleSearchBox').addClass(
 										'productSearchTxtbox');
+
+								var customerEngine = new Bloodhound(
+										{
+											remote : {
+												url : '/customer/profile/matches/%QUERY%',
+												wildcard : '%QUERY%'
+											},
+											datumTokenizer : Bloodhound.tokenizers.whitespace,
+											queryTokenizer : Bloodhound.tokenizers.whitespace,
+											identify : function(cust) {
+												return cust.firstName;
+											}
+										});
+
+								$('#searchCustomerTxtbox')
+										.typeahead(
+												{
+													/* hint : true, */
+													/* highlight : true, */
+													minLength : 1
+												},
+												{
+													source : customerEngine
+															.ttAdapter(),
+
+													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+													name : 'matchedCustomerList',
+													displayKey : 'cust.firstName',
+													// the key from the array we want to display (name,id,email,etc...)
+													templates : {
+														empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
+														header : [ '<div class="list-group search-results-dropdown">' ],
+														suggestion : function(
+																cust) {
+															return '<a href="#" class="list-group-item">'
+																	+ '<span class="customerSearchResult">'
+																	+ '<span class="customerSearchResultName">'
+																	+ '<b>'
+																	+ cust.firstName
+																	+ ', '
+																	+ cust.lastName
+																	+ +'</b>'
+																	+ '</span>'
+																	+ '</span>'
+																	+ '</a>';
+
+														}
+													}
+												})
+										.on(
+												'typeahead:selected',
+												function(event, selectedItem) {
+													angular
+															.element(
+																	$('#checkoutContainer'))
+															.scope()
+															.addCustomer(
+																	selectedItem);
+												});
+								$('#searchCustomerTxtbox').addClass(
+										'saleCustomerSearchTxtbox');
 							});
 		</script>
 	</div>
