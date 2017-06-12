@@ -20,7 +20,7 @@ public class SiteConstants {
 	public static final String PAGE_URI_CUSTOMER_PROFILE_CREATE= "/customer/profile/create";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_VIEW= "/customer/profile/view";
 	public static final String PAGE_URI_POS_CHECKOUT_CREATE= "/pos/checkout/create";
-	
+	public static final String PAGE_URI_POS_CHECKOUT_COMPLETE= "/pos/checkout/complete";
 	
 	// -----------------View Names----------------------------
 	public static final String VIEW_NAME_HOME = "dashboard/home";

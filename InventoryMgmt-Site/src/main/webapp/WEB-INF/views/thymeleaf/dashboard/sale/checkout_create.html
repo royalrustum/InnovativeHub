@@ -5,265 +5,278 @@
 	layout:decorator="layout/emp_main">
 <body>
 	<div layout:fragment="content">
+		<form th:object="${checkout}" class="form-horizontal"
+			th:action="@{/pos/checkout/create}" method="post">
+			<script type="text/javascript"
+				th:src="@{/static/js/CheckoutController.js}"></script>
+			<div id="checkoutContainer" ng-controller="CheckoutController">
+				<div class="col-md-8">
 
-		<script type="text/javascript"
-			th:src="@{/static/js/CheckoutController.js}"></script>
-		<div id="checkoutContainer" ng-controller="CheckoutController">
-			<div class="col-md-8">
+					<div class="panel searchPanel">
+						<div class="panel-body ">
+							<div class="input-group">
+								<span
+									class="input-group-addon glyphicon glyphicon-pencil productSearchTxtbox"
+									id="searchEditBtn" aria-hidden="true"></span> <input
+									type="text" class="form-control productSearchTxtbox typeahead"
+									placeholder="Search Product name..." id="saleSearchBox"
+									autocomplete="off" aria-describedby="searchEditBtn">
 
-				<div class="panel searchPanel">
-					<div class="panel-body ">
-						<div class="input-group">
-							<span
-								class="input-group-addon glyphicon glyphicon-pencil productSearchTxtbox"
-								id="searchEditBtn" aria-hidden="true"></span> <input type="text"
-								class="form-control productSearchTxtbox typeahead"
-								placeholder="Search Product name..." id="saleSearchBox"
-								autocomplete="off" aria-describedby="searchEditBtn">
-
-							<div class="input-group-addon saleProductSearchSaleInfo">
-								<div class="" tabindex="-1" title="Sale" id="select-mode-2"
-									aria-expanded="false">
-									<i class="glyphicon glyphicon-shopping-cart"></i>Sale
+								<div class="input-group-addon saleProductSearchSaleInfo">
+									<div class="" tabindex="-1" title="Sale" id="select-mode-2"
+										aria-expanded="false">
+										<i class="glyphicon glyphicon-shopping-cart"></i>Sale
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="panel saleReceiptPanel">
-					<div class="saleItemsPanel">
-						<div class="panel-body ">
-							<table class="table" st-table="checkoutProductsList">
-								<thead class="thead-default grayBgColor">
-									<tr>
-										<th>#</th>
-										<th>Item Name</th>
-										<th>Price</th>
-										<th>Quantity</th>
-										<th>Disc %</th>
-										<th>Total</th>
-										<th>Delete</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="row in checkoutProductsList">
-										<td>{{row.sNo}}</td>
-										<td>{{row.selectedProduct.productName}} - {{row.skuName}}</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td>{{row.selectedProduct.productName}}</td>
-										<td>0%</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
-													class="text-center">
-													<span class="fa fa-close fontRed text-center"></span>
-												</p></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<form class="form-horizontal">
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Sub
-								Total:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
-							</div>
-						</div>
-
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
-							</div>
-						</div>
-
-						<div class="form-group zeroMargin salePanelItemHt saleTotal">
-							<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
-							<div class="col-md-2">
-								<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
-							</div>
-						</div>
-
-						<div class="inline pull-right saleCheckoutActionStrip">
-							<div class="btn btn-lg btn-success">Checkout</div>
-						</div>
-					</form>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="row">
-					<div class="panel customerPanel">
-						<div class="panel-body ">
-							<div id="customerSearchContainer"
-								class="input-group saleScreenFont" ng-show="!isCustomerSelected">
-								<span
-									class="input-group-addon glyphicon glyphicon-pencil saleCustomerSearchTxtbox"
-									id="searchCustomerBtn" aria-hidden="true"></span> <input
-									type="text"
-									class="form-control typeahead saleCustomerSearchTxtbox"
-									placeholder="Search Customer name..." id="searchCustomerTxtbox"
-									autocomplete="off" aria-describedby="searchCustomerBtn">
+					<div class="panel saleReceiptPanel">
+						<div class="saleItemsPanel">
+							<div class="panel-body ">
+								<table class="table" st-table="checkoutProductsList">
+									<thead class="thead-default grayBgColor">
+										<tr>
+											<th>#</th>
+											<th>Item Name</th>
+											<th>Price</th>
+											<th>Quantity</th>
+											<th>Disc %</th>
+											<th>Total</th>
+											<th>Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="row in checkoutProductsList">
+											<td>{{row.sNo}}</td>
+											<td>{{row.selectedProduct.productName}} -
+												{{row.skuName}}</td>
+											<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+											<td>{{row.selectedProduct.productName}}</td>
+											<td>0%</td>
+											<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+											<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
+														class="text-center">
+														<span class="fa fa-close fontRed text-center"></span>
+													</p></a></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 							
-							<div id="customerDisplayContainer" ng-show="isCustomerSelected">
-								<span class="fa fa-2x fa-user-o saleTotal"></span>
-								<span class="saleScreenSelectedCustomer">{{selectedCustomer.firstName}}, {{selectedCustomer.lastName}}</span>
-								<a ng-href="#" ng-click="removeCustomer()"><span class="fa fa-times-circle fontRed pull-right"></span></a>
+							<input type="hidden" name="saleDetails" value="{{checkoutSaleDetailsList}}">
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group zeroMargin salePanelItemHt">
+								<label class="control-label col-md-offset-7 col-md-2">Sub
+									Total:</label>
+								<div class="col-md-2">
+									<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
+								</div>
 							</div>
 
-						</div>
+							<div class="form-group zeroMargin salePanelItemHt">
+								<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
+								<div class="col-md-2">
+									<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
+								</div>
+							</div>
+
+							<div class="form-group zeroMargin salePanelItemHt saleTotal">
+								<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
+								<div class="col-md-2">
+									<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
+								</div>
+							</div>
+
+							<div class="inline pull-right saleCheckoutActionStrip">
+								<input type ="submit" class="btn btn-lg btn-success"
+									ng-disabled="!enableCheckout" onclick="onCheckout()">
+							</div>
+						</form>
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="panel productPanel">
-						<div class="panel-body ">
-							<p>Hello...</p>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="panel customerPanel">
+							<div class="panel-body ">
+								<div id="customerSearchContainer"
+									class="input-group saleScreenFont"
+									ng-show="!isCustomerSelected">
+									<span
+										class="input-group-addon glyphicon glyphicon-pencil saleCustomerSearchTxtbox"
+										id="searchCustomerBtn" aria-hidden="true"></span> <input
+										type="text"
+										class="form-control typeahead saleCustomerSearchTxtbox"
+										placeholder="Search Customer name..."
+										id="searchCustomerTxtbox" autocomplete="off"
+										aria-describedby="searchCustomerBtn">
+								</div>
+
+								<div id="customerDisplayContainer" ng-show="isCustomerSelected">
+									<span class="fa fa-2x fa-user-o saleTotal"></span> <span
+										class="saleScreenSelectedCustomer">{{selectedCustomer.firstName}},
+										{{selectedCustomer.lastName}}</span> <a ng-href="#"
+										ng-click="removeCustomer()"><span
+										class="fa fa-times-circle fontRed pull-right"></span></a>
+									<input type="hidden" name="customer" value="{{selectedCustomer.customerId}}">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="panel productPanel">
+							<div class="panel-body ">
+								<p>Hello...</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<script>
-			jQuery(document)
-					.ready(
-							function($) {
-								// Set the Options for "Bloodhound" suggestion engine
-								var productEngine = new Bloodhound(
-										{
-											remote : {
-												url : '/stock/sku/matches/%QUERY%',
-												wildcard : '%QUERY%'
-											},
-											datumTokenizer : Bloodhound.tokenizers.whitespace,
-											queryTokenizer : Bloodhound.tokenizers.whitespace,
-											identify : function(sku) {
-												return sku.selectedProduct.productName;
-											}
-										});
-
-								$('#saleSearchBox')
-										.typeahead(
-												{
-													/* hint : true, */
-													/* highlight : true, */
-													minLength : 1
+			<script>
+				jQuery(document)
+						.ready(
+								function($) {
+									// Set the Options for "Bloodhound" suggestion engine
+									var productEngine = new Bloodhound(
+											{
+												remote : {
+													url : '/stock/sku/matches/%QUERY%',
+													wildcard : '%QUERY%'
 												},
-												{
-													source : productEngine
-															.ttAdapter(),
+												datumTokenizer : Bloodhound.tokenizers.whitespace,
+												queryTokenizer : Bloodhound.tokenizers.whitespace,
+												identify : function(sku) {
+													return sku.selectedProduct.productName;
+												}
+											});
 
-													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-													name : 'matchedProductsList',
-													displayKey : 'sku.selectedProduct.productName',
-													// the key from the array we want to display (name,id,email,etc...)
-													templates : {
-														empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
-														header : [ '<div class="list-group search-results-dropdown">' ],
-														suggestion : function(
-																sku) {
-															return '<a href="#" class="list-group-item">'
-																	+ '<span class="saleSearchResult">'
-																	+ '<div class="saleSearchResultImg">'
-																	+ '<img class="img-fluid img-thumbnail" src="data:image/jpeg;base64,'
+									$('#saleSearchBox')
+											.typeahead(
+													{
+														/* hint : true, */
+														/* highlight : true, */
+														minLength : 1
+													},
+													{
+														source : productEngine
+																.ttAdapter(),
+
+														// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+														name : 'matchedProductsList',
+														displayKey : 'sku.selectedProduct.productName',
+														// the key from the array we want to display (name,id,email,etc...)
+														templates : {
+															empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
+															header : [ '<div class="list-group search-results-dropdown">' ],
+															suggestion : function(
+																	sku) {
+																return '<a href="#" class="list-group-item">'
+																		+ '<span class="saleSearchResult">'
+																		+ '<div class="saleSearchResultImg">'
+																		+ '<img class="img-fluid img-thumbnail" src="data:image/jpeg;base64,'
 																	+ sku.selectedProduct.base64FileBytesString + '" />'
-																	+ '</div>'
-																	+ '<span class="saleSearchResultProductName">'
-																	+ '<b>'
-																	+ sku.selectedProduct.productName
-																	+ '</b>'
-																	+ '  -  '
-																	+ sku.skuName
-																	+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8377; '
-																	+ '<b>'
-																	+ sku.price.sellingPrice
-																	+ '</b>'
-																	+ '</span>'
-																	+ '</span>'
-																	+ '</a>';
+																		+ '</div>'
+																		+ '<span class="saleSearchResultProductName">'
+																		+ '<b>'
+																		+ sku.selectedProduct.productName
+																		+ '</b>'
+																		+ '  -  '
+																		+ sku.skuName
+																		+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8377; '
+																		+ '<b>'
+																		+ sku.price.sellingPrice
+																		+ '</b>'
+																		+ '</span>'
+																		+ '</span>'
+																		+ '</a>';
 
+															}
 														}
-													}
-												})
-										.on(
-												'typeahead:selected',
-												function(event, selectedItem) {
-													angular
-															.element(
-																	$('#checkoutContainer'))
-															.scope()
-															.addProductItem(
-																	selectedItem);
-												});
-								$('#saleSearchBox').addClass(
-										'productSearchTxtbox');
+													})
+											.on(
+													'typeahead:selected',
+													function(event,
+															selectedItem) {
+														angular
+																.element(
+																		$('#checkoutContainer'))
+																.scope()
+																.addProductItem(
+																		selectedItem);
+													});
+									$('#saleSearchBox').addClass(
+											'productSearchTxtbox');
 
-								var customerEngine = new Bloodhound(
-										{
-											remote : {
-												url : '/customer/profile/matches/%QUERY%',
-												wildcard : '%QUERY%'
-											},
-											datumTokenizer : Bloodhound.tokenizers.whitespace,
-											queryTokenizer : Bloodhound.tokenizers.whitespace,
-											identify : function(cust) {
-												return cust.firstName;
-											}
-										});
-
-								$('#searchCustomerTxtbox')
-										.typeahead(
-												{
-													/* hint : true, */
-													/* highlight : true, */
-													minLength : 1
+									var customerEngine = new Bloodhound(
+											{
+												remote : {
+													url : '/customer/profile/matches/%QUERY%',
+													wildcard : '%QUERY%'
 												},
-												{
-													source : customerEngine
-															.ttAdapter(),
+												datumTokenizer : Bloodhound.tokenizers.whitespace,
+												queryTokenizer : Bloodhound.tokenizers.whitespace,
+												identify : function(cust) {
+													return cust.firstName;
+												}
+											});
 
-													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-													name : 'matchedCustomerList',
-													displayKey : 'cust.firstName',
-													// the key from the array we want to display (name,id,email,etc...)
-													templates : {
-														empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
-														header : [ '<div class="list-group search-results-dropdown">' ],
-														suggestion : function(
-																cust) {
-															return '<a href="#" class="list-group-item">'
-																	+ '<span class="customerSearchResult">'
-																	+ '<span class="customerSearchResultName">'
-																	+ '<b>'
-																	+ cust.firstName
-																	+ ', '
-																	+ cust.lastName
-																	+ '</b>'
-																	+ '</span>'
-																	+ '</span>'
-																	+ '</a>';
+									$('#searchCustomerTxtbox')
+											.typeahead(
+													{
+														/* hint : true, */
+														/* highlight : true, */
+														minLength : 1
+													},
+													{
+														source : customerEngine
+																.ttAdapter(),
 
+														// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+														name : 'matchedCustomerList',
+														displayKey : 'cust.firstName',
+														// the key from the array we want to display (name,id,email,etc...)
+														templates : {
+															empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
+															header : [ '<div class="list-group search-results-dropdown">' ],
+															suggestion : function(
+																	cust) {
+																return '<a href="#" class="list-group-item">'
+																		+ '<span class="customerSearchResult">'
+																		+ '<span class="customerSearchResultName">'
+																		+ '<b>'
+																		+ cust.firstName
+																		+ ', '
+																		+ cust.lastName
+																		+ '</b>'
+																		+ '</span>'
+																		+ '</span>'
+																		+ '</a>';
+
+															}
 														}
-													}
-												})
-										.on(
-												'typeahead:selected',
-												function(event, selectedItem) {
-													angular
-															.element(
-																	$('#checkoutContainer'))
-															.scope()
-															.addCustomer(
-																	selectedItem);
-												});
-								$('#searchCustomerTxtbox').addClass(
-										'saleCustomerSearchTxtbox');
-							});
-		</script>
+													})
+											.on(
+													'typeahead:selected',
+													function(event,
+															selectedItem) {
+														angular
+																.element(
+																		$('#checkoutContainer'))
+																.scope()
+																.addCustomer(
+																		selectedItem);
+													});
+									$('#searchCustomerTxtbox').addClass(
+											'saleCustomerSearchTxtbox');
+								});
+				
+			</script>
+		</form>
 	</div>
 </body>
 </html>

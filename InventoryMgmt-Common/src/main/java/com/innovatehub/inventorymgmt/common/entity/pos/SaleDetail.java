@@ -65,7 +65,7 @@ public class SaleDetail extends EntityBase {
 		this.sku = sku;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRICE_ID")
 	public Price getPrice() {
 		return price;

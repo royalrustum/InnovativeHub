@@ -1,26 +1,13 @@
-package com.innovatehub.inventorymgmt.common.entity.pos;
+package com.innovatehub.inventorymgmt.common.model.pos;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
+import com.innovatehub.inventorymgmt.common.model.ModelBase;
+import com.innovatehub.inventorymgmt.common.model.customer.Customer;
 
-import com.innovatehub.inventorymgmt.common.entity.EntityBase;
-import com.innovatehub.inventorymgmt.common.entity.customer.Customer;
-
-@Entity
-@Table(name = "SALE_T")
-public class Sale extends EntityBase {
+public class Sale extends ModelBase {
 	private Long id;
 	
 	private BigDecimal subTotal;
@@ -35,9 +22,6 @@ public class Sale extends EntityBase {
 	
 	private Customer customer;
 	
-	@Id
-	@Column(name = "SALE_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -46,7 +30,6 @@ public class Sale extends EntityBase {
 		this.id = id;
 	}
 	
-	@Column(name = "SUB_TOTAL")
 	public BigDecimal getSubTotal() {
 		return subTotal;
 	}
@@ -55,7 +38,6 @@ public class Sale extends EntityBase {
 		this.subTotal = subTotal;
 	}
 
-	@Column(name = "DISCOUNT")
 	public BigDecimal getDiscount() {
 		return discount;
 	}
@@ -64,7 +46,6 @@ public class Sale extends EntityBase {
 		this.discount = discount;
 	}
 
-	@Column(name = "SALE_TAX")
 	public BigDecimal getSaleTax() {
 		return saleTax;
 	}
@@ -73,7 +54,6 @@ public class Sale extends EntityBase {
 		this.saleTax = saleTax;
 	}
 
-	@Column(name = "TOTAL")
 	public BigDecimal getTotal() {
 		return total;
 	}
@@ -82,7 +62,6 @@ public class Sale extends EntityBase {
 		this.total = total;
 	}
 
-	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER, mappedBy="sale")
 	public List<SaleDetail> getSaleDetails() {
 		return saleDetails;
 	}
@@ -91,8 +70,6 @@ public class Sale extends EntityBase {
 		this.saleDetails = saleDetails;
 	}
 
-	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER)
-	@JoinColumn(name = "CUSTOMER_ID")
 	public Customer getCustomer() {
 		return customer;
 	}

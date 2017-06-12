@@ -22,9 +22,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.innovatehub.inventorymgmt.site.util.convert.StringToCustomerConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToSKUConvert;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToSaleDetailsConvert;
 
 @Configuration
 @EnableWebMvc
@@ -42,6 +44,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	@Autowired
 	private StringToSKUConvert stringToSKUConvert;
+	
+	@Autowired
+	private StringToCustomerConvert stringToCustomerConvert;
+	
+	@Autowired
+	private StringToSaleDetailsConvert stringToSaleDetailsConvert;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -71,6 +79,22 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		this.stringToSKUConvert = stringToSKUConvert;
 	}
 
+	public StringToCustomerConvert getStringToCustomerConvert() {
+		return stringToCustomerConvert;
+	}
+
+	public void setStringToCustomerConvert(StringToCustomerConvert stringToCustomerConvert) {
+		this.stringToCustomerConvert = stringToCustomerConvert;
+	}
+	
+	public StringToSaleDetailsConvert getStringToSaleDetailsConvert() {
+		return stringToSaleDetailsConvert;
+	}
+
+	public void setStringToSaleDetailsConvert(StringToSaleDetailsConvert stringToSaleDetailsConvert) {
+		this.stringToSaleDetailsConvert = stringToSaleDetailsConvert;
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
@@ -136,6 +160,8 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		registry.addConverter(this.getStringToProdCatConvert());
 		registry.addConverter(this.getStringToProductConvert());
 		registry.addConverter(this.getStringToSKUConvert());
+		registry.addConverter(this.getStringToCustomerConvert());
+		registry.addConverter(this.getStringToSaleDetailsConvert());
 	}
 
 	// @Bean

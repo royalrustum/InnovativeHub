@@ -5,18 +5,23 @@ erpApp
 				'CheckoutController',
 				function($scope) {
 					$scope.checkoutProductsList = [];
+					$scope.checkoutSaleDetailsList = [];
+					$scope.checkoutSaleTotals = {};
 					$scope.checkoutProductsListSubTotal = 0.0;
 					$scope.checkoutProductsListTaxTotal = 0.0;
 					$scope.checkoutProductsListFullTotal = 0.0;
 					$scope.isCustomerSelected = false;
 					$scope.selectedCustomer = {};
+					$scope.enableCheckout = false;
 					
 					$scope.addProductItem = function(selectedItem) {
 						selectedItem.sNo = $scope.checkoutProductsList.length + 1;
 						$scope.checkoutProductsList.push(selectedItem);
 
 						$scope.calculateTotals();
-
+						$scope.configureCheckout();
+						$scope.populateSaleDetailsList();
+						
 						$scope.refresh();
 					};
 
@@ -26,7 +31,9 @@ erpApp
 
 						$scope.updateSerialNos();
 						$scope.calculateTotals();
-
+						$scope.configureCheckout();
+						$scope.populateSaleDetailsList();
+						
 						$scope.refresh();
 					};
 
@@ -59,6 +66,7 @@ erpApp
 						$scope.isCustomerSelected =  true;
 						$scope.selectedCustomer = selectedCustomer;
 						
+						$scope.configureCheckout();
 						$scope.refresh();
 					};
 					
@@ -66,8 +74,37 @@ erpApp
 						$scope.isCustomerSelected =  false;
 						$scope.selectedCustomer = {};
 						
+						$scope.configureCheckout();
 						$scope.refresh();
 					};
+					
+					$scope.configureCheckout = function() {
+						if($scope.isCustomerSelected == false) {
+							$scope.enableCheckout = false;
+						} else if($scope.checkoutProductsList.length == 0) {
+							$scope.enableCheckout = false;
+						} else {
+							$scope.enableCheckout = true;
+						}
+					};
+					
+					$scope.populateSaleDetailsList = function () {
+						$scope.checkoutSaleDetailsList = [];
+						
+						for (index = 0; index < $scope.checkoutProductsList.length; index++) {
+							checkoutSaleDetail = {};
+							checkoutSaleDetail.sku = $scope.checkoutProductsList[index];
+							
+							$scope.checkoutSaleDetailsList.push(checkoutSaleDetail);
+							
+							$scope.checkoutSaleTotals.subTotal = $scope.checkoutProductsListSubTotal;
+							$scope.checkoutSaleTotals.total = $scope.checkoutProductsListFullTotal;
+							$scope.checkoutSaleTotals.discount = 0; 
+							$scope.checkoutSaleTotals.saleTax = 0;
+							
+							checkoutSaleDetail.sale = $scope.checkoutSaleTotals;
+						}
+					}
 					
 					$scope.refresh = function() {
 						setInterval(function() {
