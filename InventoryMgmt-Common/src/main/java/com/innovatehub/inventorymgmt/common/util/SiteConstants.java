@@ -37,6 +37,7 @@ public class SiteConstants {
 	public static final String VIEW_NAME_CUSTOMER_PROFILE_CREATE = "dashboard/customer/customer_create";
 	public static final String VIEW_NAME_CUSTOMER_PROFILE_VIEW = "dashboard/customer/customer_view";
 	public static final String VIEW_NAME_SALE_CHECKOUT_CREATE = "dashboard/sale/checkout_create";
+	public static final String VIEW_NAME_SALE_CHECKOUT_COMPLETE = "dashboard/sale/checkout_complete";
 	
 	//------------------- Page Titles -------------------------
 	public static final String PAGE_TITLE_HOME = "pageTitle.home";
@@ -51,6 +52,7 @@ public class SiteConstants {
 	public static final String PAGE_TITLE_CUSTOMER_PROFILE_CREATE = "pageTitle.customer.profile.create";
 	public static final String PAGE_TITLE_CUSTOMER_PROFILE_VIEW = "pageTitle.customer.profile.view";
 	public static final String PAGE_TITLE_SALE_CHECKOUT_CREATE = "pageTitle.sale.checkout.create";
+	public static final String PAGE_TITLE_SALE_CHECKOUT_COMPLETE = "pageTitle.sale.checkout.complete";
 	
 	//------------------- Model Attributes ---------------------
 	public static final String MODEL_ATTRIBUTE_PAGE_TITLE = "pageTitle";

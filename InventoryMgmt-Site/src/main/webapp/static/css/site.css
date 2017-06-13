@@ -449,6 +449,24 @@ body {
 	 padding-left: 15px;
 }
 
+/*------------------ Checkout Complete --------------------------------*/
+.saleReceiptHeader {
+	height: 20%;
+}
+
+.dottedLine {
+  border:none;
+  border-top:2px dotted #C9D0DF;
+  color:black;
+  background-color:#fff;
+  height:1px;
+  width:100%;
+}
+
+.full-width {
+	width: 100%;
+}
+
 /*------------------ Alert --------------------------------------------*/
 .alert {
 	margin-bottom: 0px !important;

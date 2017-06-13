@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.innovatehub.inventorymgmt.common.model.customer.Customer;
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
 import com.innovatehub.inventorymgmt.common.model.stock.Price;
@@ -120,11 +121,18 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 	private Sale convertSaleEntityToModel(com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity) {
 		Sale saleModel = new Sale();
+		Customer customerModel = new Customer();
 
 		BeanUtils.copyProperties(saleEntity, saleModel);
-
-		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity
-				.getSaleDetails()) {
+		
+		BeanUtils.copyProperties(saleEntity.getCustomer(), customerModel);
+		saleModel.setCustomer(customerModel);
+		
+		saleModel.setSaleDetails(new ArrayList<SaleDetail>());
+		
+		List<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail> saleDetailsEntity = saleEntity.getSaleDetails();
+		
+ 		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleDetailsEntity) {
 			saleModel.getSaleDetails().add(this.convertSaleDetailEntityToModel(saleDetailEntity));
 		}
 
