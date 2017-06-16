@@ -1,38 +1,20 @@
 package com.innovatehub.inventorymgmt.services.pos;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
-import org.springframework.stereotype.Controller;
-
-import com.innovatehub.inventorymgmt.common.entity.customer.Customer;
-import com.innovatehub.inventorymgmt.common.model.pos.Sale;
-import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfCopy;
-import com.itextpdf.text.pdf.PdfImportedPage;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfSmartCopy;
-import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 
-@Controller
-public class PrintServiceImpl implements PrintService {
+public class InvoiceGenerator {
+
 	private BaseFont bfBold;
 	private BaseFont bf;
 	private int pageNumber = 0;
@@ -46,12 +28,22 @@ public class PrintServiceImpl implements PrintService {
 	private int ITEM_VERTICAL_OFFSET = 15;
 	private int PAGE_FOOTER_OFFSET = 50;
 	private int PAGE_FULL_HEIGHT = 615;
+	
+	public static void main(String[] args) {
+		String pdfFilename = "one";
+		InvoiceGenerator generateInvoice = new InvoiceGenerator();
+		/*
+		 * if (args.length < 1) { System.err.println("Usage: java " +
+		 * generateInvoice.getClass().getName() + " d:/exportpdf.pdf");
+		 * System.exit(1); }
+		 */
 
-	public void printSaleReceipt(Sale sale) {
-		this.createPDF("Akshara1.pdf", sale);
+		pdfFilename = "Akshara1.pdf";
+		generateInvoice.createPDF(pdfFilename);
+
 	}
 
-	private void createPDF(String pdfFilename, Sale sale) {
+	private void createPDF(String pdfFilename) {
 
 		Document doc = new Document();
 		PdfWriter docWriter = null;
@@ -73,15 +65,14 @@ public class PrintServiceImpl implements PrintService {
 			boolean beginPage = true;
 			int y = 0;
 
-			for (int saleDetailIndex = 0; saleDetailIndex < sale.getSaleDetails().size(); saleDetailIndex++) {
+			for (int i = 0; i < 100; i++) {
 				if (beginPage) {
 					beginPage = false;
 					generateLayout(doc, cb);
-					generateHeader(doc, cb, sale);
+					generateHeader(doc, cb);
 					y = PAGE_FULL_HEIGHT;
 				}
-				
-				generateDetail(doc, cb, saleDetailIndex, y, sale.getSaleDetails().get(saleDetailIndex));
+				generateDetail(doc, cb, i, y);
 				y = y - ITEM_VERTICAL_OFFSET;
 				if (y < PAGE_FOOTER_OFFSET) {
 					printPageNumber(cb);
@@ -99,17 +90,17 @@ public class PrintServiceImpl implements PrintService {
 			cb.lineTo(COL3_OFFSET, y);
 			cb.moveTo(COL3_OFFSET, y);
 			cb.lineTo(COL4_OFFSET, y);
-
+						
 			y -= ITEM_VERTICAL_OFFSET;
-
+			
 			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, "Total GST: 12", PdfContentByte.ALIGN_LEFT);
 			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, "Sub Total: 12", PdfContentByte.ALIGN_LEFT);
 			y -= ITEM_VERTICAL_OFFSET;
-
+			
 			createHeadings(cb, COL3_OFFSET + ITEM_OFFSET, y, "Total: 12", PdfContentByte.ALIGN_LEFT);
-
+			
 			y -= ITEM_VERTICAL_OFFSET;
-
+			
 			cb.moveTo(COL3_OFFSET, y);
 			cb.lineTo(COL4_OFFSET, y);
 			cb.stroke();
@@ -163,9 +154,9 @@ public class PrintServiceImpl implements PrintService {
 			cb.lineTo(COL1_OFFSET, 650);
 			cb.moveTo(COL2_OFFSET, 50);
 			cb.lineTo(COL2_OFFSET, 650);
-			cb.moveTo(COL3_OFFSET, 50);
+			cb.moveTo(COL3_OFFSET, 50); 
 			cb.lineTo(COL3_OFFSET, 650);
-
+			 
 			cb.stroke();
 
 			// Invoice Detail box Text Headings
@@ -190,19 +181,19 @@ public class PrintServiceImpl implements PrintService {
 
 	}
 
-	private void generateHeader(Document doc, PdfContentByte cb, Sale sale) {
+	private void generateHeader(Document doc, PdfContentByte cb) {
 
 		try {
 
-			createHeadings(cb, 200, 750, "Akshara Tech.", Element.ALIGN_LEFT);
-			createHeadings(cb, 200, 735, "Kandulur Village, Ongole", Element.ALIGN_LEFT);
-			createHeadings(cb, 200, 720, "717 856 4286", Element.ALIGN_LEFT);
+			createHeadings(cb, 200, 750, "Company Name", Element.ALIGN_LEFT);
+			createHeadings(cb, 200, 735, "Address Line 1", Element.ALIGN_LEFT);
+			createHeadings(cb, 200, 720, "Address Line 2", Element.ALIGN_LEFT);
+			createHeadings(cb, 200, 705, "City, State - ZipCode", Element.ALIGN_LEFT);
+			createHeadings(cb, 200, 690, "Country", Element.ALIGN_LEFT);
 
-			String customer = sale.getCustomer().getFirstName() + ", " + sale.getCustomer().getLastName();
-			createHeadings(cb, 482, 743, customer, Element.ALIGN_LEFT);
-			createHeadings(cb, 482, 723, String.valueOf(sale.getId()), Element.ALIGN_LEFT);
-			createHeadings(cb, 482, 703, new SimpleDateFormat("dd/MM/yyyy").format(sale.getRecordCreatedDate()),
-					Element.ALIGN_LEFT);
+			createHeadings(cb, 482, 743, "ABC0001", Element.ALIGN_LEFT);
+			createHeadings(cb, 482, 723, "123456", Element.ALIGN_LEFT);
+			createHeadings(cb, 482, 703, "09/26/2012", Element.ALIGN_LEFT);
 
 		}
 
@@ -212,22 +203,27 @@ public class PrintServiceImpl implements PrintService {
 
 	}
 
-	private void generateDetail(Document doc, PdfContentByte cb, int index, int y, SaleDetail saleDetail) {
+	private void generateDetail(Document doc, PdfContentByte cb, int index, int y) {
 		DecimalFormat df = new DecimalFormat("0.00");
 
 		try {
 
-			String itemName = String.format("%s - %s", saleDetail.getSku().getSelectedProduct().getProductName(),
-					saleDetail.getSku().getSkuName());
-			createContent(cb, COL0_OFFSET + ITEM_OFFSET, y, itemName, PdfContentByte.ALIGN_LEFT);
-
-			createContent(cb, COL1_OFFSET + ITEM_OFFSET, y, String.valueOf(saleDetail.getQuantity()),
+			// createContent(cb, 48, y, String.valueOf(index + 1),
+			// PdfContentByte.ALIGN_RIGHT);
+			// createContent(cb, 52, y, "ITEM" + String.valueOf(index + 1),
+			// PdfContentByte.ALIGN_LEFT);
+			createContent(cb, COL0_OFFSET + ITEM_OFFSET, y, "Product Description - SIZE " + String.valueOf(index + 1),
 					PdfContentByte.ALIGN_LEFT);
 
-			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getPrice().getSellingPrice()),
-					PdfContentByte.ALIGN_LEFT);
-			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getPrice().getSellingPrice()),
-					PdfContentByte.ALIGN_LEFT);
+			createContent(cb, COL1_OFFSET + ITEM_OFFSET, y, String.valueOf(index + 1),
+					 PdfContentByte.ALIGN_LEFT);
+					
+			double price = Double.valueOf(df.format(Math.random() * 10));
+			double extPrice = price * (index + 1);
+			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(price), PdfContentByte.ALIGN_LEFT);
+			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(price), PdfContentByte.ALIGN_LEFT);
+			// createContent(cb, 568, y, df.format(extPrice),
+			// PdfContentByte.ALIGN_RIGHT);
 
 		}
 

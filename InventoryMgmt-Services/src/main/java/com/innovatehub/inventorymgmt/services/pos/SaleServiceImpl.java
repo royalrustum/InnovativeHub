@@ -12,6 +12,7 @@ import com.innovatehub.inventorymgmt.common.model.customer.Customer;
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
 import com.innovatehub.inventorymgmt.common.model.stock.Price;
+import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.repository.customer.CustomerRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleDetailRepository;
@@ -173,7 +174,11 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		SKU skuModel = new SKU();
 		BeanUtils.copyProperties(saleDetailEntity.getSku(), skuModel);
 		saleDetailModel.setSku(skuModel);
-
+		
+		Product productModel = new Product();
+		BeanUtils.copyProperties(saleDetailEntity.getSku().getProduct(), productModel);
+		saleDetailModel.getSku().setSelectedProduct(productModel);
+		
 		Price priceModel = new Price();
 		BeanUtils.copyProperties(saleDetailEntity.getPrice(), priceModel);
 		saleDetailModel.setPrice(priceModel);

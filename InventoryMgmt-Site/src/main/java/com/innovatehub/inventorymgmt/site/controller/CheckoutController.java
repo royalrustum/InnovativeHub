@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 import com.innovatehub.inventorymgmt.common.util.SiteConstants;
+import com.innovatehub.inventorymgmt.services.pos.PrintService;
 import com.innovatehub.inventorymgmt.services.pos.SaleService;
 
 @Controller
@@ -29,6 +30,9 @@ public class CheckoutController extends BaseController {
 
 	@Autowired
 	SaleService saleService;
+	
+	@Autowired
+	PrintService printService;
 
 	private static final String MODEL_ATTRIB_CHECKOUT = "checkout";
 
@@ -48,6 +52,14 @@ public class CheckoutController extends BaseController {
 		this.saleService = saleService;
 	}
 
+	public PrintService getPrintService() {
+		return printService;
+	}
+
+	public void setPrintService(PrintService printService) {
+		this.printService = printService;
+	}
+	
 	@RequestMapping(value = "/pos/checkout/create")
 	public String displayCreateStock(Locale locale, Model model) {
 
@@ -92,12 +104,16 @@ public class CheckoutController extends BaseController {
 	@RequestMapping(value = "/pos/checkout/complete/{id}")
 	public ModelAndView viewProduct(@PathVariable("id") Long saleId, Locale locale) {
 
+		Sale sale = this.getSaleService().getSale(saleId);
+		
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName(SiteConstants.VIEW_NAME_SALE_CHECKOUT_COMPLETE);
-		modelView.addObject(MODEL_ATTRIB_CHECKOUT, this.getSaleService().getSale(saleId));
+		modelView.addObject(MODEL_ATTRIB_CHECKOUT, sale);
 		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_SALE_CHECKOUT_COMPLETE, null, locale));
 
+		this.getPrintService().printSaleReceipt(sale);
+		
 		return modelView;
 	}
 

@@ -78,6 +78,13 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
 
+		<!-- DB Dependencies -->
+		<dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>12.1.0</version>
+        </dependency>
+        
 		<!-- Innovative Hub Dependent projects -->
 		<dependency>
 			<groupId>com.innovatehub</groupId>
