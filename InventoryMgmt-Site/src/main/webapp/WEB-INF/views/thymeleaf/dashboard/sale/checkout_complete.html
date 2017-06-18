@@ -7,7 +7,8 @@
 	<div layout:fragment="content">
 		<script type="text/javascript"
 			th:src="@{/static/js/CheckoutController.js}"></script>
-		<form th:object="${checkout}" class="form-horizontal">
+		<form th:object="${checkout}" class="form-horizontal"
+			th:action="|@{/pos/checkout/printreceipt/}*{id}|" method="post">
 			<div class="col-md-12">
 				<div class="panel">
 					<div class="panel-body">
@@ -68,7 +69,12 @@
 								</div>
 							</div>
 						</div>
-
+						<div id="printReceipt">
+							<div class="inline pull-right saleCheckoutActionStrip">
+								<input type="submit" value="Print Receipt"
+									class="btn btn-lg btn-success">
+							</div>
+						</div>
 
 					</div>
 				</div>

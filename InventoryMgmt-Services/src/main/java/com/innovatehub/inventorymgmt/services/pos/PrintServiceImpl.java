@@ -47,19 +47,19 @@ public class PrintServiceImpl implements PrintService {
 	private int PAGE_FOOTER_OFFSET = 50;
 	private int PAGE_FULL_HEIGHT = 615;
 
-	public void printSaleReceipt(Sale sale) {
-		this.createPDF("Akshara1.pdf", sale);
+	public byte[] generateSaleReceipt(Sale sale) {
+		return this.createPDF("Akshara1.pdf", sale);
 	}
 
-	private void createPDF(String pdfFilename, Sale sale) {
+	private byte[] createPDF(String pdfFilename, Sale sale) {
 
 		Document doc = new Document();
 		PdfWriter docWriter = null;
+		ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
 		initializeFonts();
 
 		try {
-			String path = pdfFilename;
-			docWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
+			docWriter = PdfWriter.getInstance(doc, byteArrayStream);
 			doc.addAuthor("Akshara Tech.");
 			doc.addCreationDate();
 			doc.addProducer();
@@ -113,7 +113,6 @@ public class PrintServiceImpl implements PrintService {
 			cb.moveTo(COL3_OFFSET, y);
 			cb.lineTo(COL4_OFFSET, y);
 			cb.stroke();
-
 		} catch (DocumentException dex) {
 			dex.printStackTrace();
 		} catch (Exception ex) {
@@ -126,6 +125,8 @@ public class PrintServiceImpl implements PrintService {
 				docWriter.close();
 			}
 		}
+		
+		return byteArrayStream.toByteArray();
 	}
 
 	private void generateLayout(Document doc, PdfContentByte cb) {

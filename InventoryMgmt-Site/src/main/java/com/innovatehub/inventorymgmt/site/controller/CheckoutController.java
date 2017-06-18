@@ -7,6 +7,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +34,7 @@ public class CheckoutController extends BaseController {
 
 	@Autowired
 	SaleService saleService;
-	
+
 	@Autowired
 	PrintService printService;
 
@@ -59,7 +63,7 @@ public class CheckoutController extends BaseController {
 	public void setPrintService(PrintService printService) {
 		this.printService = printService;
 	}
-	
+
 	@RequestMapping(value = "/pos/checkout/create")
 	public String displayCreateStock(Locale locale, Model model) {
 
@@ -105,16 +109,33 @@ public class CheckoutController extends BaseController {
 	public ModelAndView viewProduct(@PathVariable("id") Long saleId, Locale locale) {
 
 		Sale sale = this.getSaleService().getSale(saleId);
-		
+
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName(SiteConstants.VIEW_NAME_SALE_CHECKOUT_COMPLETE);
 		modelView.addObject(MODEL_ATTRIB_CHECKOUT, sale);
 		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_SALE_CHECKOUT_COMPLETE, null, locale));
 
-		this.getPrintService().printSaleReceipt(sale);
-		
 		return modelView;
 	}
 
+	@RequestMapping(value = "/pos/checkout/printreceipt/{id}", method = RequestMethod.POST)
+	public ResponseEntity<byte[]> printReceipt(@PathVariable("id") Long saleId) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+
+		// String filename = "Receipt.pdf";
+
+		// Uncomment this for download.
+		//headers.setContentDispositionFormData(filename, filename);
+		
+		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+		Sale sale = this.getSaleService().getSale(saleId);
+
+		ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(printService.generateSaleReceipt(sale), headers,
+				HttpStatus.OK);
+		return response;
+	}
 }
