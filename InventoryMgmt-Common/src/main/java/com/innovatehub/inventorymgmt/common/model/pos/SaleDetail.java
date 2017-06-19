@@ -2,16 +2,13 @@ package com.innovatehub.inventorymgmt.common.model.pos;
 
 import java.math.BigDecimal;
 
-import com.innovatehub.inventorymgmt.common.model.stock.Price;
-import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.model.ModelBase;
+import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 
 public class SaleDetail extends ModelBase {
 	private Long id;
 	
 	private SKU sku;
-	
-	private Price price;
 	
 	private Long quantity;
 	
@@ -20,6 +17,8 @@ public class SaleDetail extends ModelBase {
 	private BigDecimal total;
 	
 	private Sale sale;
+	
+	private BigDecimal sellPrice;
 	
 	public Long getId() {
 		return id;
@@ -45,14 +44,6 @@ public class SaleDetail extends ModelBase {
 		this.sku = sku;
 	}
 	
-	public Price getPrice() {
-		return price;
-	}
-
-	public void setPrice(Price price) {
-		this.price = price;
-	}
-	
 	public Long getQuantity() {
 		return quantity;
 	}
@@ -75,5 +66,13 @@ public class SaleDetail extends ModelBase {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	
+	public BigDecimal getSellPrice() {
+		return sellPrice;
+	}
+
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
 	}
 }

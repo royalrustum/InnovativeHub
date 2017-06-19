@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
-import com.innovatehub.inventorymgmt.common.entity.stock.Price;
+//import com.innovatehub.inventorymgmt.common.entity.stock.Price;
 import com.innovatehub.inventorymgmt.common.entity.stock.SKU;
 
 @Entity
@@ -24,7 +24,7 @@ public class SaleDetail extends EntityBase {
 	
 	private SKU sku;
 	
-	private Price price;
+	private BigDecimal sellPrice;
 	
 	private Long quantity;
 	
@@ -65,14 +65,13 @@ public class SaleDetail extends EntityBase {
 		this.sku = sku;
 	}
 	
-	@OneToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinColumn(name = "PRICE_ID")
-	public Price getPrice() {
-		return price;
+	@Column(name = "SELL_PRICE")
+	public BigDecimal getSellPrice() {
+		return sellPrice;
 	}
 
-	public void setPrice(Price price) {
-		this.price = price;
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
 	}
 	
 	@Column(name = "QUANTITY")

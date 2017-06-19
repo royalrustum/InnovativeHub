@@ -11,16 +11,14 @@ import org.springframework.stereotype.Service;
 import com.innovatehub.inventorymgmt.common.model.customer.Customer;
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
-import com.innovatehub.inventorymgmt.common.model.stock.Price;
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.repository.customer.CustomerRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleDetailRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleRepository;
-import com.innovatehub.inventorymgmt.common.repository.stock.PriceRepository;
+//import com.innovatehub.inventorymgmt.common.repository.stock.PriceRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
 import com.innovatehub.inventorymgmt.services.ServiceBase;
-import com.innovatehub.inventorymgmt.services.stock.SKUService;
 
 @Service
 public class SaleServiceImpl extends ServiceBase implements SaleService {
@@ -31,7 +29,7 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	
 	SKURepository skuRepo;
 	
-	PriceRepository priceRepo;
+//	PriceRepository priceRepo;
 	
 	CustomerRepository customerRepo;
 
@@ -62,14 +60,14 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		this.skuRepo = skuRepo;
 	}
 	
-	public PriceRepository getPriceRepo() {
+	/*public PriceRepository getPriceRepo() {
 		return priceRepo;
 	}
 
 	@Autowired
 	public void setPriceRepo(PriceRepository priceRepo) {
 		this.priceRepo = priceRepo;
-	}
+	}*/
 	
 	public CustomerRepository getCustomerRepo() {
 		return customerRepo;
@@ -149,8 +147,8 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo().findOne(saleDetailModel.getSku().getSkuId());
 		saleDetailEntity.setSku(skuEntity);
 
-		com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = this.getPriceRepo().findOne(saleDetailModel.getSku().getPrice().getPriceId());
-		saleDetailEntity.setPrice(priceEntity);
+		//com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = this.getPriceRepo().findOne(saleDetailModel.getSku().getPrice());
+		saleDetailEntity.setSellPrice(skuEntity.getSellPrice());
 
 		/*com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity = new com.innovatehub.inventorymgmt.common.entity.pos.Sale();
 		BeanUtils.copyProperties(saleDetailModel.getSale(), saleEntity);
@@ -179,9 +177,9 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		BeanUtils.copyProperties(saleDetailEntity.getSku().getProduct(), productModel);
 		saleDetailModel.getSku().setSelectedProduct(productModel);
 		
-		Price priceModel = new Price();
+		/*Price priceModel = new Price();
 		BeanUtils.copyProperties(saleDetailEntity.getPrice(), priceModel);
-		saleDetailModel.setPrice(priceModel);
+		saleDetailModel.setPrice(priceModel);*/
 
 		Sale saleModel = new Sale();
 		BeanUtils.copyProperties(saleDetailEntity.getSale(), saleModel);

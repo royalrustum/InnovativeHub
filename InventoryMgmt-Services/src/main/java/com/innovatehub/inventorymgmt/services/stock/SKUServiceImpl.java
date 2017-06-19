@@ -9,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.innovatehub.inventorymgmt.common.model.stock.Price;
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.model.stock.ProductCategory;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
@@ -47,12 +46,12 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 	@Override
 	public Long saveSKU(SKU sku) {
 		com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = new com.innovatehub.inventorymgmt.common.entity.stock.SKU();
-		com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = new com.innovatehub.inventorymgmt.common.entity.stock.Price();
+		//com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = new com.innovatehub.inventorymgmt.common.entity.stock.Price();
 
 		BeanUtils.copyProperties(sku, skuEntity);
-		BeanUtils.copyProperties(sku.getPrice(), priceEntity);
+		//BeanUtils.copyProperties(sku.getPrice(), priceEntity);
 
-		skuEntity.setPrice(priceEntity);
+//		skuEntity.setPrice(priceEntity);
 
 		if (sku.getSelectedProduct() != null) {
 			// Get the session tracked object from hibernate. Product
@@ -64,7 +63,7 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 		}
 
 		this.populateAuditInfo(skuEntity);
-		this.populateAuditInfo(priceEntity);
+	//	this.populateAuditInfo(priceEntity);
 
 		return this.getSkuRepo().save(skuEntity).getSkuId();
 	}
@@ -78,10 +77,6 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 
 		Product product = new Product();
 		BeanUtils.copyProperties(skuEntity.getProduct(), product);
-
-		Price price = new Price();
-		BeanUtils.copyProperties(skuEntity.getPrice(), price);
-		sku.setPrice(price);
 
 		sku.setSelectedProduct(product);
 
@@ -130,9 +125,9 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 		
 		product.setSelectedProdCategory(productCat);
 		
-		Price price = new Price();
+		/*Price price = new Price();
 		BeanUtils.copyProperties(skuEntity.getPrice(), price);
-		skuModel.setPrice(price);
+		skuModel.setPrice(price);*/
 
 		skuModel.setSelectedProduct(product);
 

@@ -1,5 +1,7 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
+import java.math.BigDecimal;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +25,7 @@ public class SKU extends EntityBase {
 	
 	private Product product;
 
-	private Price price;
+	private BigDecimal sellPrice;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,13 +57,12 @@ public class SKU extends EntityBase {
 		this.skuName = skuName;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name = "PRICE_ID")
-	public Price getPrice() {
-		return price;
+	@Column(name = "SELL_PRICE")
+	public BigDecimal getSellPrice() {
+		return sellPrice;
 	}
 
-	public void setPrice(Price price) {
-		this.price = price;
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
 	}
 }

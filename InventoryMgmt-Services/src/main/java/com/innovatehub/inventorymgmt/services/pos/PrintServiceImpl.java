@@ -225,9 +225,9 @@ public class PrintServiceImpl implements PrintService {
 			createContent(cb, COL1_OFFSET + ITEM_OFFSET, y, String.valueOf(saleDetail.getQuantity()),
 					PdfContentByte.ALIGN_LEFT);
 
-			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getPrice().getSellingPrice()),
+			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getSellPrice()),
 					PdfContentByte.ALIGN_LEFT);
-			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getPrice().getSellingPrice()),
+			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getSellPrice()),
 					PdfContentByte.ALIGN_LEFT);
 
 		}

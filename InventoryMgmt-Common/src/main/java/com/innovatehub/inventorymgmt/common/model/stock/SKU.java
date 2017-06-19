@@ -1,5 +1,6 @@
 package com.innovatehub.inventorymgmt.common.model.stock;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,7 +22,7 @@ public class SKU {
 
 	@NotNull
 	@Valid
-	private Price price;
+	private BigDecimal sellPrice;
 
 	public Long getSkuId() {
 		return skuId;
@@ -55,13 +56,11 @@ public class SKU {
 		this.selectedProduct = selectedProduct;
 	}
 
-	public Price getPrice() {
-		return price;
+	public BigDecimal getSellPrice() {
+		return sellPrice;
 	}
 
-	public void setPrice(Price price) {
-		this.price = price;
+	public void setSellPrice(BigDecimal sellPrice) {
+		this.sellPrice = sellPrice;
 	}
-	
-	
 }
