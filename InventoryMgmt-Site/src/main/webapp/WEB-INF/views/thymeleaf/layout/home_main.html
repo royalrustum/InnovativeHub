@@ -1,0 +1,47 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/static/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/static/css/site.css}" />
+
+<!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
+<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Innovative
+	Hub</title>
+</head>
+<!--/* Standard layout can be mixed with Layout Dialect */-->
+<body>
+
+	<script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
+	<script type="text/javascript" th:src="@{/static/js/angular.js}"></script>
+
+	<div class="container-fluid zero-pad">
+		<div th:include="layout/fragments/header :: header"></div>
+
+		<div th:include="layout/fragments/leftnav :: leftnav"></div>
+
+		<!-- Show the Global Alert -->
+		<div th:include="layout/fragments/alert :: alertGlobal"></div>
+
+		<!-- Show the Error Alert for forms -->
+		<div th:include="layout/fragments/alert :: formErrors"></div>
+
+		<div class="col-md-offset-2 row">
+			<!-- <div class="panel panel-primary"> -->
+			<div class="grayBgColor pageContentContainer">
+				<div layout:fragment="content"></div>
+			</div>
+		</div>
+
+		<div class="col-md-offset-2 col-md-10"
+			th:include="layout/fragments/footer :: footer"></div>
+	</div>
+</body>
+</html>

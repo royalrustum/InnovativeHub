@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
-	layout:decorator="layout/main">
+	layout:decorator="layout/home_main">
 <body>
 	<div layout:fragment="content">
 		<script type="text/javascript" th:src="@{/static/js/Chart.bundle.js}"></script>
 
-		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 zero-pad">
 			<a href="https://demo.phppointofsale.com/index.php/sales">
 				<div class="dashboard-stats grayBgColor">
 					<div class="left">
-						<h3 class="">65</h3>
-						<h4>Total Sales</h4>
+						<h3 class="blueFgColor">65</h3>
+						<h4 class="blackFgColor">Sales</h4>
 					</div>
-					<div class="right flatBlue">
+					<div class="right blueBgColor homePageTile">
 						<i class="fa fa-lg fa-shopping-cart fa-1x" aria-hidden="true"></i>
 					</div>
 				</div>
@@ -24,10 +24,10 @@
 			<a href="https://demo.phppointofsale.com/index.php/sales">
 				<div class="dashboard-stats grayBgColor">
 					<div class="left">
-						<h3 class="">65</h3>
-						<h4>Total Sales</h4>
+						<h3 class="greenFgColor">65</h3>
+						<h4 class="blackFgColor">Customers</h4>
 					</div>
-					<div class="right flatBlue">
+					<div class="right greenBgColor homePageTile">
 						<i class="fa fa-lg fa-user-o fa-1x" aria-hidden="true"></i>
 					</div>
 				</div>
@@ -38,17 +38,41 @@
 			<a href="https://demo.phppointofsale.com/index.php/sales">
 				<div class="dashboard-stats grayBgColor">
 					<div class="left">
-						<h3 class="">65</h3>
-						<h4>Total Sales</h4>
+						<h3 class="redFgColor">65</h3>
+						<h4 class="blackFgColor">Items</h4>
 					</div>
-					<div class="right flatBlue">
+					<div class="right redBgColor homePageTile">
 						<i class="fa fa-lg fa-cube fa-1x" aria-hidden="true"></i>
 					</div>
 				</div>
 			</a>
 		</div>
+		
+		<div class="row homePageTileOffset">
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+				<a href="https://demo.phppointofsale.com/index.php/sales">
+					<div class="dashboard-stats grayBgColor">
+						<div class="left">
+							<h3 class="orangeFgColor">65</h3>
+							<h4 class="blackFgColor">Profit</h4>
+						</div>
+						<div class="right orangeBgColor homePageTile">
+							<i class="fa fa-lg fa-cube fa-1x" aria-hidden="true"></i>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
 
-		<canvas id="myChart" width="400" height="400"></canvas>
+		<div class="panel">
+			<div class="text-center">
+				<h4">Sales Information.</h4>
+			</div>
+			<div class="panel-body">
+				<canvas id="myChart" width="400" height="400"></canvas>
+			</div>
+		</div>
+
 		<script>
 			var ctx = document.getElementById("myChart").getContext('2d');
 			var myChart = new Chart(ctx, {
@@ -88,78 +112,9 @@
 		</script>
 
 		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
-		<p>Om Nagarpamma.</p>
+
 	</div>
+
 </body>
 
 </html>
