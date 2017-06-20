@@ -14,8 +14,10 @@ public class SiteConstants {
 	public static final String PAGE_URI_STOCK_PRODUCT_CATEGORY_LIST= "/stock/category/list";
 	public static final String PAGE_URI_STOCK_PRODUCT_CREATE= "/stock/product/create";
 	public static final String PAGE_URI_STOCK_PRODUCT_VIEW= "/stock/product/view";
+	public static final String PAGE_URI_STOCK_PRODUCT_LIST= "/stock/product/list";
 	public static final String PAGE_URI_STOCK_SKU_CREATE= "/stock/sku/create";
 	public static final String PAGE_URI_STOCK_SKU_VIEW= "/stock/sku/view";
+	public static final String PAGE_URI_STOCK_SKU_LIST= "/stock/sku/list";
 	public static final String PAGE_URI_STOCK_STOCK_CREATE= "/stock/stock/create";
 	public static final String PAGE_URI_STOCK_STOCK_VIEW= "/stock/stock/view";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_CREATE= "/customer/profile/create";
@@ -32,8 +34,10 @@ public class SiteConstants {
 	public static final String VIEW_NAME_STOCK_PRODUCT_CATEGORY_LIST = "dashboard/stock/category_list";
 	public static final String VIEW_NAME_STOCK_PRODUCT_CREATE = "dashboard/stock/product_create";
 	public static final String VIEW_NAME_STOCK_PRODUCT_VIEW = "dashboard/stock/product_view";
+	public static final String VIEW_NAME_STOCK_PRODUCT_LIST = "dashboard/stock/product_list";
 	public static final String VIEW_NAME_STOCK_SKU_CREATE = "dashboard/stock/sku_create";
 	public static final String VIEW_NAME_STOCK_SKU_VIEW = "dashboard/stock/sku_view";
+	public static final String VIEW_NAME_STOCK_SKU_LIST = "dashboard/stock/sku_list";
 	public static final String VIEW_NAME_STOCK_STOCK_CREATE = "dashboard/stock/stock_create";
 	public static final String VIEW_NAME_STOCK_STOCK_VIEW = "dashboard/stock/stock_view";
 	public static final String VIEW_NAME_CUSTOMER_PROFILE_CREATE = "dashboard/customer/customer_create";
@@ -48,8 +52,10 @@ public class SiteConstants {
 	public static final String PAGE_TITLE_STOCK_PROD_CATEGORY_LIST = "pageTitle.stock.category.list";
 	public static final String PAGE_TITLE_STOCK_PROD_CREATE = "pageTitle.stock.product.create";
 	public static final String PAGE_TITLE_STOCK_PROD_VIEW = "pageTitle.stock.product.view";
+	public static final String PAGE_TITLE_STOCK_PROD_LIST = "pageTitle.stock.product.list";
 	public static final String PAGE_TITLE_STOCK_SKU_CREATE = "pageTitle.stock.sku.create";
 	public static final String PAGE_TITLE_STOCK_SKU_VIEW = "pageTitle.stock.sku.view";
+	public static final String PAGE_TITLE_STOCK_SKU_LIST = "pageTitle.stock.sku.list";
 	public static final String PAGE_TITLE_STOCK_STOCK_CREATE = "pageTitle.stock.stock.create";
 	public static final String PAGE_TITLE_STOCK_STOCK_VIEW = "pageTitle.stock.stock.view";
 	public static final String PAGE_TITLE_CUSTOMER_PROFILE_CREATE = "pageTitle.customer.profile.create";

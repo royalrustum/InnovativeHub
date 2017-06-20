@@ -167,7 +167,7 @@ public class DatabaseInitializer {
 		Screen productScreen = new Screen();
 		productScreen.setScreenName("Product");
 		productScreen.setScreenIconName("fa-cube");
-		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CREATE);
+		productScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_LIST);
 		productScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(productScreen);
 		stockCatScreens.add(productScreen);
@@ -175,7 +175,7 @@ public class DatabaseInitializer {
 		Screen skuScreen = new Screen();
 		skuScreen.setScreenName("SKU");
 		skuScreen.setScreenIconName("fa-tags");
-		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_CREATE);
+		skuScreen.setUrl(SiteConstants.PAGE_URI_STOCK_SKU_LIST);
 		skuScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(skuScreen);
 		stockCatScreens.add(skuScreen);

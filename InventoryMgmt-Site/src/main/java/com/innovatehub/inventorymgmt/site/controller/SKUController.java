@@ -120,8 +120,21 @@ public class SKUController extends BaseController {
 		return this.getSkuService().getAllSKUForProduct(productId);
 	}
 	
+	@RequestMapping(value = "/stock/sku/list")
+	public ModelAndView getAllSKUInAllProducts(Locale locale) {
+		List<SKU> allSku = this.getSkuService().getAllSKUForAllProducts();
+		
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_SKU_LIST);
+		modelView.addObject(MODEL_ATTRIB_SKU, allSku);
+		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_SKU_LIST, null, locale));
+
+		return modelView;
+	}
+	
 	@RequestMapping(value = "/stock/sku/matches/{q}")
-	public @ResponseBody List<SKU> getAllSKUInAllProducts(@PathVariable("q") String skuName) {
+	public @ResponseBody List<SKU> getAllSKUInAllProductsJson(@PathVariable("q") String skuName) {
 		List<SKU> allSku = this.getSkuService().getAllSKUForAllProducts();
 		
 		allSku = allSku.stream().filter(sku -> 

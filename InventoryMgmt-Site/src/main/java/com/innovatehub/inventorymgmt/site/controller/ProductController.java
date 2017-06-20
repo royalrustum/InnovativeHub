@@ -120,11 +120,23 @@ public class ProductController extends BaseController {
 	}
 
 	@RequestMapping(value = "/stock/product/matches/{q}")
-	public @ResponseBody List<Product> getAllProducts(@PathVariable("q") String productName) {
+	public @ResponseBody List<Product> getAllProductsJson(@PathVariable("q") String productName) {
 		List<Product> allProducts = this.getProductService().getAllProducts();
 		allProducts = allProducts.stream().filter(prod -> (prod.getProductName().toUpperCase()
 				.indexOf(productName.toUpperCase())) >= 0).collect(Collectors.toList());
 		return allProducts;
 	}
 
+	@RequestMapping(value = "/stock/product/list")
+	public ModelAndView getAllProducts(Locale locale) {
+		List<Product> allProducts = this.getProductService().getAllProducts();
+		
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_PRODUCT_LIST);
+		modelView.addObject(MODEL_ATTRIB_PROD, allProducts);
+		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_LIST, null, locale));
+
+		return modelView;
+	}
 }

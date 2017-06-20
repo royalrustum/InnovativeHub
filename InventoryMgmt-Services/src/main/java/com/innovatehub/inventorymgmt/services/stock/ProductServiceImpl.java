@@ -115,12 +115,17 @@ public class ProductServiceImpl extends ServiceBase implements ProductService {
 
 		for (com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity : productEntities) {
 			com.innovatehub.inventorymgmt.common.model.stock.Product product = new com.innovatehub.inventorymgmt.common.model.stock.Product();
+			
 			BeanUtils.copyProperties(productEntity, product);
 
 			if (productEntity.getProductImage() != null) {
 				product.setProductImage(CommonUtilHelper.getByteArrayFromBlob(productEntity.getProductImage()));
 			}
 
+			com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCategoryModel = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
+			BeanUtils.copyProperties(productEntity.getProductCategory(), productCategoryModel);
+			product.setSelectedProdCategory(productCategoryModel);
+			
 			products.add(product);
 		}
 		return products;
