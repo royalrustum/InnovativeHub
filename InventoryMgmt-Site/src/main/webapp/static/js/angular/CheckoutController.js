@@ -1,4 +1,4 @@
-var erpApp = angular.module('erpApp', [ 'smart-table' ]);
+var erpApp = angular.module('erpApp', []);
 
 erpApp
 		.controller(
@@ -45,7 +45,7 @@ erpApp
 						
 						for (index = 0; index < $scope.checkoutProductsList.length; index++) {
 							$scope.checkoutProductsListSubTotal = $scope.checkoutProductsListSubTotal
-									+ $scope.checkoutProductsList[index].price.sellingPrice;
+									+ $scope.checkoutProductsList[index].sellPrice;
 
 							$scope.checkoutProductsListTaxTotal = $scope.checkoutProductsListTaxTotal
 									+ $scope.checkoutProductsList[index].selectedProduct.selectedProdCategory.taxPercent;

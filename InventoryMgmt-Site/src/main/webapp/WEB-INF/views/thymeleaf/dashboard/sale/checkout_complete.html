@@ -43,7 +43,7 @@
 								<tbody>
 									<tr th:each="saleDetail : *{saleDetails}">
 										<td><span th:text="${saleDetail.sku.skuName}"></span></td>
-										<td><span th:text="${saleDetail.price.sellingPrice}"></span></td>
+										<td><span th:text="${saleDetail.sellPrice}"></span></td>
 										<td><span th:text="${saleDetail.quantity}"></span></td>
 										<td><span th:text="${saleDetail.total}"></span></td>
 									</tr>

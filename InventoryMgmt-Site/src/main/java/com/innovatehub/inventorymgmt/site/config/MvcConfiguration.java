@@ -99,11 +99,13 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
 		registry.addResourceHandler("static/css/**").addResourceLocations("/static/css/",
-				"/static/uiframeworks/bootstrap-3.3.7/css/");
+				"/static/uiframeworks/bootstrap-3.3.7/css/", "/static/uiframeworks/jquery-ui-1.12.1/css/base/",
+				"/static/uiframeworks/datatable-1.10.15/css/");
 		registry.addResourceHandler("static/js/**").addResourceLocations("/static/js/", "/static/uiframeworks/jquery/",
-				"/static/uiframeworks/bootstrap-3.3.7/js/", "/static/uiframeworks/angular-1.6/js/",
-				"/static/uiframeworks/typeahead-0.11.1/js/", "/static/uiframeworks/smart-table-2.1.8/js/",
-				"/static/uiframeworks/chartjs-2.6/js/", "/static/js/angular/**");
+				"/static/uiframeworks/jquery-ui-1.12.1/js/", "/static/uiframeworks/bootstrap-3.3.7/js/",
+				"/static/uiframeworks/angular-1.6/js/", "/static/uiframeworks/typeahead-0.11.1/js/",
+				"/static/uiframeworks/datatable-1.10.15/js/", "/static/uiframeworks/chartjs-2.6/js/",
+				"/static/js/angular/**");
 		registry.addResourceHandler("static/fonts/**").addResourceLocations("/static/js/",
 				"/static/uiframeworks/bootstrap-3.3.7/fonts/");
 		registry.addResourceHandler("static/images/**").addResourceLocations("/static/images/");

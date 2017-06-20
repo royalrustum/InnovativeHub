@@ -159,7 +159,7 @@ public class DatabaseInitializer {
 		Screen categoryScreen = new Screen();
 		categoryScreen.setScreenName("Product Category");
 		categoryScreen.setScreenIconName("fa-th-list");
-		categoryScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CATEGORY_CREATE);
+		categoryScreen.setUrl(SiteConstants.PAGE_URI_STOCK_PRODUCT_CATEGORY_LIST);
 		categoryScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(categoryScreen);
 		stockCatScreens.add(categoryScreen);

@@ -96,6 +96,16 @@ public class ProductCategoryController extends BaseController {
 		return modelView;
 	}
 
+	@RequestMapping(value = "/stock/category/list")
+	public String listAllCategories(Model model, Locale locale) {
+		model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_PROD_CATEGORY_LIST, null, locale));
+
+		model.addAttribute(MODEL_ATTRIB_PROD_CAT, this.getProductCatService().getAllProductCategories());
+
+		return SiteConstants.VIEW_NAME_STOCK_PRODUCT_CATEGORY_LIST;
+	}
+
 	@RequestMapping(value = "/dyn/stock/allCategories")
 	public String getAllCategories(Model model) {
 		model.addAttribute(MODEL_ATTRIB_PROD_CAT, this.getProductCatService().getAllProductCategories());

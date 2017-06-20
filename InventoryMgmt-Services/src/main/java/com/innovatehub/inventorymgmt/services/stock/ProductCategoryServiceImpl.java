@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.innovatehub.inventorymgmt.common.entity.stock.ProductCategory;
+import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.repository.stock.ProductCategoryRepository;
 import com.innovatehub.inventorymgmt.common.util.CommonUtilHelper;
 import com.innovatehub.inventorymgmt.services.ServiceBase;
@@ -60,7 +61,7 @@ public class ProductCategoryServiceImpl extends ServiceBase implements ProductCa
 				productCategory.setUploadedFileBytes(
 						CommonUtilHelper.getByteArrayFromBlob(prodCategoryEntity.getCategoryImage()));
 			}
-			
+
 			return productCategory;
 		} else {
 			return null;
@@ -80,6 +81,16 @@ public class ProductCategoryServiceImpl extends ServiceBase implements ProductCa
 			if (productCategoryEntity.getCategoryImage() != null) {
 				productCategory.setUploadedFileBytes(
 						CommonUtilHelper.getByteArrayFromBlob(productCategoryEntity.getCategoryImage()));
+			}
+
+			// Get all products in that product category.
+			List<Product> productsModel = new ArrayList<Product>();
+			for (com.innovatehub.inventorymgmt.common.entity.stock.Product productEntity : productCategoryEntity
+					.getProducts()) {
+				Product productModel = new Product();
+				BeanUtils.copyProperties(productEntity, productModel);
+				
+				productsModel.add(productModel);
 			}
 
 			prodCategories.add(productCategory);
