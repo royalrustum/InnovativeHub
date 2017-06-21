@@ -106,12 +106,24 @@ public class CustomerController extends BaseController {
 	@RequestMapping(value = "/customer/profile/matches/{q}")
 	public @ResponseBody List<Customer> getAllSKUInAllProducts(@PathVariable("q") String customerName) {
 		List<Customer> allCustomers = this.getCustomerService().getAllCustomers();
-		
-		allCustomers = allCustomers.stream().filter(customer -> 
-			((customer.getFirstName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0) || 
-					(customer.getLastName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0)))
-		.collect(Collectors.toList());
-		
+
+		allCustomers = allCustomers.stream()
+				.filter(customer -> ((customer.getFirstName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0)
+						|| (customer.getLastName().toUpperCase().indexOf(customerName.toUpperCase()) >= 0)))
+				.collect(Collectors.toList());
+
 		return allCustomers;
+	}
+
+	@RequestMapping(value = "/customer/profile/list")
+	public ModelAndView viewCustomer(Locale locale) {
+
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName(SiteConstants.VIEW_NAME_CUSTOMER_PROFILE_LIST);
+		modelView.addObject(MODEL_ATTRIB_CUSTOMER, this.getCustomerService().getAllCustomers());
+		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+				messageSource.getMessage(SiteConstants.PAGE_TITLE_CUSTOMER_PROFILE_LIST, null, locale));
+
+		return modelView;
 	}
 }

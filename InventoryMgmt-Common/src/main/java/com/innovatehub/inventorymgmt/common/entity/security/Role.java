@@ -12,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "ROLE_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="ROLE_ID_SEQ", initialValue=1, allocationSize=1)
 public class Role extends EntityBase {
 	private String name;
 
@@ -28,7 +30,7 @@ public class Role extends EntityBase {
 	private Long roleId;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "ROLE_ID")
 	public Long getRoleId() {
 		return roleId;

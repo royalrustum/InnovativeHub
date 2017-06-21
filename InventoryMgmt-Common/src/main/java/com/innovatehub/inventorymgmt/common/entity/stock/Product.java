@@ -1,6 +1,7 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
 import java.sql.Blob;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "PRODUCT_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="PRODUCT_ID_SEQ", initialValue=1, allocationSize=1)
 public class Product extends EntityBase {
 	private Long productId;
 
@@ -27,7 +30,7 @@ public class Product extends EntityBase {
 	private Blob productImage;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "PRODUCT_ID")
 	public Long getProductId() {
 		return productId;

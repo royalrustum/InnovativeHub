@@ -88,8 +88,8 @@ public class DatabaseInitializer {
 	@PostConstruct
 	@Transactional(readOnly = false)
 	private void populateData() {
-		/*populateUserAndRoleData();
-		populateLeftNavScreens();*/
+		populateUserAndRoleData();
+		populateLeftNavScreens();
 	}
 
 	private void populateUserAndRoleData() {
@@ -203,7 +203,7 @@ public class DatabaseInitializer {
 		Screen categoryScreen = new Screen();
 		categoryScreen.setScreenName("Profile");
 		categoryScreen.setScreenIconName("fa-address-book-o");
-		categoryScreen.setUrl(SiteConstants.PAGE_URI_CUSTOMER_PROFILE_CREATE);
+		categoryScreen.setUrl(SiteConstants.PAGE_URI_CUSTOMER_PROFILE_LIST);
 		categoryScreen.setScreenCategory(customerCategory);
 		this.getScreenRepository().save(categoryScreen);
 		

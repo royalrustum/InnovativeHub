@@ -23,6 +23,7 @@ public class SiteConstants {
 	public static final String PAGE_URI_STOCK_STOCK_LIST= "/stock/stock/list";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_CREATE= "/customer/profile/create";
 	public static final String PAGE_URI_CUSTOMER_PROFILE_VIEW= "/customer/profile/view";
+	public static final String PAGE_URI_CUSTOMER_PROFILE_LIST= "/customer/profile/list";
 	public static final String PAGE_URI_POS_CHECKOUT_CREATE= "/pos/checkout/create";
 	public static final String PAGE_URI_POS_CHECKOUT_COMPLETE= "/pos/checkout/complete";
 	
@@ -44,6 +45,7 @@ public class SiteConstants {
 	public static final String VIEW_NAME_STOCK_STOCK_LIST = "dashboard/stock/stock_list";
 	public static final String VIEW_NAME_CUSTOMER_PROFILE_CREATE = "dashboard/customer/customer_create";
 	public static final String VIEW_NAME_CUSTOMER_PROFILE_VIEW = "dashboard/customer/customer_view";
+	public static final String VIEW_NAME_CUSTOMER_PROFILE_LIST = "dashboard/customer/customer_list";
 	public static final String VIEW_NAME_SALE_CHECKOUT_CREATE = "dashboard/sale/checkout_create";
 	public static final String VIEW_NAME_SALE_CHECKOUT_COMPLETE = "dashboard/sale/checkout_complete";
 	
@@ -63,6 +65,7 @@ public class SiteConstants {
 	public static final String PAGE_TITLE_STOCK_STOCK_LIST = "pageTitle.stock.stock.list";
 	public static final String PAGE_TITLE_CUSTOMER_PROFILE_CREATE = "pageTitle.customer.profile.create";
 	public static final String PAGE_TITLE_CUSTOMER_PROFILE_VIEW = "pageTitle.customer.profile.view";
+	public static final String PAGE_TITLE_CUSTOMER_PROFILE_LIST = "pageTitle.customer.profile.list";
 	public static final String PAGE_TITLE_SALE_CHECKOUT_CREATE = "pageTitle.sale.checkout.create";
 	public static final String PAGE_TITLE_SALE_CHECKOUT_COMPLETE = "pageTitle.sale.checkout.complete";
 	

@@ -2,7 +2,6 @@ package com.innovatehub.inventorymgmt.common.entity.stock;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +21,7 @@ import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "STOCK_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="STOCK_ID_SEQ", initialValue=1, allocationSize=1)
 public class Stock extends EntityBase {
 	private Long stockId;
 
@@ -33,7 +34,7 @@ public class Stock extends EntityBase {
 	private BigDecimal unitPrice;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "STOCK_ID")
 	public Long getStockId() {
 		return stockId;

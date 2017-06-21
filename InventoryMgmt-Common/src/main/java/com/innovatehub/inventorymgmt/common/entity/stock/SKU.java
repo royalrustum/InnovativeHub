@@ -11,13 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "SKU_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="SKU_ID_SEQ", initialValue=1, allocationSize=1)
 public class SKU extends EntityBase {
 	private Long skuId;
 
@@ -28,7 +29,7 @@ public class SKU extends EntityBase {
 	private BigDecimal sellPrice;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "SKU_ID")
 	public Long getSkuId() {
 		return skuId;

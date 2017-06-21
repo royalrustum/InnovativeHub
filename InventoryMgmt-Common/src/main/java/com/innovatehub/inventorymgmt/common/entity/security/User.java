@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name="USER_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="USER_ID_SEQ", initialValue=1, allocationSize=1)
 public class User extends EntityBase {
 
 	private String userName;
@@ -28,7 +30,7 @@ public class User extends EntityBase {
 	private Set<Role> roles;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	public Long getUserId() {
 		return userId;
 	}

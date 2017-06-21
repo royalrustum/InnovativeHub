@@ -5,12 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "SCREEN_CATEGORY_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="SCREEN_CATEGORY_ID_SEQ", initialValue=1, allocationSize=1)
 public class ScreenCategory extends EntityBase {
 	private Long id;
 
@@ -19,7 +21,7 @@ public class ScreenCategory extends EntityBase {
 	private String iconName;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name="SCREEN_CATEGORY_ID")
 	public Long getId() {
 		return id;

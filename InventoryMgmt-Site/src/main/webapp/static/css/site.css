@@ -553,11 +553,11 @@ body {
 }
 
 /*---------- Bootstrap workaround -------------*/
-#prodCategoryGrid_wrapper .row {
+#prodCategoryGrid_wrapper .row, #customerGrid_wrapper .row {
 	height: 50px;
 }
 
-#prodCategoryGrid_wrapper select {
+#prodCategoryGrid_wrapper select, #customerGrid_wrapper select {
 	padding: 0px !important;
 }
 

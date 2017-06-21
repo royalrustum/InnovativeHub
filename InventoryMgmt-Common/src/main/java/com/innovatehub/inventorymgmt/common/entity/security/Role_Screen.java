@@ -8,12 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "ROLE_SCREEN_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="ROLE_SCREEN_ID_SEQ", initialValue=1, allocationSize=1)
 public class Role_Screen extends EntityBase {
 	private Long roleScreenId;
 	
@@ -22,7 +24,7 @@ public class Role_Screen extends EntityBase {
 	private Screen screen;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "ROLE_SCREEN_ID")
 	public Long getRoleScreenId() {
 		return roleScreenId;

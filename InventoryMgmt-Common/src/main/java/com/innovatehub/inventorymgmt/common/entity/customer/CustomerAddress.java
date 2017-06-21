@@ -8,12 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 
 @Entity
 @Table(name = "CUSTOMER_ADDRESS_T")
+@SequenceGenerator(name="ID_GEN_SEQ", sequenceName="CUSTOMER_ADDRESS_ID_SEQ", initialValue=1, allocationSize=1)
 public class CustomerAddress extends EntityBase {
 	private Long id;
 	private Customer customer;
@@ -21,7 +23,7 @@ public class CustomerAddress extends EntityBase {
 
 	@Id
 	@Column(name = "CUSTOMER_ADDRESS_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	public Long getId() {
 		return id;
 	}
