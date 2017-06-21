@@ -73,11 +73,11 @@ public class StockController extends BaseController {
 
 		return SiteConstants.VIEW_NAME_STOCK_STOCK_CREATE;
 	}
-	
+
 	@RequestMapping(value = "/stock/stock/create", method = RequestMethod.POST)
-	public String saveProduct(@Valid @ModelAttribute(MODEL_ATTRIB_STOCK) Stock stock, BindingResult bindResult, Model model,
-			Locale locale, final RedirectAttributes redirectAttributes) throws IOException {
-		stock.setStockDate(new Date());
+	public String saveStock(@Valid @ModelAttribute(MODEL_ATTRIB_STOCK) Stock stock, BindingResult bindResult,
+			Model model, Locale locale, final RedirectAttributes redirectAttributes) throws IOException {
+		
 		if (bindResult.hasErrors()) {
 
 			stock.setAllProductCategories(this.getProdCatService().getAllProductCategories());
@@ -102,13 +102,24 @@ public class StockController extends BaseController {
 	}
 
 	@RequestMapping(value = "/stock/stock/view/{id}")
-	public ModelAndView viewProduct(@PathVariable("id") Long stockId, Locale locale) {
+	public ModelAndView viewStock(@PathVariable("id") Long stockId, Locale locale) {
 
 		ModelAndView modelView = new ModelAndView();
 		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_STOCK_VIEW);
 		modelView.addObject(MODEL_ATTRIB_STOCK, this.getStockService().getStock(stockId));
 		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
 				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_STOCK_VIEW, null, locale));
+
+		return modelView;
+	}
+
+	@RequestMapping(value = "/stock/stock/list")
+	public ModelAndView allStock(Locale locale) {
+		ModelAndView modelView = new ModelAndView();
+		modelView.setViewName(SiteConstants.VIEW_NAME_STOCK_STOCK_LIST);
+		modelView.addObject(MODEL_ATTRIB_STOCK, this.getStockService().getAllStock());
+		modelView.addObject(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,
+				messageSource.getMessage(SiteConstants.PAGE_TITLE_STOCK_STOCK_LIST, null, locale));
 
 		return modelView;
 	}

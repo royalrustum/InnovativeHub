@@ -183,7 +183,7 @@ public class DatabaseInitializer {
 		Screen stockScreen = new Screen();
 		stockScreen.setScreenName("Stock Diary");
 		stockScreen.setScreenIconName("fa-truck");
-		stockScreen.setUrl(SiteConstants.PAGE_URI_STOCK_STOCK_CREATE);
+		stockScreen.setUrl(SiteConstants.PAGE_URI_STOCK_STOCK_LIST);
 		stockScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(stockScreen);
 		stockCatScreens.add(stockScreen);

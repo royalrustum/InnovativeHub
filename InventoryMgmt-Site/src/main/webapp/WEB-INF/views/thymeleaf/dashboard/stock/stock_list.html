@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en"
+	layout:decorator="layout/home_main">
+<body>
+	<div layout:fragment="content">
+		<div class="panel">
+			<div class="panel-body">
+				<div class="col-md-8">
+					<table class="table table-bordered" cellspacing="0"
+						id="prodCategoryGrid">
+						<thead class="thead-default grayBgColor">
+							<tr>
+								<th>Stock Date</th>
+								<th>SKU</th>
+								<th>Units</th>
+								<th>Unit Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="item : ${stock}">
+								<tr>
+									<td><span th:text="${item.stockDate}"></span></td>
+									<td><span
+										th:text="|${item.sku.selectedProduct.productName} - ${item.sku.skuName}|"></span></td>
+									<td><span th:text="${item.units}"></span></td>
+									<td><span th:text="${item.unitPrice}"></span></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
+					<div class="pull-left">
+						<a th:href="@{/stock/stock/create}"
+							class="btn btn-md ih-btn-submit" role="button">Add Stock</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/* $('#prodCategoryGrid').DataTable({
+					"columnDefs" : [ {
+						"width" : "75px",
+						"targets" : 0
+					}, {
+						"width" : "75px",
+						"targets" : 1
+					} ]
+				}); */
+
+				$('#prodCategoryGrid').DataTable();
+			});
+		</script>
+	</div>
+</body>
+</html>

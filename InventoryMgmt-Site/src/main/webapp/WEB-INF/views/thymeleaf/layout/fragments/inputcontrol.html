@@ -17,6 +17,20 @@
 		</div>
 	</div>
 
+	<div th:fragment="date(label, textValue)">
+		<div class="form-group form-group-sm">
+			<label for="categoryName" class="col-md-2 control-label"
+				th:text="${label}"></label>
+			<div class="col-md-3"
+				th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'has-feedback has-error' : 'has-feedback has-success')}">
+				<input type="date" class="form-control input-sm"
+					th:field="*{__${textValue}__}" onkeydown="return false"> <span
+					th:classappend="${!(formErrors ?: false) ? '' : (#fields.hasErrors('__${textValue}__') ? 'glyphicon form-control-feedback glyphicon-remove' : 'glyphicon form-control-feedback glyphicon-ok')}"
+					class=""></span>
+			</div>
+		</div>
+	</div>
+
 	<div th:fragment="label(label, textValue)">
 		<div class="form-group form-group-sm row-label">
 			<label for="categoryName" class="col-md-2 control-label text-muted"

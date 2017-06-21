@@ -23,6 +23,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.innovatehub.inventorymgmt.site.util.convert.StringToCustomerConvert;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToDateConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToSKUConvert;
@@ -50,6 +51,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	@Autowired
 	private StringToSaleDetailsConvert stringToSaleDetailsConvert;
+	
+	@Autowired
+	private StringToDateConvert stringToDateConvert;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -95,6 +99,14 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		this.stringToSaleDetailsConvert = stringToSaleDetailsConvert;
 	}
 
+	public StringToDateConvert getStringToDateConvert() {
+		return stringToDateConvert;
+	}
+
+	public void setStringToDateConvert(StringToDateConvert stringToDateConvert) {
+		this.stringToDateConvert = stringToDateConvert;
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
@@ -163,6 +175,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		registry.addConverter(this.getStringToSKUConvert());
 		registry.addConverter(this.getStringToCustomerConvert());
 		registry.addConverter(this.getStringToSaleDetailsConvert());
+		registry.addConverter(this.getStringToDateConvert());
 	}
 
 	// @Bean

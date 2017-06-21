@@ -8,7 +8,7 @@
 		<form th:object="${stock}" class="form-horizontal"
 			th:action="@{/stock/stock/create}" method="post">
 			<div
-				th:include="layout/fragments/inputcontrol :: text(label='Stock Date', textValue='stockDate')"></div>
+				th:include="layout/fragments/inputcontrol :: date(label='Stock Date', textValue='stockDate')"></div>
 
 			<div
 				th:include="layout/fragments/inputcontrol :: dropdown(label='Product Category', 

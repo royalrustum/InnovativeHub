@@ -1,5 +1,8 @@
 package com.innovatehub.inventorymgmt.services.stock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +16,7 @@ import com.innovatehub.inventorymgmt.services.ServiceBase;
 public class StockServiceImpl extends ServiceBase implements StockService {
 
 	StockRepository stockRepo;
-	
+
 	SKURepository skuRepo;
 
 	public StockRepository getStockRepo() {
@@ -33,7 +36,7 @@ public class StockServiceImpl extends ServiceBase implements StockService {
 	public void setSkuRepo(SKURepository skuRepo) {
 		this.skuRepo = skuRepo;
 	}
-	
+
 	@Override
 	public Stock getStock(Long stockId) {
 		Stock stockModel = new Stock();
@@ -45,17 +48,17 @@ public class StockServiceImpl extends ServiceBase implements StockService {
 		BeanUtils.copyProperties(stockEntity.getSku(), skuModel);
 
 		stockModel.setSku(skuModel);
-		
+
 		com.innovatehub.inventorymgmt.common.model.stock.Product productModel = new com.innovatehub.inventorymgmt.common.model.stock.Product();
 		BeanUtils.copyProperties(stockEntity.getSku().getProduct(), productModel);
-		
+
 		stockModel.getSku().setSelectedProduct(productModel);
-		
+
 		com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCatModel = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
 		BeanUtils.copyProperties(stockEntity.getSku().getProduct().getProductCategory(), productCatModel);
-		
+
 		stockModel.getSku().getSelectedProduct().setSelectedProdCategory(productCatModel);
-		
+
 		return stockModel;
 	}
 
@@ -75,8 +78,39 @@ public class StockServiceImpl extends ServiceBase implements StockService {
 		}
 
 		this.populateAuditInfo(stockEntity);
-		
+
 		return this.getStockRepo().save(stockEntity).getStockId();
+	}
+
+	@Override
+	public List<Stock> getAllStock() {
+
+		List<com.innovatehub.inventorymgmt.common.entity.stock.Stock> stocksEntity = this.getStockRepo().findAll();
+		List<Stock> stocksModel = new ArrayList<Stock>();
+
+		for (com.innovatehub.inventorymgmt.common.entity.stock.Stock stockEntity : stocksEntity) {
+			Stock stockModel = new Stock();
+			BeanUtils.copyProperties(stockEntity, stockModel);
+
+			com.innovatehub.inventorymgmt.common.model.stock.SKU skuModel = new com.innovatehub.inventorymgmt.common.model.stock.SKU();
+			BeanUtils.copyProperties(stockEntity.getSku(), skuModel);
+
+			stockModel.setSku(skuModel);
+
+			com.innovatehub.inventorymgmt.common.model.stock.Product productModel = new com.innovatehub.inventorymgmt.common.model.stock.Product();
+			BeanUtils.copyProperties(stockEntity.getSku().getProduct(), productModel);
+
+			stockModel.getSku().setSelectedProduct(productModel);
+
+			com.innovatehub.inventorymgmt.common.model.stock.ProductCategory productCatModel = new com.innovatehub.inventorymgmt.common.model.stock.ProductCategory();
+			BeanUtils.copyProperties(stockEntity.getSku().getProduct().getProductCategory(), productCatModel);
+
+			stockModel.getSku().getSelectedProduct().setSelectedProdCategory(productCatModel);
+
+			stocksModel.add(stockModel);
+		}
+
+		return stocksModel;
 	}
 
 }
