@@ -20,6 +20,8 @@ public class ScreenCategory extends EntityBase {
 
 	private String iconName;
 	
+	private Integer order;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name="SCREEN_CATEGORY_ID")
@@ -49,4 +51,12 @@ public class ScreenCategory extends EntityBase {
 		this.iconName = iconName;
 	}
 
+	@Column(name = "SEQUENCE_NUMBER")
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
 }

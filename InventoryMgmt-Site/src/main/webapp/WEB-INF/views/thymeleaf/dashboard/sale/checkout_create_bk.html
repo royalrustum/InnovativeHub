@@ -32,7 +32,70 @@
 						</div>
 					</div>
 
+					<div class="panel saleReceiptPanel">
+						<div class="saleItemsPanel">
+							<div class="panel-body ">
+								<table class="table">
+									<thead class="thead-default grayBgColor">
+										<tr>
+											<th>#</th>
+											<th>Item Name</th>
+											<th>Price</th>
+											<th>Quantity</th>
+											<th>Disc %</th>
+											<th>Total</th>
+											<th>Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="row in checkoutProductsList">
+											<td>{{row.sNo}}</td>
+											<td>{{row.selectedProduct.productName}} -
+												{{row.skuName}}</td>
+											<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+											<td>{{row.selectedProduct.productName}}</td>
+											<td>0%</td>
+											<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
+											<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
+														class="text-center">
+														<span class="fa fa-close fontRed text-center"></span>
+													</p></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							<input type="hidden" name="saleDetails" value="{{checkoutSaleDetailsList}}">
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group zeroMargin salePanelItemHt">
+								<label class="control-label col-md-offset-7 col-md-2">Sub
+									Total:</label>
+								<div class="col-md-2">
+									<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
+								</div>
+							</div>
 
+							<div class="form-group zeroMargin salePanelItemHt">
+								<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
+								<div class="col-md-2">
+									<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
+								</div>
+							</div>
+
+							<div class="form-group zeroMargin salePanelItemHt saleTotal">
+								<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
+								<div class="col-md-2">
+									<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
+								</div>
+							</div>
+
+							<div class="inline pull-right saleCheckoutActionStrip">
+								<input type ="submit" class="btn btn-lg btn-success"
+									ng-disabled="!enableCheckout" onclick="onCheckout()">
+							</div>
+						</form>
+					</div>
 				</div>
 
 				<div class="col-md-4">
@@ -57,86 +120,20 @@
 										class="saleScreenSelectedCustomer">{{selectedCustomer.firstName}},
 										{{selectedCustomer.lastName}}</span> <a ng-href="#"
 										ng-click="removeCustomer()"><span
-										class="fa fa-times-circle fontRed pull-right"></span></a> <input
-										type="hidden" name="customer"
-										value="{{selectedCustomer.customerId}}">
+										class="fa fa-times-circle fontRed pull-right"></span></a>
+									<input type="hidden" name="customer" value="{{selectedCustomer.customerId}}">
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<!-- <div class="row">
+					<div class="row">
 						<div class="panel productPanel">
 							<div class="panel-body ">
 								<p>Hello...</p>
 							</div>
 						</div>
-					</div> -->
-				</div>
-
-				<div class="panel saleReceiptPanel col-md-12">
-					<div class="saleItemsPanel">
-						<div class="panel-body ">
-							<table class="table">
-								<thead class="thead-default grayBgColor">
-									<tr>
-										<th>#</th>
-										<th>Item Name</th>
-										<th>Price</th>
-										<th>Quantity</th>
-										<th>Disc %</th>
-										<th>Total</th>
-										<th>Delete</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="row in checkoutProductsList">
-										<td>{{row.sNo}}</td>
-										<td>{{row.selectedProduct.productName}} - {{row.skuName}}</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td>{{row.selectedProduct.productName}}</td>
-										<td>0%</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
-													class="text-center">
-													<span class="fa fa-close fontRed text-center"></span>
-												</p></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-
-						<input type="hidden" name="saleDetails"
-							value="{{checkoutSaleDetailsList}}">
 					</div>
-					<form class="form-horizontal">
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Sub
-								Total:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
-							</div>
-						</div>
-
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
-							</div>
-						</div>
-
-						<div class="form-group zeroMargin salePanelItemHt saleTotal">
-							<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
-							<div class="col-md-2">
-								<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
-							</div>
-						</div>
-
-						<div class="inline pull-right saleCheckoutActionStrip">
-							<input type="submit" class="btn btn-lg btn-success"
-								ng-disabled="!enableCheckout" onclick="onCheckout()">
-						</div>
-					</form>
 				</div>
 			</div>
 
@@ -277,6 +274,7 @@
 									$('#searchCustomerTxtbox').addClass(
 											'saleCustomerSearchTxtbox');
 								});
+				
 			</script>
 		</form>
 	</div>

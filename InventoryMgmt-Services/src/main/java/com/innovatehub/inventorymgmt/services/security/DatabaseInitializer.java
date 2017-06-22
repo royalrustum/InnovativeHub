@@ -134,6 +134,7 @@ public class DatabaseInitializer {
 		adminScreens.addAll(this.populateCustomerCategoryNavItems());
 		adminScreens.addAll(this.populateStockCategoryNavItems());
 		adminScreens.addAll(this.populatePOSNavItems());
+		adminScreens.addAll(this.populateDashboardCategoryNavItems());
 		
 		/*
 		 * Screen customerScreen = new Screen();
@@ -147,13 +148,36 @@ public class DatabaseInitializer {
 		return adminScreens;
 	}
 
+	private List<Screen> populateDashboardCategoryNavItems() {
+	ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
+		
+		ScreenCategory dashboardCategory = new ScreenCategory();
+		dashboardCategory.setName("Dashboard");
+		dashboardCategory.setIconName("fa-dashboard");
+		dashboardCategory.setOrder(1);
+		
+		dashboardCategory = this.getScreenCatRepo().save(dashboardCategory);
+
+		Screen homeScreen = new Screen();
+		homeScreen.setScreenName("Home");
+		homeScreen.setScreenIconName("fa-home");
+		homeScreen.setUrl(SiteConstants.PAGE_URI_HOME);
+		homeScreen.setScreenCategory(dashboardCategory);
+		this.getScreenRepository().save(homeScreen);
+		stockCatScreens.add(homeScreen);
+		
+		return stockCatScreens;
+
+	}
+	
 	private List<Screen> populateStockCategoryNavItems() {
 		ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
 		
 		ScreenCategory stockCategory = new ScreenCategory();
 		stockCategory.setName("Stock");
 		stockCategory.setIconName("fa-cubes");
-
+		stockCategory.setOrder(3);
+		
 		stockCategory = this.getScreenCatRepo().save(stockCategory);
 
 		Screen categoryScreen = new Screen();
@@ -197,7 +221,8 @@ public class DatabaseInitializer {
 		ScreenCategory customerCategory = new ScreenCategory();
 		customerCategory.setName("Customer");
 		customerCategory.setIconName("fa-address-card");
-
+		customerCategory.setOrder(4);
+		
 		customerCategory = this.getScreenCatRepo().save(customerCategory);
 
 		Screen categoryScreen = new Screen();
@@ -217,7 +242,8 @@ public class DatabaseInitializer {
 		ScreenCategory posCategory = new ScreenCategory();
 		posCategory.setName("Sale");
 		posCategory.setIconName("fa-shopping-cart");
-
+		posCategory.setOrder(2);
+		
 		posCategory = this.getScreenCatRepo().save(posCategory);
 
 		Screen categoryScreen = new Screen();

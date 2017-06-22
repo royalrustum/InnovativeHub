@@ -35,6 +35,8 @@ public class GUIUtilHelper {
 			leftNav.add(navSection);
 		}
 
+		leftNav.sort((LeftNavSection s1, LeftNavSection s2) -> s1.getHeader().getOrder()-s2.getHeader().getOrder());
+		
 		return leftNav;
 	}
 }
