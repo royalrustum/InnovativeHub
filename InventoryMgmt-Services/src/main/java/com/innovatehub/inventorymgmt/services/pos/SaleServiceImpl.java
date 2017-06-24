@@ -24,24 +24,24 @@ import com.innovatehub.inventorymgmt.services.ServiceBase;
 public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 	SaleRepository saleRepo;
-	
+
 	SaleDetailRepository saleDetailsRepo;
-	
+
 	SKURepository skuRepo;
-	
-//	PriceRepository priceRepo;
-	
+
+	// PriceRepository priceRepo;
+
 	CustomerRepository customerRepo;
 
 	public SaleRepository getSaleRepo() {
 		return saleRepo;
 	}
-	
+
 	@Autowired
 	public void setSaleRepo(SaleRepository saleRepo) {
 		this.saleRepo = saleRepo;
 	}
-	
+
 	public SaleDetailRepository getSaleDetailsRepo() {
 		return saleDetailsRepo;
 	}
@@ -50,7 +50,7 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	public void setSaleDetailsRepo(SaleDetailRepository saleDetailsRepo) {
 		this.saleDetailsRepo = saleDetailsRepo;
 	}
-	
+
 	public SKURepository getSkuRepo() {
 		return skuRepo;
 	}
@@ -59,16 +59,14 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	public void setSkuRepo(SKURepository skuRepo) {
 		this.skuRepo = skuRepo;
 	}
-	
-	/*public PriceRepository getPriceRepo() {
-		return priceRepo;
-	}
 
-	@Autowired
-	public void setPriceRepo(PriceRepository priceRepo) {
-		this.priceRepo = priceRepo;
-	}*/
-	
+	/*
+	 * public PriceRepository getPriceRepo() { return priceRepo; }
+	 * 
+	 * @Autowired public void setPriceRepo(PriceRepository priceRepo) {
+	 * this.priceRepo = priceRepo; }
+	 */
+
 	public CustomerRepository getCustomerRepo() {
 		return customerRepo;
 	}
@@ -77,25 +75,39 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	public void setCustomerRepo(CustomerRepository customerRepo) {
 		this.customerRepo = customerRepo;
 	}
-	
+
 	@Override
 	public Sale getSale(Long saleId) {
 		return this.convertSaleEntityToModel(this.getSaleRepo().findOne(saleId));
 	}
-	
+
 	@Override
 	public Long saveSale(Sale saleModel) {
 		com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity = this.convertSaleModelToEntity(saleModel);
-		
+
 		this.populateAuditInfo(saleEntity);
-		
+
 		com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntityPersisted = this.getSaleRepo().save(saleEntity);
-		
-		for(com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity.getSaleDetails()) {
+
+		BigDecimal profitSaleDetailItems = new BigDecimal(0);
+		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity
+				.getSaleDetails()) {
 			saleDetailEntity.setSale(saleEntityPersisted);
 			this.getSaleDetailsRepo().save(saleDetailEntity);
+
+			// ToDo: update the quantity with the input from the UI.
+			// ToDo: Update the quantity in the Stock table.
+			com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo()
+					.findOne(saleDetailEntity.getSku().getSkuId());
+			profitSaleDetailItems.add(saleDetailEntity.getSellPrice().subtract(skuEntity.getSellPrice()));
+
+			skuEntity.setQuantityAvailable(skuEntity.getQuantityAvailable() - 1);
+			this.getSkuRepo().save(skuEntity);
 		}
-		
+
+		saleEntityPersisted.setProfit(profitSaleDetailItems);
+		this.getSaleRepo().save(saleEntityPersisted);
+
 		return saleEntityPersisted.getId();
 	}
 
@@ -106,15 +118,16 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 		// Create new Array.
 		saleEntity.setSaleDetails(new ArrayList<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail>());
-		
+
 		List<SaleDetail> saleDetailsModel = saleModel.getSaleDetails();
 		for (SaleDetail saleDetailModel : saleDetailsModel) {
 			saleEntity.getSaleDetails().add(this.convertSaleDetailModelToEntity(saleDetailModel));
 		}
 
-		com.innovatehub.inventorymgmt.common.entity.customer.Customer customerEntity = this.getCustomerRepo().findOne(saleModel.getCustomer().getCustomerId());
+		com.innovatehub.inventorymgmt.common.entity.customer.Customer customerEntity = this.getCustomerRepo()
+				.findOne(saleModel.getCustomer().getCustomerId());
 		saleEntity.setCustomer(customerEntity);
-		
+
 		return saleEntity;
 	}
 
@@ -123,15 +136,16 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		Customer customerModel = new Customer();
 
 		BeanUtils.copyProperties(saleEntity, saleModel);
-		
+
 		BeanUtils.copyProperties(saleEntity.getCustomer(), customerModel);
 		saleModel.setCustomer(customerModel);
-		
+
 		saleModel.setSaleDetails(new ArrayList<SaleDetail>());
-		
-		List<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail> saleDetailsEntity = saleEntity.getSaleDetails();
-		
- 		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleDetailsEntity) {
+
+		List<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail> saleDetailsEntity = saleEntity
+				.getSaleDetails();
+
+		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleDetailsEntity) {
 			saleModel.getSaleDetails().add(this.convertSaleDetailEntityToModel(saleDetailEntity));
 		}
 
@@ -144,22 +158,26 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 		BeanUtils.copyProperties(saleDetailModel, saleDetailEntity);
 
-		com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo().findOne(saleDetailModel.getSku().getSkuId());
+		com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo()
+				.findOne(saleDetailModel.getSku().getSkuId());
 		saleDetailEntity.setSku(skuEntity);
 
-		//com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity = this.getPriceRepo().findOne(saleDetailModel.getSku().getPrice());
+		// com.innovatehub.inventorymgmt.common.entity.stock.Price priceEntity =
+		// this.getPriceRepo().findOne(saleDetailModel.getSku().getPrice());
 		saleDetailEntity.setSellPrice(skuEntity.getSellPrice());
 
-		/*com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity = new com.innovatehub.inventorymgmt.common.entity.pos.Sale();
-		BeanUtils.copyProperties(saleDetailModel.getSale(), saleEntity);
-		saleDetailEntity.setSale(saleEntity);*/
+		/*
+		 * com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity = new
+		 * com.innovatehub.inventorymgmt.common.entity.pos.Sale();
+		 * BeanUtils.copyProperties(saleDetailModel.getSale(), saleEntity);
+		 * saleDetailEntity.setSale(saleEntity);
+		 */
 
 		saleDetailEntity.setDiscountPct(new BigDecimal(0.0));
 		saleDetailEntity.setTotal(new BigDecimal(0.0));
 		saleDetailEntity.setQuantity(0L);
 		this.populateAuditInfo(saleDetailEntity);
-		
-		
+
 		return saleDetailEntity;
 	}
 
@@ -172,14 +190,16 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		SKU skuModel = new SKU();
 		BeanUtils.copyProperties(saleDetailEntity.getSku(), skuModel);
 		saleDetailModel.setSku(skuModel);
-		
+
 		Product productModel = new Product();
 		BeanUtils.copyProperties(saleDetailEntity.getSku().getProduct(), productModel);
 		saleDetailModel.getSku().setSelectedProduct(productModel);
-		
-		/*Price priceModel = new Price();
-		BeanUtils.copyProperties(saleDetailEntity.getPrice(), priceModel);
-		saleDetailModel.setPrice(priceModel);*/
+
+		/*
+		 * Price priceModel = new Price();
+		 * BeanUtils.copyProperties(saleDetailEntity.getPrice(), priceModel);
+		 * saleDetailModel.setPrice(priceModel);
+		 */
 
 		Sale saleModel = new Sale();
 		BeanUtils.copyProperties(saleDetailEntity.getSale(), saleModel);

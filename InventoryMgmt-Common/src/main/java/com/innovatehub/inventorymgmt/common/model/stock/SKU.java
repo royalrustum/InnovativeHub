@@ -24,6 +24,8 @@ public class SKU {
 	@Valid
 	private BigDecimal sellPrice;
 
+	private Long quantityAvailable;
+	
 	public Long getSkuId() {
 		return skuId;
 	}
@@ -62,5 +64,13 @@ public class SKU {
 
 	public void setSellPrice(BigDecimal sellPrice) {
 		this.sellPrice = sellPrice;
+	}
+	
+	public Long getQuantityAvailable() {
+		return quantityAvailable != null ? quantityAvailable : 0;
+	}
+
+	public void setQuantityAvailable(Long quantityAvailable) {
+		this.quantityAvailable = quantityAvailable;
 	}
 }

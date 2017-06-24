@@ -136,11 +136,13 @@ public class SKUController extends BaseController {
 	@RequestMapping(value = "/stock/sku/matches/{q}")
 	public @ResponseBody List<SKU> getAllSKUInAllProductsJson(@PathVariable("q") String skuName) {
 		List<SKU> allSku = this.getSkuService().getAllSKUForAllProducts();
-		
-		allSku = allSku.stream().filter(sku -> 
-			sku.getSelectedProduct().getProductName().toUpperCase().indexOf(skuName.toUpperCase()) >= 0)
-		.collect(Collectors.toList());
-		
+
+		allSku = allSku.stream().filter(sku -> sku.getQuantityAvailable() > 0).collect(Collectors.toList());
+
+		allSku = allSku.stream().filter(
+				sku -> sku.getSelectedProduct().getProductName().toUpperCase().indexOf(skuName.toUpperCase()) >= 0)
+				.collect(Collectors.toList());
+
 		return allSku;
 	}
 }

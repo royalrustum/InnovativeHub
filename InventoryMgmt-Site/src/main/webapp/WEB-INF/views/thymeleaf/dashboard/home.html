@@ -5,55 +5,30 @@
 <body>
 	<div layout:fragment="content">
 		<script type="text/javascript" th:src="@{/static/js/Chart.bundle.js}"></script>
+		<form th:object="${home}" class="form-horizontal">
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 zero-pad">
+				<a href="https://demo.phppointofsale.com/index.php/sales">
+					<div class="dashboard-stats grayBgColor">
+						<div class="left">
+							<h3 class="blueFgColor">
+								&#8377;&nbsp; <span th:text="*{saleTotal}"></span>
+							</h3>
+							<h4 class="blackFgColor">Sales</h4>
+						</div>
+						<div class="right blueBgColor homePageTile">
+							<i class="fa fa-lg fa-shopping-cart fa-1x" aria-hidden="true"></i>
+						</div>
+					</div>
+				</a>
+			</div>
 
-		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 zero-pad">
-			<a href="https://demo.phppointofsale.com/index.php/sales">
-				<div class="dashboard-stats grayBgColor">
-					<div class="left">
-						<h3 class="blueFgColor">65</h3>
-						<h4 class="blackFgColor">Sales</h4>
-					</div>
-					<div class="right blueBgColor homePageTile">
-						<i class="fa fa-lg fa-shopping-cart fa-1x" aria-hidden="true"></i>
-					</div>
-				</div>
-			</a>
-		</div>
-		
-		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-			<a href="https://demo.phppointofsale.com/index.php/sales">
-				<div class="dashboard-stats grayBgColor">
-					<div class="left">
-						<h3 class="greenFgColor">65</h3>
-						<h4 class="blackFgColor">Customers</h4>
-					</div>
-					<div class="right greenBgColor homePageTile">
-						<i class="fa fa-lg fa-user-o fa-1x" aria-hidden="true"></i>
-					</div>
-				</div>
-			</a>
-		</div>
-		
-		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-			<a href="https://demo.phppointofsale.com/index.php/sales">
-				<div class="dashboard-stats grayBgColor">
-					<div class="left">
-						<h3 class="redFgColor">65</h3>
-						<h4 class="blackFgColor">Items</h4>
-					</div>
-					<div class="right redBgColor homePageTile">
-						<i class="fa fa-lg fa-cube fa-1x" aria-hidden="true"></i>
-					</div>
-				</div>
-			</a>
-		</div>
-		
-		<div class="row homePageTileOffset">
 			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 				<a href="https://demo.phppointofsale.com/index.php/sales">
 					<div class="dashboard-stats grayBgColor">
 						<div class="left">
-							<h3 class="orangeFgColor">65</h3>
+							<h3 class="orangeFgColor">
+								&#8377;&nbsp; <span th:text="*{profit}">
+							</h3>
 							<h4 class="blackFgColor">Profit</h4>
 						</div>
 						<div class="right orangeBgColor homePageTile">
@@ -62,57 +37,89 @@
 					</div>
 				</a>
 			</div>
-		</div>
 
-		<div class="panel">
-			<div class="text-center">
-				<h4">Sales Information.</h4>
+			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+				<a href="https://demo.phppointofsale.com/index.php/sales">
+					<div class="dashboard-stats grayBgColor">
+						<div class="left">
+							<h3 class="redFgColor">
+								<span th:text="*{stockCount}">
+							</h3>
+							<h4 class="blackFgColor">Stock</h4>
+						</div>
+						<div class="right redBgColor homePageTile">
+							<i class="fa fa-lg fa-cube fa-1x" aria-hidden="true"></i>
+						</div>
+					</div>
+				</a>
 			</div>
-			<div class="panel-body">
-				<canvas id="myChart" width="400" height="200"></canvas>
-			</div>
-		</div>
 
-		<script>
-			var ctx = document.getElementById("myChart").getContext('2d');
-			var myChart = new Chart(ctx, {
-				type : 'bar',
-				data : {
-					labels : [ "Red", "Blue", "Yellow", "Green", "Purple",
-							"Orange" ],
-					datasets : [ {
-						label : '# of Votes',
-						data : [ 12, 19, 3, 5, 2, 3 ],
-						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-								'rgba(54, 162, 235, 0.2)',
-								'rgba(255, 206, 86, 0.2)',
-								'rgba(75, 192, 192, 0.2)',
-								'rgba(153, 102, 255, 0.2)',
-								'rgba(255, 159, 64, 0.2)' ],
-						borderColor : [ 'rgba(255,99,132,1)',
-								'rgba(54, 162, 235, 1)',
-								'rgba(255, 206, 86, 1)',
-								'rgba(75, 192, 192, 1)',
-								'rgba(153, 102, 255, 1)',
-								'rgba(255, 159, 64, 1)' ],
-						borderWidth : 1
-					} ]
-				},
-				options : {
-					responsive : false,
-					scales : {
-						yAxes : [ {
-							ticks : {
-								beginAtZero : true
-							}
+			<div class="row homePageTileOffset">
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+					<a href="https://demo.phppointofsale.com/index.php/sales">
+
+						<div class="dashboard-stats grayBgColor">
+							<div class="left">
+								<h3 class="greenFgColor">65</h3>
+								<h4 class="blackFgColor">Customers</h4>
+							</div>
+							<div class="right greenBgColor homePageTile">
+								<i class="fa fa-lg fa-user-o fa-1x" aria-hidden="true"></i>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="panel">
+				<div class="text-center">
+					<h4">Sales Information.</h4>
+				</div>
+				<div class="panel-body">
+					<canvas id="myChart" width="400" height="200"></canvas>
+				</div>
+			</div>
+
+			<script>
+				var ctx = document.getElementById("myChart").getContext('2d');
+				var myChart = new Chart(ctx, {
+					type : 'bar',
+					data : {
+						labels : [ "Red", "Blue", "Yellow", "Green", "Purple",
+								"Orange" ],
+						datasets : [ {
+							label : '# of Votes',
+							data : [ 12, 19, 3, 5, 2, 3 ],
+							backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(255, 206, 86, 0.2)',
+									'rgba(75, 192, 192, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(255, 159, 64, 0.2)' ],
+							borderColor : [ 'rgba(255,99,132,1)',
+									'rgba(54, 162, 235, 1)',
+									'rgba(255, 206, 86, 1)',
+									'rgba(75, 192, 192, 1)',
+									'rgba(153, 102, 255, 1)',
+									'rgba(255, 159, 64, 1)' ],
+							borderWidth : 1
 						} ]
+					},
+					options : {
+						responsive : false,
+						scales : {
+							yAxes : [ {
+								ticks : {
+									beginAtZero : true
+								}
+							} ]
+						}
 					}
-				}
-			});
-		</script>
+				});
+			</script>
 
-		<p>Om Nagarpamma.</p>
-
+			<p>Om Nagarpamma.</p>
+		</form>
 	</div>
 
 </body>

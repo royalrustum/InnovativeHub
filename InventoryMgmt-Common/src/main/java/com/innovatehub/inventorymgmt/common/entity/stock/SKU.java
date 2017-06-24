@@ -28,6 +28,8 @@ public class SKU extends EntityBase {
 
 	private BigDecimal sellPrice;
 	
+	private Long quantityAvailable;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "SKU_ID")
@@ -65,5 +67,14 @@ public class SKU extends EntityBase {
 
 	public void setSellPrice(BigDecimal sellPrice) {
 		this.sellPrice = sellPrice;
+	}
+	
+	@Column(name = "QUANTITY")
+	public Long getQuantityAvailable() {
+		return quantityAvailable;
+	}
+
+	public void setQuantityAvailable(Long quantityAvailable) {
+		this.quantityAvailable = quantityAvailable;
 	}
 }

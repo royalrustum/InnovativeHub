@@ -33,6 +33,8 @@ public class Stock extends EntityBase {
 
 	private BigDecimal unitPrice;
 	
+	private Long unitsSold;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
 	@Column(name = "STOCK_ID")
@@ -81,4 +83,13 @@ public class Stock extends EntityBase {
 		this.unitPrice = price;
 	}
 	
+	@Column(name = "UNITS_SOLD")
+	public Long getUnitsSold() {
+		return unitsSold;
+	}
+
+	public void setUnitsSold(Long unitsSold) {
+		this.unitsSold = unitsSold;
+	}
+
 }

@@ -33,6 +33,8 @@ public class Sale extends EntityBase {
 
 	private BigDecimal total;
 	
+	private BigDecimal profit;
+	
 	private List<SaleDetail> saleDetails;
 	
 	private Customer customer;
@@ -84,6 +86,15 @@ public class Sale extends EntityBase {
 		this.total = total;
 	}
 
+	@Column(name = "PROFIT")
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
+	}
+	
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER, mappedBy="sale")
 	public List<SaleDetail> getSaleDetails() {
 		return saleDetails;

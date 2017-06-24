@@ -3,10 +3,13 @@ package com.innovatehub.inventorymgmt.services.stock;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.innovatehub.inventorymgmt.common.entity.stock.SKU;
 import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.StockRepository;
@@ -63,6 +66,7 @@ public class StockServiceImpl extends ServiceBase implements StockService {
 	}
 
 	@Override
+	@Transactional
 	public Long saveStock(Stock stock) {
 		com.innovatehub.inventorymgmt.common.entity.stock.Stock stockEntity = new com.innovatehub.inventorymgmt.common.entity.stock.Stock();
 		BeanUtils.copyProperties(stock, stockEntity);
@@ -79,6 +83,13 @@ public class StockServiceImpl extends ServiceBase implements StockService {
 
 		this.populateAuditInfo(stockEntity);
 
+		// Update the Quantity available for SKU.
+		SKU sku = this.getSkuRepo().findOne(stock.getSelectedSKU().getSkuId());
+		Long quantityAvailable = sku.getQuantityAvailable() == null ? 0 : sku.getQuantityAvailable();
+		sku.setQuantityAvailable(quantityAvailable + stock.getUnits());
+		
+		this.getSkuRepo().save(sku);
+		
 		return this.getStockRepo().save(stockEntity).getStockId();
 	}
 

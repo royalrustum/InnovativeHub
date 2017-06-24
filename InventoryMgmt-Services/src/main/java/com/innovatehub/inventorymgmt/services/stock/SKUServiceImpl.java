@@ -74,7 +74,10 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 		SKU sku = new SKU();
 
 		BeanUtils.copyProperties(skuEntity, sku);
-
+		
+		Long quantityAvailable = sku.getQuantityAvailable() == null ? 0 : sku.getQuantityAvailable();
+		sku.setQuantityAvailable(quantityAvailable);
+		
 		Product product = new Product();
 		BeanUtils.copyProperties(skuEntity.getProduct(), product);
 
@@ -112,6 +115,10 @@ public class SKUServiceImpl extends ServiceBase implements SKUService {
 		SKU skuModel = new SKU();
 		BeanUtils.copyProperties(skuEntity, skuModel);
 
+		Long quantityAvailable = skuModel.getQuantityAvailable() == null ? 0 : skuModel.getQuantityAvailable();
+		skuModel.setQuantityAvailable(quantityAvailable);
+
+		
 		Product product = new Product();
 		BeanUtils.copyProperties(skuEntity.getProduct(), product);
 

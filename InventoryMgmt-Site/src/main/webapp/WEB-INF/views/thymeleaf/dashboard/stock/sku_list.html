@@ -14,6 +14,7 @@
 							<tr>
 								<th>SKU Name</th>
 								<th>Sell Price</th>
+								<th>Quantity Available</th>
 								<th>Tax %</th>
 							</tr>
 						</thead>
@@ -22,6 +23,7 @@
 								<tr>
 									<td><span th:text="|${item.selectedProduct.productName} - ${item.skuName}|"></span></td>
 									<td><span th:text="${item.sellPrice}"></span></td>
+									<td><span th:text="${item.quantityAvailable}"></span></td>
 									<td><span th:text="${item.selectedProduct.selectedProdCategory.taxPercent}"></span></td>
 								</tr>
 							</th:block>
