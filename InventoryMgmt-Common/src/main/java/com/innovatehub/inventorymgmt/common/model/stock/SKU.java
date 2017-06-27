@@ -26,6 +26,8 @@ public class SKU {
 
 	private Long quantityAvailable;
 	
+	private List<Stock> selectedSKUStockList;
+	
 	public Long getSkuId() {
 		return skuId;
 	}
@@ -72,5 +74,13 @@ public class SKU {
 
 	public void setQuantityAvailable(Long quantityAvailable) {
 		this.quantityAvailable = quantityAvailable;
+	}
+	
+	public List<Stock> getSelectedSKUStockList() {
+		return selectedSKUStockList;
+	}
+
+	public void setSelectedSKUStockList(List<Stock> selectedSKUStockList) {
+		this.selectedSKUStockList = selectedSKUStockList;
 	}
 }

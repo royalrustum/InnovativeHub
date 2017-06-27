@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 //import com.innovatehub.inventorymgmt.common.entity.stock.Price;
 import com.innovatehub.inventorymgmt.common.entity.stock.SKU;
+import com.innovatehub.inventorymgmt.common.entity.stock.Stock;
 
 @Entity
 @Table(name = "SALE_DETAIL_T")
@@ -35,6 +37,8 @@ public class SaleDetail extends EntityBase {
 	private BigDecimal total;
 	
 	private Sale sale;
+	
+	private Stock stock;
 	
 	@Id
 	@Column(name = "SALE_DETAIL_ID")
@@ -101,5 +105,15 @@ public class SaleDetail extends EntityBase {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@JoinColumn(name = "STOCK_ID")
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 }

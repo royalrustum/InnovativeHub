@@ -3,9 +3,9 @@ package com.innovatehub.inventorymgmt.common.model.pos;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
 import com.innovatehub.inventorymgmt.common.model.ModelBase;
 import com.innovatehub.inventorymgmt.common.model.customer.Customer;
+import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 
 public class Sale extends ModelBase {
 	private Long id;
@@ -21,6 +21,8 @@ public class Sale extends ModelBase {
 	private List<SaleDetail> saleDetails;
 	
 	private Customer customer;
+	
+	private List<Stock> stockList;
 	
 	public Long getId() {
 		return id;
@@ -76,5 +78,13 @@ public class Sale extends ModelBase {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+	
+	public List<Stock> getStockList() {
+		return stockList;
+	}
+
+	public void setStockList(List<Stock> stockList) {
+		this.stockList = stockList;
 	}
 }

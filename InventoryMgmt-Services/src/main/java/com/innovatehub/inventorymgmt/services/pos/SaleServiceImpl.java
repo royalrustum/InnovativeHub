@@ -13,11 +13,13 @@ import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
 import com.innovatehub.inventorymgmt.common.model.stock.Product;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
+import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 import com.innovatehub.inventorymgmt.common.repository.customer.CustomerRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleDetailRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleRepository;
 //import com.innovatehub.inventorymgmt.common.repository.stock.PriceRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
+import com.innovatehub.inventorymgmt.common.repository.stock.StockRepository;
 import com.innovatehub.inventorymgmt.services.ServiceBase;
 
 @Service
@@ -32,6 +34,8 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	// PriceRepository priceRepo;
 
 	CustomerRepository customerRepo;
+
+	StockRepository stockRepo;
 
 	public SaleRepository getSaleRepo() {
 		return saleRepo;
@@ -76,6 +80,15 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		this.customerRepo = customerRepo;
 	}
 
+	public StockRepository getStockRepo() {
+		return stockRepo;
+	}
+
+	@Autowired
+	public void setStockRepo(StockRepository stockRepo) {
+		this.stockRepo = stockRepo;
+	}
+
 	@Override
 	public Sale getSale(Long saleId) {
 		return this.convertSaleEntityToModel(this.getSaleRepo().findOne(saleId));
@@ -97,12 +110,22 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 			// ToDo: update the quantity with the input from the UI.
 			// ToDo: Update the quantity in the Stock table.
+			// ToDo: Parallel Checkout. Do an additional validation to see that
+			// Quantity_Available > 0 before checkout.
 			com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo()
 					.findOne(saleDetailEntity.getSku().getSkuId());
 			profitSaleDetailItems.add(saleDetailEntity.getSellPrice().subtract(skuEntity.getSellPrice()));
 
 			skuEntity.setQuantityAvailable(skuEntity.getQuantityAvailable() - 1);
 			this.getSkuRepo().save(skuEntity);
+			
+			// Update the Units sold column of Stock table.
+			com.innovatehub.inventorymgmt.common.entity.stock.Stock stockSelected = this.getStockRepo()
+					.getOne(saleDetailEntity.getStock().getStockId());
+			Long unitsSold =stockSelected.getUnitsSold() == null ? 0L : stockSelected.getUnitsSold();
+			
+			stockSelected.setUnitsSold(unitsSold + 1);
+			this.getStockRepo().save(stockSelected);
 		}
 
 		saleEntityPersisted.setProfit(profitSaleDetailItems);
@@ -173,6 +196,11 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		 * saleDetailEntity.setSale(saleEntity);
 		 */
 
+		com.innovatehub.inventorymgmt.common.entity.stock.Stock stockEntity = this.getStockRepo()
+				.findOne(saleDetailModel.getSelectedStock().getStockId());
+
+		saleDetailEntity.setStock(stockEntity);
+
 		saleDetailEntity.setDiscountPct(new BigDecimal(0.0));
 		saleDetailEntity.setTotal(new BigDecimal(0.0));
 		saleDetailEntity.setQuantity(0L);
@@ -200,6 +228,9 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		 * BeanUtils.copyProperties(saleDetailEntity.getPrice(), priceModel);
 		 * saleDetailModel.setPrice(priceModel);
 		 */
+		Stock stockModel = new Stock();
+		BeanUtils.copyProperties(saleDetailEntity.getStock().getStockId(), stockModel);
+		saleDetailModel.setSelectedStock(stockModel);
 
 		Sale saleModel = new Sale();
 		BeanUtils.copyProperties(saleDetailEntity.getSale(), saleModel);

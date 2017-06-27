@@ -1,6 +1,7 @@
 package com.innovatehub.inventorymgmt.common.entity.stock;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,6 +31,8 @@ public class SKU extends EntityBase {
 	private BigDecimal sellPrice;
 	
 	private Long quantityAvailable;
+	
+	private List<Stock> stockList;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
@@ -76,5 +80,14 @@ public class SKU extends EntityBase {
 
 	public void setQuantityAvailable(Long quantityAvailable) {
 		this.quantityAvailable = quantityAvailable;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sku")
+	public List<Stock> getStockList() {
+		return stockList;
+	}
+
+	public void setStockList(List<Stock> stockList) {
+		this.stockList = stockList;
 	}
 }

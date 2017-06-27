@@ -28,6 +28,7 @@ import com.innovatehub.inventorymgmt.site.util.convert.StringToProductCatConvert
 import com.innovatehub.inventorymgmt.site.util.convert.StringToProductConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToSKUConvert;
 import com.innovatehub.inventorymgmt.site.util.convert.StringToSaleDetailsConvert;
+import com.innovatehub.inventorymgmt.site.util.convert.StringToStockConvert;
 
 @Configuration
 @EnableWebMvc
@@ -54,6 +55,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 	
 	@Autowired
 	private StringToDateConvert stringToDateConvert;
+	
+	@Autowired
+	private StringToStockConvert stringToStockConvert;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
@@ -105,6 +109,14 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 	public void setStringToDateConvert(StringToDateConvert stringToDateConvert) {
 		this.stringToDateConvert = stringToDateConvert;
+	}
+	
+	public StringToStockConvert getStringToStockConvert() {
+		return stringToStockConvert;
+	}
+
+	public void setStringToStockConvert(StringToStockConvert stringToStockConvert) {
+		this.stringToStockConvert = stringToStockConvert;
 	}
 	
 	@Override
@@ -176,6 +188,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 		registry.addConverter(this.getStringToCustomerConvert());
 		registry.addConverter(this.getStringToSaleDetailsConvert());
 		registry.addConverter(this.getStringToDateConvert());
+		registry.addConverter(this.getStringToStockConvert());
 	}
 
 	// @Bean

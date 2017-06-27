@@ -22,10 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
-import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 import com.innovatehub.inventorymgmt.common.util.SiteConstants;
 import com.innovatehub.inventorymgmt.services.pos.PrintService;
 import com.innovatehub.inventorymgmt.services.pos.SaleService;
+import com.innovatehub.inventorymgmt.services.stock.StockService;
 
 @Controller
 public class CheckoutController extends BaseController {
@@ -37,6 +37,9 @@ public class CheckoutController extends BaseController {
 
 	@Autowired
 	PrintService printService;
+	
+	@Autowired
+	StockService stockService;
 
 	private static final String MODEL_ATTRIB_CHECKOUT = "checkout";
 
@@ -64,10 +67,18 @@ public class CheckoutController extends BaseController {
 		this.printService = printService;
 	}
 
+	public StockService getStockService() {
+		return stockService;
+	}
+
+	public void setStockService(StockService stockService) {
+		this.stockService = stockService;
+	}
+	
 	@RequestMapping(value = "/pos/checkout/create")
 	public String displayCreateStock(Locale locale, Model model) {
 
-		Stock checkout = new Stock();
+		Sale checkout = new Sale();
 
 		model.addAttribute(MODEL_ATTRIB_CHECKOUT, checkout);
 		model.addAttribute(SiteConstants.MODEL_ATTRIBUTE_PAGE_TITLE,

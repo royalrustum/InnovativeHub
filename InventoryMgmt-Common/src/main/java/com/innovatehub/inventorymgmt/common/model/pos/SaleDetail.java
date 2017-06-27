@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.innovatehub.inventorymgmt.common.model.ModelBase;
 import com.innovatehub.inventorymgmt.common.model.stock.SKU;
+import com.innovatehub.inventorymgmt.common.model.stock.Stock;
 
 public class SaleDetail extends ModelBase {
 	private Long id;
@@ -19,6 +20,8 @@ public class SaleDetail extends ModelBase {
 	private Sale sale;
 	
 	private BigDecimal sellPrice;
+	
+	private Stock selectedStock;
 	
 	public Long getId() {
 		return id;
@@ -74,5 +77,13 @@ public class SaleDetail extends ModelBase {
 
 	public void setSellPrice(BigDecimal sellPrice) {
 		this.sellPrice = sellPrice;
+	}
+	
+	public Stock getSelectedStock() {
+		return selectedStock;
+	}
+
+	public void setSelectedStock(Stock selectedStock) {
+		this.selectedStock = selectedStock;
 	}
 }

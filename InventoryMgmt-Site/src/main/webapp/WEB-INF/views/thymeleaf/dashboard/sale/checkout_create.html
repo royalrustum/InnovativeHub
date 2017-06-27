@@ -85,19 +85,29 @@
 										<th>Price</th>
 										<th>Quantity</th>
 										<th>Disc %</th>
+										<th>Stock</th>
 										<th>Total</th>
 										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="row in checkoutProductsList">
-										<td>{{row.sNo}}</td>
-										<td>{{row.selectedProduct.productName}} - {{row.skuName}}</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td>{{row.selectedProduct.productName}}</td>
+									<tr ng-repeat="row in checkoutSaleDetailsList">
+										<td>{{row.sku.sNo}}</td>
+										<td>{{row.sku.selectedProduct.productName}} -
+											{{row.sku.skuName}}</td>
+										<td>&#8377;&nbsp;{{row.sku.price.sellingPrice}}</td>
+										<td>{{row.sku.selectedProduct.productName}}</td>
 										<td>0%</td>
-										<td>&#8377;&nbsp;{{row.price.sellingPrice}}</td>
-										<td><a ng-href="#" ng-click="removeProductItem(row.sNo)"><p
+										<td><div class="col-md-2 form-group-sm">
+												<select ng-model="row.selectedStock.stockId">
+													<option value="-1">Select</option>
+													<option ng-repeat="stock in row.sku.selectedSKUStockList"
+														value="{{stock.stockId}}">{{stock.stockDate}}</option>
+												</select>
+											</div></td>
+										<td>&#8377;&nbsp;{{row.sellPrice}}</td>
+										<td><a ng-href="#"
+											ng-click="removeProductItem(row.sku.sNo)"><p
 													class="text-center">
 													<span class="fa fa-close fontRed text-center"></span>
 												</p></a></td>
@@ -109,176 +119,173 @@
 						<input type="hidden" name="saleDetails"
 							value="{{checkoutSaleDetailsList}}">
 					</div>
-					<form class="form-horizontal">
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Sub
-								Total:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
-							</div>
-						</div>
 
-						<div class="form-group zeroMargin salePanelItemHt">
-							<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
-							<div class="col-md-2">
-								<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
-							</div>
+					<div class="form-group zeroMargin salePanelItemHt">
+						<label class="control-label col-md-offset-7 col-md-2">Sub
+							Total:</label>
+						<div class="col-md-2">
+							<label class="control-label">&#8377;&nbsp;{{checkoutProductsListSubTotal}}</label>
 						</div>
+					</div>
 
-						<div class="form-group zeroMargin salePanelItemHt saleTotal">
-							<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
-							<div class="col-md-2">
-								<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
-							</div>
+					<div class="form-group zeroMargin salePanelItemHt">
+						<label class="control-label col-md-offset-7 col-md-2">Tax:</label>
+						<div class="col-md-2">
+							<label class="control-label">&#8377;&nbsp;{{checkoutProductsListTaxTotal}}</label>
 						</div>
+					</div>
 
-						<div class="inline pull-right saleCheckoutActionStrip">
-							<input type="submit" class="btn btn-lg btn-success"
-								ng-disabled="!enableCheckout" onclick="onCheckout()">
+					<div class="form-group zeroMargin salePanelItemHt saleTotal">
+						<label class="control-label col-md-offset-7 col-md-2 fontRed">Total:</label>
+						<div class="col-md-2">
+							<label class="control-label fontRed">&#8377;&nbsp;{{checkoutProductsListFullTotal}}</label>
 						</div>
-					</form>
+					</div>
+
+					<div class="inline pull-right saleCheckoutActionStrip">
+						<input type="submit" class="btn btn-lg btn-success"
+							ng-disabled="!enableCheckout">
+					</div>
 				</div>
 			</div>
-
-			<script>
-				jQuery(document)
-						.ready(
-								function($) {
-									// Set the Options for "Bloodhound" suggestion engine
-									var productEngine = new Bloodhound(
-											{
-												remote : {
-													url : '/stock/sku/matches/%QUERY%',
-													wildcard : '%QUERY%'
-												},
-												datumTokenizer : Bloodhound.tokenizers.whitespace,
-												queryTokenizer : Bloodhound.tokenizers.whitespace,
-												identify : function(sku) {
-													return sku.selectedProduct.productName;
-												}
-											});
-
-									$('#saleSearchBox')
-											.typeahead(
-													{
-														/* hint : true, */
-														/* highlight : true, */
-														minLength : 1
-													},
-													{
-														source : productEngine
-																.ttAdapter(),
-
-														// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-														name : 'matchedProductsList',
-														displayKey : 'sku.selectedProduct.productName',
-														// the key from the array we want to display (name,id,email,etc...)
-														templates : {
-															empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
-															header : [ '<div class="list-group search-results-dropdown">' ],
-															suggestion : function(
-																	sku) {
-																return '<a href="#" class="list-group-item">'
-																		+ '<span class="saleSearchResult">'
-																		+ '<div class="saleSearchResultImg">'
-																		+ '<img class="img-fluid img-thumbnail" src="data:image/jpeg;base64,'
-																	+ sku.selectedProduct.base64FileBytesString + '" />'
-																		+ '</div>'
-																		+ '<span class="saleSearchResultProductName">'
-																		+ '<b>'
-																		+ sku.selectedProduct.productName
-																		+ '</b>'
-																		+ '  -  '
-																		+ sku.skuName
-																		+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8377; '
-																		+ '<b>'
-																		+ sku.sellPrice
-																		+ '</b>'
-																		+ '</span>'
-																		+ '</span>'
-																		+ '</a>';
-
-															}
-														}
-													})
-											.on(
-													'typeahead:selected',
-													function(event,
-															selectedItem) {
-														angular
-																.element(
-																		$('#checkoutContainer'))
-																.scope()
-																.addProductItem(
-																		selectedItem);
-													});
-									$('#saleSearchBox').addClass(
-											'productSearchTxtbox');
-
-									var customerEngine = new Bloodhound(
-											{
-												remote : {
-													url : '/customer/profile/matches/%QUERY%',
-													wildcard : '%QUERY%'
-												},
-												datumTokenizer : Bloodhound.tokenizers.whitespace,
-												queryTokenizer : Bloodhound.tokenizers.whitespace,
-												identify : function(cust) {
-													return cust.firstName;
-												}
-											});
-
-									$('#searchCustomerTxtbox')
-											.typeahead(
-													{
-														/* hint : true, */
-														/* highlight : true, */
-														minLength : 1
-													},
-													{
-														source : customerEngine
-																.ttAdapter(),
-
-														// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-														name : 'matchedCustomerList',
-														displayKey : 'cust.firstName',
-														// the key from the array we want to display (name,id,email,etc...)
-														templates : {
-															empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
-															header : [ '<div class="list-group search-results-dropdown">' ],
-															suggestion : function(
-																	cust) {
-																return '<a href="#" class="list-group-item">'
-																		+ '<span class="customerSearchResult">'
-																		+ '<span class="customerSearchResultName">'
-																		+ '<b>'
-																		+ cust.firstName
-																		+ ', '
-																		+ cust.lastName
-																		+ '</b>'
-																		+ '</span>'
-																		+ '</span>'
-																		+ '</a>';
-
-															}
-														}
-													})
-											.on(
-													'typeahead:selected',
-													function(event,
-															selectedItem) {
-														angular
-																.element(
-																		$('#checkoutContainer'))
-																.scope()
-																.addCustomer(
-																		selectedItem);
-													});
-									$('#searchCustomerTxtbox').addClass(
-											'saleCustomerSearchTxtbox');
-								});
-			</script>
 		</form>
+		<script>
+			jQuery(document)
+					.ready(
+							function($) {
+								// Set the Options for "Bloodhound" suggestion engine
+								var productEngine = new Bloodhound(
+										{
+											remote : {
+												url : '/stock/sku/matches/%QUERY%',
+												wildcard : '%QUERY%'
+											},
+											datumTokenizer : Bloodhound.tokenizers.whitespace,
+											queryTokenizer : Bloodhound.tokenizers.whitespace,
+											identify : function(sku) {
+												return sku.selectedProduct.productName;
+											}
+										});
+
+								$('#saleSearchBox')
+										.typeahead(
+												{
+													/* hint : true, */
+													/* highlight : true, */
+													minLength : 1
+												},
+												{
+													source : productEngine
+															.ttAdapter(),
+
+													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+													name : 'matchedProductsList',
+													displayKey : 'sku.selectedProduct.productName',
+													// the key from the array we want to display (name,id,email,etc...)
+													templates : {
+														empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
+														header : [ '<div class="list-group search-results-dropdown">' ],
+														suggestion : function(
+																sku) {
+															return '<a href="#" class="list-group-item">'
+																	+ '<span class="saleSearchResult">'
+																	+ '<div class="saleSearchResultImg">'
+																	+ '<img class="img-fluid img-thumbnail" src="data:image/jpeg;base64,'
+																	+ sku.selectedProduct.base64FileBytesString + '" />'
+																	+ '</div>'
+																	+ '<span class="saleSearchResultProductName">'
+																	+ '<b>'
+																	+ sku.selectedProduct.productName
+																	+ '</b>'
+																	+ '  -  '
+																	+ sku.skuName
+																	+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8377; '
+																	+ '<b>'
+																	+ sku.sellPrice
+																	+ '</b>'
+																	+ '</span>'
+																	+ '</span>'
+																	+ '</a>';
+
+														}
+													}
+												})
+										.on(
+												'typeahead:selected',
+												function(event, selectedItem) {
+													angular
+															.element(
+																	$('#checkoutContainer'))
+															.scope()
+															.addProductItem(
+																	selectedItem);
+												});
+								$('#saleSearchBox').addClass(
+										'productSearchTxtbox');
+
+								var customerEngine = new Bloodhound(
+										{
+											remote : {
+												url : '/customer/profile/matches/%QUERY%',
+												wildcard : '%QUERY%'
+											},
+											datumTokenizer : Bloodhound.tokenizers.whitespace,
+											queryTokenizer : Bloodhound.tokenizers.whitespace,
+											identify : function(cust) {
+												return cust.firstName;
+											}
+										});
+
+								$('#searchCustomerTxtbox')
+										.typeahead(
+												{
+													/* hint : true, */
+													/* highlight : true, */
+													minLength : 1
+												},
+												{
+													source : customerEngine
+															.ttAdapter(),
+
+													// This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+													name : 'matchedCustomerList',
+													displayKey : 'cust.firstName',
+													// the key from the array we want to display (name,id,email,etc...)
+													templates : {
+														empty : [ '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>' ],
+														header : [ '<div class="list-group search-results-dropdown">' ],
+														suggestion : function(
+																cust) {
+															return '<a href="#" class="list-group-item">'
+																	+ '<span class="customerSearchResult">'
+																	+ '<span class="customerSearchResultName">'
+																	+ '<b>'
+																	+ cust.firstName
+																	+ ', '
+																	+ cust.lastName
+																	+ '</b>'
+																	+ '</span>'
+																	+ '</span>'
+																	+ '</a>';
+
+														}
+													}
+												})
+										.on(
+												'typeahead:selected',
+												function(event, selectedItem) {
+													angular
+															.element(
+																	$('#checkoutContainer'))
+															.scope()
+															.addCustomer(
+																	selectedItem);
+												});
+								$('#searchCustomerTxtbox').addClass(
+										'saleCustomerSearchTxtbox');
+							});
+		</script>
+
 	</div>
 </body>
 </html>
