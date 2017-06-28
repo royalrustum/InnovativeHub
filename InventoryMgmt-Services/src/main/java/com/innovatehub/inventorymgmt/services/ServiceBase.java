@@ -12,12 +12,10 @@ import com.innovatehub.inventorymgmt.services.security.SecurityService;
 public class ServiceBase {
 
 	private SecurityService securityService;
-	
+
 	@Value("${server.contextPath}")
 	private String contextRoot;
-	
-	private String contextRootUrl;
-	
+
 	@Autowired
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
@@ -34,12 +32,8 @@ public class ServiceBase {
 	public SecurityService getSecurityService() {
 		return securityService;
 	}
-	
-	public String getContextRootUrl() {
-		return contextRootUrl;
-	}
 
-	public  <T extends EntityBase> void populateCreateAuditInfo(T entity) {
+	public <T extends EntityBase> void populateCreateAuditInfo(T entity) {
 		entity.setRecordCreatedBy(this.getSecurityService().getCurrentUserName());
 		entity.setRecordCreatedDate(new Date());
 	}

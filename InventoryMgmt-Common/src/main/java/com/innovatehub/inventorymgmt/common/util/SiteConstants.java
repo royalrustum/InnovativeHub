@@ -90,6 +90,7 @@ public class SiteConstants {
 	//--------------------- Thymeleaf constants -----------------
 	public static final String THYMELEAF_FRAGMENTS_HOME = "/views/thymeleaf/layout/fragments";
 	
-
-	
+	//--------------------- Site Constants -----------------
+	public static final String SITE_CONST_POS_RECEIPT_COMPANY_IMG_URL = "pos.receipt.companyImage.url";
+	public static final String SITE_CONST_POS_RECEIPT_COMPANY_IMG_SCALE_PCT = "pos.receipt.companyImage.scalePct";
 }

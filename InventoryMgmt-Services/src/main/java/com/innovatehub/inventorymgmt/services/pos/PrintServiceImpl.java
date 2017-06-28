@@ -6,10 +6,13 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
+import com.innovatehub.inventorymgmt.common.util.SiteConstants;
 import com.innovatehub.inventorymgmt.services.ServiceBase;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -35,6 +38,17 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 	private int ITEM_VERTICAL_OFFSET = 15;
 	private int PAGE_FOOTER_OFFSET = 50;
 	private int PAGE_FULL_HEIGHT = 615;
+
+	@Autowired
+	private Environment environment;
+
+	public Environment getEnvironment() {
+		return environment;
+	}
+
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
+	}
 
 	public byte[] generateSaleReceipt(Sale sale) {
 		return this.createPDF("Akshara1.pdf", sale);
@@ -69,7 +83,7 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 					generateHeader(doc, cb, sale);
 					y = PAGE_FULL_HEIGHT;
 				}
-				
+
 				generateDetail(doc, cb, saleDetailIndex, y, sale.getSaleDetails().get(saleDetailIndex));
 				y = y - ITEM_VERTICAL_OFFSET;
 				if (y < PAGE_FOOTER_OFFSET) {
@@ -114,7 +128,7 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 				docWriter.close();
 			}
 		}
-		
+
 		return byteArrayStream.toByteArray();
 	}
 
@@ -165,10 +179,11 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 			createHeadings(cb, COL3_OFFSET + ITEM_OFFSET, 633, "Price", Element.ALIGN_LEFT);
 
 			// add the images
-			String companyImageUrl = "/static/images/venkateswara.jpg";
-			Image companyLogo = Image.getInstance(new URL(companyImageUrl));
+			Image companyLogo = Image.getInstance(
+					new URL(this.getEnvironment().getProperty(SiteConstants.SITE_CONST_POS_RECEIPT_COMPANY_IMG_URL)));
 			companyLogo.setAbsolutePosition(25, 700);
-			companyLogo.scalePercent(25);
+			companyLogo.scalePercent(Integer.parseInt(
+					this.getEnvironment().getProperty(SiteConstants.SITE_CONST_POS_RECEIPT_COMPANY_IMG_SCALE_PCT)));
 			doc.add(companyLogo);
 
 		}
