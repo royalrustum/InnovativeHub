@@ -32,9 +32,6 @@ import com.innovatehub.inventorymgmt.site.util.GenericUtilHelper;
 public class ProductController extends BaseController {
 	private static final String MODEL_ATTRIB_PROD = "product";
 
-	private static final String THLF_TEMPLATE_NAME_PRODUCT = SiteConstants.THYMELEAF_FRAGMENTS_HOME
-			+ "/dyn_controls :: product";
-
 	@Autowired
 	private ProductService productService;
 

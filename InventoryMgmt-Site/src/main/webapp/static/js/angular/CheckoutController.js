@@ -22,9 +22,11 @@ erpApp
 						checkoutSaleDetail.selectedStock = {};
 						checkoutSaleDetail.selectedStock.stockId = "-1";
 						
+						$scope.checkoutSaleDetailsList.push(checkoutSaleDetail);
+						
 						$scope.calculateTotals();
 						$scope.configureCheckout();
-						$scope.populateSaleDetailsList(checkoutSaleDetail);
+						$scope.populateSaleDetailsList();
 						
 						$scope.refresh();
 					};
@@ -92,15 +94,17 @@ erpApp
 						}
 					};
 					
-					$scope.populateSaleDetailsList = function (checkoutSaleDetail) {
-						$scope.checkoutSaleTotals.subTotal = $scope.checkoutProductsListSubTotal;
-						$scope.checkoutSaleTotals.total = $scope.checkoutProductsListFullTotal;
-						$scope.checkoutSaleTotals.discount = 0; 
-						$scope.checkoutSaleTotals.saleTax = 0;
-						
-						checkoutSaleDetail.sale = $scope.checkoutSaleTotals;
-
-						$scope.checkoutSaleDetailsList.push(checkoutSaleDetail);
+					$scope.populateSaleDetailsList = function () {
+						for (index = 0; index < $scope.checkoutSaleDetailsList.length; index++) {
+							checkoutSaleDetail = $scope.checkoutSaleDetailsList[index];
+							
+							$scope.checkoutSaleTotals.subTotal = $scope.checkoutProductsListSubTotal;
+							$scope.checkoutSaleTotals.total = $scope.checkoutProductsListFullTotal;
+							$scope.checkoutSaleTotals.discount = 0; 
+							$scope.checkoutSaleTotals.saleTax = 0;
+							
+							checkoutSaleDetail.sale = $scope.checkoutSaleTotals;
+							}
 					}
 					
 					/*$scope.onSubmit = function() {

@@ -20,7 +20,7 @@
 					<ul class="collapse in" th:id="${leftNavSection.header.name}">
 						<li class="active"
 							th:each="subSection : ${leftNavSection.leftNavItems}"><a
-							th:href="${subSection.url}"><i
+							th:href="@{${subSection.url}}"><i
 								class="fa fa-lg fa-2x left-nav-submenu"
 								th:classappend="${subSection.screenIconName}"></i><span
 								th:text="${subSection.screenName}"></span></a></li>

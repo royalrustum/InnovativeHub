@@ -22,9 +22,10 @@
 	<script type="text/javascript" th:src="@{/static/js/site.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/angular.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/bloodhound.js}"></script>
-	<script type="text/javascript" th:src="@{/static/js/typeahead.jquery.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/static/js/typeahead.jquery.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/main-app.js}"></script>
-	
+
 	<div class="container-fluid zero-pad" ng-app="erpApp">
 		<div th:include="layout/fragments/header :: header"></div>
 
@@ -37,7 +38,11 @@
 		<div th:include="layout/fragments/alert :: formErrors"></div>
 
 		<div class="col-md-offset-2 pageContentContainer row">
-
+			<script th:inline="javascript">
+					/*<![CDATA[*/
+						var contextRoot = /*[[@{'/'}]]*/ ;
+						/*]]>*/
+			</script>
 
 			<div layout:fragment="content"></div>
 

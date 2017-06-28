@@ -10,12 +10,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innovatehub.inventorymgmt.common.model.customer.Customer;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
-import com.innovatehub.inventorymgmt.common.model.stock.Product;
-import com.innovatehub.inventorymgmt.common.model.stock.SKU;
-import com.innovatehub.inventorymgmt.services.customer.CustomerService;
-import com.innovatehub.inventorymgmt.services.stock.ProductService;
 import com.innovatehub.inventorymgmt.services.stock.SKUService;
 
 @Component

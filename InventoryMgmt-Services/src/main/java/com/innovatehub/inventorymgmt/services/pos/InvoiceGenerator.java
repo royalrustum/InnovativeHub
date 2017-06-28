@@ -219,7 +219,6 @@ public class InvoiceGenerator {
 					 PdfContentByte.ALIGN_LEFT);
 					
 			double price = Double.valueOf(df.format(Math.random() * 10));
-			double extPrice = price * (index + 1);
 			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(price), PdfContentByte.ALIGN_LEFT);
 			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(price), PdfContentByte.ALIGN_LEFT);
 			// createContent(cb, 568, y, df.format(extPrice),

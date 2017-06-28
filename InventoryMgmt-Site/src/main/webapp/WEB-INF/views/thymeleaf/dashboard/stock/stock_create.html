@@ -37,68 +37,66 @@
 
 		<script type="text/javascript">
 			$('#selectedProdCategory')
-					.change(
-							function() {
-								var htmlOption = '<option value="-1">Select</option>';
-								var selectedProdCat = $(
-										'#selectedProdCategory option:selected')
-										.val();
-
-								// Get products for selected prod cat.
-								var productsUrl = '/stock/product/prodCat/'
-										+ selectedProdCat;
+				.change(
+					function() {
+						var htmlOption = '<option value="-1">Select</option>';
+						var selectedProdCat = $(
+							'#selectedProdCategory option:selected')
+							.val();
+		
+						// Get products for selected prod cat.
+						var productsUrl = contextRoot + 'stock/product/prodCat/' + selectedProdCat;
+						$.getJSON(
+							productsUrl,
+							function(products) {
 								$
-										.getJSON(
-												productsUrl,
-												function(products) {
-													$
-															.each(
-																	products,
-																	function(
-																			index,
-																			product) {
-																		htmlOption += '<option value="' + product.productId + '">'
-																				+ product.productName
-																				+ '</option>';
-																	});
-
-													$('#selectedProduct').html(
-															htmlOption);
-
-												});
+									.each(
+										products,
+										function(
+											index,
+											product) {
+											htmlOption += '<option value="' + product.productId + '">'
+												+ product.productName
+												+ '</option>';
+										});
+		
+								$('#selectedProduct').html(
+									htmlOption);
+		
 							});
-
+					});
+		
 			$('#selectedProduct')
-					.change(
-							function() {
-								var htmlOption = '<option value="-1">Select</option>';
-								var selectedProductId = $(
-										'#selectedProduct option:selected')
-										.val();
-
-								// Get products for selected prod cat.
-								var skusUrl = '/stock/sku/product/'
-										+ selectedProductId;
-								$
-										.getJSON(
-												skusUrl,
-												function(skus) {
-													$
-															.each(
-																	skus,
-																	function(
-																			index,
-																			sku) {
-																		htmlOption += '<option value="' + sku.skuId + '">'
-																				+ sku.skuName
-																				+ '</option>';
-																	});
-
-													$('#selectedSKU').html(
-															htmlOption);
-
-												});
-							});
+				.change(
+					function() {
+						var htmlOption = '<option value="-1">Select</option>';
+						var selectedProductId = $(
+							'#selectedProduct option:selected')
+							.val();
+		
+						// Get products for selected prod cat.
+						var skusUrl = contextRoot + 'stock/sku/product/'
+							+ selectedProductId;
+						$
+							.getJSON(
+								skusUrl,
+								function(skus) {
+									$
+										.each(
+											skus,
+											function(
+												index,
+												sku) {
+												htmlOption += '<option value="' + sku.skuId + '">'
+													+ sku.skuName
+													+ '</option>';
+											});
+		
+									$('#selectedSKU').html(
+										htmlOption);
+		
+								});
+					});
 		</script>
 	</div>
 </body>

@@ -88,7 +88,7 @@ public class DatabaseInitializer {
 	@PostConstruct
 	@Transactional(readOnly = false)
 	private void populateData() {
-		/*populateUserAndRoleData();
+	/*	populateUserAndRoleData();
 		populateLeftNavScreens();*/
 	}
 

@@ -91,23 +91,23 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="row in checkoutSaleDetailsList">
-										<td>{{row.sku.sNo}}</td>
-										<td>{{row.sku.selectedProduct.productName}} -
-											{{row.sku.skuName}}</td>
-										<td>&#8377;&nbsp;{{row.sku.price.sellingPrice}}</td>
-										<td>{{row.sku.selectedProduct.productName}}</td>
+									<tr ng-repeat="saleDetail in checkoutSaleDetailsList">
+										<td>{{saleDetail.sku.sNo}}</td>
+										<td>{{saleDetail.sku.selectedProduct.productName}} -
+											{{saleDetail.sku.skuName}}</td>
+										<td>&#8377;&nbsp;{{saleDetail.sku.sellPrice}}</td>
+										<td>{{saleDetail.sku.selectedProduct.productName}}</td>
 										<td>0%</td>
 										<td><div class="col-md-2 form-group-sm">
-												<select ng-model="row.selectedStock.stockId">
+												<select ng-model="saleDetail.selectedStock.stockId">
 													<option value="-1">Select</option>
-													<option ng-repeat="stock in row.sku.selectedSKUStockList"
+													<option ng-repeat="stock in saleDetail.sku.selectedSKUStockList"
 														value="{{stock.stockId}}">{{stock.stockDate}}</option>
 												</select>
 											</div></td>
-										<td>&#8377;&nbsp;{{row.sellPrice}}</td>
+										<td>&#8377;&nbsp;{{saleDetail.sku.sellPrice}}</td>
 										<td><a ng-href="#"
-											ng-click="removeProductItem(row.sku.sNo)"><p
+											ng-click="removeProductItem(saleDetail.sku.sNo)"><p
 													class="text-center">
 													<span class="fa fa-close fontRed text-center"></span>
 												</p></a></td>
@@ -157,7 +157,7 @@
 								var productEngine = new Bloodhound(
 										{
 											remote : {
-												url : '/stock/sku/matches/%QUERY%',
+												url : contextRoot + 'stock/sku/matches/%QUERY%',
 												wildcard : '%QUERY%'
 											},
 											datumTokenizer : Bloodhound.tokenizers.whitespace,
@@ -226,7 +226,7 @@
 								var customerEngine = new Bloodhound(
 										{
 											remote : {
-												url : '/customer/profile/matches/%QUERY%',
+												url : contextRoot + 'customer/profile/matches/%QUERY%',
 												wildcard : '%QUERY%'
 											},
 											datumTokenizer : Bloodhound.tokenizers.whitespace,

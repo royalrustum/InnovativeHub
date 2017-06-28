@@ -5,11 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.innovatehub.inventorymgmt.common.model.customer.Customer;
-import com.innovatehub.inventorymgmt.common.model.stock.Product;
-import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.services.customer.CustomerService;
-import com.innovatehub.inventorymgmt.services.stock.ProductService;
-import com.innovatehub.inventorymgmt.services.stock.SKUService;
 
 @Component
 public class StringToCustomerConvert implements Converter<String, Customer> {

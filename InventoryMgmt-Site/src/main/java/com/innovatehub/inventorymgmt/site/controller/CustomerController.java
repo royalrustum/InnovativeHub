@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.innovatehub.inventorymgmt.common.model.customer.Customer;
-import com.innovatehub.inventorymgmt.common.model.stock.SKU;
 import com.innovatehub.inventorymgmt.common.util.SiteConstants;
 import com.innovatehub.inventorymgmt.services.customer.CustomerService;
 

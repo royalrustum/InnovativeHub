@@ -1,38 +1,27 @@
 package com.innovatehub.inventorymgmt.services.pos;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 
-import com.innovatehub.inventorymgmt.common.entity.customer.Customer;
 import com.innovatehub.inventorymgmt.common.model.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.SaleDetail;
+import com.innovatehub.inventorymgmt.services.ServiceBase;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfCopy;
-import com.itextpdf.text.pdf.PdfImportedPage;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfSmartCopy;
-import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
-public class PrintServiceImpl implements PrintService {
+public class PrintServiceImpl extends ServiceBase implements PrintService {
 	private BaseFont bfBold;
 	private BaseFont bf;
 	private int pageNumber = 0;
@@ -176,7 +165,8 @@ public class PrintServiceImpl implements PrintService {
 			createHeadings(cb, COL3_OFFSET + ITEM_OFFSET, 633, "Price", Element.ALIGN_LEFT);
 
 			// add the images
-			Image companyLogo = Image.getInstance("/home/kiran/venkateswara.jpg");
+			String companyImageUrl = "/static/images/venkateswara.jpg";
+			Image companyLogo = Image.getInstance(new URL(companyImageUrl));
 			companyLogo.setAbsolutePosition(25, 700);
 			companyLogo.scalePercent(25);
 			doc.add(companyLogo);
