@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 import com.innovatehub.inventorymgmt.services.security.SecurityService;
-import javax.servlet.ServletContext;
 
 @SuppressWarnings("unused")
 public class ServiceBase {
