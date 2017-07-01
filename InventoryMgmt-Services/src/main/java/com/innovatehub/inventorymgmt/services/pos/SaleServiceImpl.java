@@ -2,8 +2,17 @@ package com.innovatehub.inventorymgmt.services.pos;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,7 +99,14 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 	}
 
 	@Override
+	@Transactional
 	public Sale getSale(Long saleId) {
+		/*Session session = this.getSessionFactory().getObject().getCurrentSession();
+		Criteria saleCritieria = session.createCriteria(com.innovatehub.inventorymgmt.common.entity.pos.Sale.class);
+		saleCritieria = saleCritieria.add(Restrictions.idEq(saleId));
+
+		com.innovatehub.inventorymgmt.common.entity.pos.Sale sale = 
+				(com.innovatehub.inventorymgmt.common.entity.pos.Sale) saleCritieria.list().get(0);*/
 		return this.convertSaleEntityToModel(this.getSaleRepo().findOne(saleId));
 	}
 
@@ -118,12 +134,12 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 			skuEntity.setQuantityAvailable(skuEntity.getQuantityAvailable() - 1);
 			this.getSkuRepo().save(skuEntity);
-			
+
 			// Update the Units sold column of Stock table.
 			com.innovatehub.inventorymgmt.common.entity.stock.Stock stockSelected = this.getStockRepo()
 					.getOne(saleDetailEntity.getStock().getStockId());
-			Long unitsSold =stockSelected.getUnitsSold() == null ? 0L : stockSelected.getUnitsSold();
-			
+			Long unitsSold = stockSelected.getUnitsSold() == null ? 0L : stockSelected.getUnitsSold();
+
 			stockSelected.setUnitsSold(unitsSold + 1);
 			this.getStockRepo().save(stockSelected);
 		}
@@ -140,7 +156,7 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		BeanUtils.copyProperties(saleModel.getSaleDetails().get(0).getSale(), saleEntity);
 
 		// Create new Array.
-		saleEntity.setSaleDetails(new ArrayList<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail>());
+		saleEntity.setSaleDetails(new HashSet<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail>());
 
 		List<SaleDetail> saleDetailsModel = saleModel.getSaleDetails();
 		for (SaleDetail saleDetailModel : saleDetailsModel) {
@@ -165,7 +181,7 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 		saleModel.setSaleDetails(new ArrayList<SaleDetail>());
 
-		List<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail> saleDetailsEntity = saleEntity
+		Set<com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail> saleDetailsEntity = saleEntity
 				.getSaleDetails();
 
 		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleDetailsEntity) {

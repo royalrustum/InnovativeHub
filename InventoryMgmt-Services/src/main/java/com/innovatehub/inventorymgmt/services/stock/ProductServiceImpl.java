@@ -25,17 +25,6 @@ public class ProductServiceImpl extends ServiceBase implements ProductService {
 
 	private ProductCategoryRepository prodCatRepo;
 
-	private SessionFactory sessionFactory;
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	public ProductRepository getProductRepo() {
 		return productRepo;
 	}
@@ -76,7 +65,7 @@ public class ProductServiceImpl extends ServiceBase implements ProductService {
 
 		if (product.getProductImage() != null) {
 			productEntity.setProductImage(
-					Hibernate.getLobCreator(sessionFactory.getCurrentSession()).createBlob(product.getProductImage()));
+					Hibernate.getLobCreator(this.getSessionFactory().getObject().getCurrentSession()).createBlob(product.getProductImage()));
 		}
 
 		if (product.getSelectedProdCategory() != null) {

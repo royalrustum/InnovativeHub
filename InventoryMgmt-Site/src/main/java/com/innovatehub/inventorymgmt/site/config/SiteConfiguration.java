@@ -15,6 +15,9 @@ public class SiteConfiguration {
 	@Value("${pos.receipt.companyImage.scalePct}")
 	private String posReceiptCompanyImgScalePct;
 
+	@Value("${init.data}")
+	private Boolean siteInitData;
+	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
@@ -34,5 +37,13 @@ public class SiteConfiguration {
 
 	public void setPosReceiptCompanyImgScalePct(String posReceiptCompanyImgScalePct) {
 		this.posReceiptCompanyImgScalePct = posReceiptCompanyImgScalePct;
+	}
+
+	public Boolean getSiteInitData() {
+		return siteInitData;
+	}
+
+	public void setSiteInitData(Boolean siteInitData) {
+		this.siteInitData = siteInitData;
 	}
 }

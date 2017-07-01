@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,8 @@ public class DatabaseInitializer {
 	private ScreenRepository screenRepository;
 
 	private ScreenCategoryRepository screenCatRepo;
+
+	private Environment environment;
 
 	@Autowired
 	public DatabaseInitializer(UserRepository userRepository) {
@@ -87,9 +90,14 @@ public class DatabaseInitializer {
 
 	@PostConstruct
 	@Transactional(readOnly = false)
-	private void populateData() {
-	/*	populateUserAndRoleData();
-		populateLeftNavScreens();*/
+	public void populateData() {
+		Boolean initDataFlag = Boolean
+				.parseBoolean(this.getEnvironment().getProperty(SiteConstants.SITE_CONST_INIT_DATA));
+		
+		if(initDataFlag) {
+			populateUserAndRoleData();
+			populateLeftNavScreens();
+		}
 	}
 
 	private void populateUserAndRoleData() {
@@ -97,7 +105,7 @@ public class DatabaseInitializer {
 		Role adminRole = populateRoles();
 
 		this.populateLeftNavScreens();
-		
+
 		List<Screen> allScreens = this.getScreenRepository().findAll();
 		for (Screen screen : allScreens) {
 			Role_Screen roleScreen = new Role_Screen();
@@ -135,7 +143,7 @@ public class DatabaseInitializer {
 		adminScreens.addAll(this.populateStockCategoryNavItems());
 		adminScreens.addAll(this.populatePOSNavItems());
 		adminScreens.addAll(this.populateDashboardCategoryNavItems());
-		
+
 		/*
 		 * Screen customerScreen = new Screen();
 		 * customerScreen.setScreenName("Customers");
@@ -149,13 +157,13 @@ public class DatabaseInitializer {
 	}
 
 	private List<Screen> populateDashboardCategoryNavItems() {
-	ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
-		
+		ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
+
 		ScreenCategory dashboardCategory = new ScreenCategory();
 		dashboardCategory.setName("Dashboard");
 		dashboardCategory.setIconName("fa-dashboard");
 		dashboardCategory.setOrder(1);
-		
+
 		dashboardCategory = this.getScreenCatRepo().save(dashboardCategory);
 
 		Screen homeScreen = new Screen();
@@ -165,19 +173,19 @@ public class DatabaseInitializer {
 		homeScreen.setScreenCategory(dashboardCategory);
 		this.getScreenRepository().save(homeScreen);
 		stockCatScreens.add(homeScreen);
-		
+
 		return stockCatScreens;
 
 	}
-	
+
 	private List<Screen> populateStockCategoryNavItems() {
 		ArrayList<Screen> stockCatScreens = new ArrayList<Screen>();
-		
+
 		ScreenCategory stockCategory = new ScreenCategory();
 		stockCategory.setName("Stock");
 		stockCategory.setIconName("fa-cubes");
 		stockCategory.setOrder(3);
-		
+
 		stockCategory = this.getScreenCatRepo().save(stockCategory);
 
 		Screen categoryScreen = new Screen();
@@ -187,7 +195,7 @@ public class DatabaseInitializer {
 		categoryScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(categoryScreen);
 		stockCatScreens.add(categoryScreen);
-		
+
 		Screen productScreen = new Screen();
 		productScreen.setScreenName("Product");
 		productScreen.setScreenIconName("fa-cube");
@@ -195,7 +203,7 @@ public class DatabaseInitializer {
 		productScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(productScreen);
 		stockCatScreens.add(productScreen);
-		
+
 		Screen skuScreen = new Screen();
 		skuScreen.setScreenName("SKU");
 		skuScreen.setScreenIconName("fa-tags");
@@ -203,7 +211,7 @@ public class DatabaseInitializer {
 		skuScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(skuScreen);
 		stockCatScreens.add(skuScreen);
-		
+
 		Screen stockScreen = new Screen();
 		stockScreen.setScreenName("Stock Diary");
 		stockScreen.setScreenIconName("fa-truck");
@@ -211,18 +219,18 @@ public class DatabaseInitializer {
 		stockScreen.setScreenCategory(stockCategory);
 		this.getScreenRepository().save(stockScreen);
 		stockCatScreens.add(stockScreen);
-		
+
 		return stockCatScreens;
 	}
-	
+
 	private List<Screen> populateCustomerCategoryNavItems() {
 		ArrayList<Screen> customerCatScreens = new ArrayList<Screen>();
-		
+
 		ScreenCategory customerCategory = new ScreenCategory();
 		customerCategory.setName("Customer");
 		customerCategory.setIconName("fa-address-card");
 		customerCategory.setOrder(4);
-		
+
 		customerCategory = this.getScreenCatRepo().save(customerCategory);
 
 		Screen categoryScreen = new Screen();
@@ -231,19 +239,19 @@ public class DatabaseInitializer {
 		categoryScreen.setUrl(SiteConstants.PAGE_URI_CUSTOMER_PROFILE_LIST);
 		categoryScreen.setScreenCategory(customerCategory);
 		this.getScreenRepository().save(categoryScreen);
-		
+
 		customerCatScreens.add(categoryScreen);
-		return 	customerCatScreens;
+		return customerCatScreens;
 	}
-	
+
 	private List<Screen> populatePOSNavItems() {
 		ArrayList<Screen> posCatScreens = new ArrayList<Screen>();
-		
+
 		ScreenCategory posCategory = new ScreenCategory();
 		posCategory.setName("Sale");
 		posCategory.setIconName("fa-shopping-cart");
 		posCategory.setOrder(2);
-		
+
 		posCategory = this.getScreenCatRepo().save(posCategory);
 
 		Screen categoryScreen = new Screen();
@@ -252,8 +260,17 @@ public class DatabaseInitializer {
 		categoryScreen.setUrl(SiteConstants.PAGE_URI_POS_CHECKOUT_CREATE);
 		categoryScreen.setScreenCategory(posCategory);
 		this.getScreenRepository().save(categoryScreen);
-		
+
 		posCatScreens.add(categoryScreen);
-		return 	posCatScreens;
+		return posCatScreens;
+	}
+
+	public Environment getEnvironment() {
+		return environment;
+	}
+
+	@Autowired
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
 	}
 }

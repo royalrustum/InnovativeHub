@@ -93,4 +93,5 @@ public class SiteConstants {
 	//--------------------- Site Constants -----------------
 	public static final String SITE_CONST_POS_RECEIPT_COMPANY_IMG_URL = "pos.receipt.companyImage.url";
 	public static final String SITE_CONST_POS_RECEIPT_COMPANY_IMG_SCALE_PCT = "pos.receipt.companyImage.scalePct";
+	public static final String SITE_CONST_INIT_DATA = "init.data";
 }

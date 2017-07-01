@@ -2,6 +2,7 @@ package com.innovatehub.inventorymgmt.common.entity.pos;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class Sale extends EntityBase {
 	
 	private BigDecimal profit;
 	
-	private List<SaleDetail> saleDetails;
+	private Set<SaleDetail> saleDetails;
 	
 	private Customer customer;
 	
@@ -96,11 +97,11 @@ public class Sale extends EntityBase {
 	}
 	
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER, mappedBy="sale")
-	public List<SaleDetail> getSaleDetails() {
+	public Set<SaleDetail> getSaleDetails() {
 		return saleDetails;
 	}
 
-	public void setSaleDetails(List<SaleDetail> saleDetails) {
+	public void setSaleDetails(Set<SaleDetail> saleDetails) {
 		this.saleDetails = saleDetails;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import com.innovatehub.inventorymgmt.common.entity.EntityBase;
 import com.innovatehub.inventorymgmt.services.security.SecurityService;
@@ -16,6 +17,8 @@ public class ServiceBase {
 	@Value("${server.contextPath}")
 	private String contextRoot;
 
+	private HibernateJpaSessionFactoryBean sessionFactory;
+	
 	@Autowired
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
@@ -46,5 +49,14 @@ public class ServiceBase {
 	public <T extends EntityBase> void populateAuditInfo(T entity) {
 		this.populateCreateAuditInfo(entity);
 		this.populateUpdateAuditInfo(entity);
+	}
+	
+	public HibernateJpaSessionFactoryBean getSessionFactory() {
+		return sessionFactory;
+	}
+
+	@Autowired
+	public void setSessionFactory(HibernateJpaSessionFactoryBean sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

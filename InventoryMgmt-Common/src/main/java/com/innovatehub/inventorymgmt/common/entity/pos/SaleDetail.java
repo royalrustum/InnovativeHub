@@ -107,7 +107,7 @@ public class SaleDetail extends EntityBase {
 		this.total = total;
 	}
 	
-	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "STOCK_ID")
 	public Stock getStock() {
 		return stock;
