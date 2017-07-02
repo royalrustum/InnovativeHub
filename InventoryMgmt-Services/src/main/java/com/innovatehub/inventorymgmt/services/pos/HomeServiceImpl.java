@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.innovatehub.inventorymgmt.common.entity.pos.Sale;
 import com.innovatehub.inventorymgmt.common.model.pos.Home;
+import com.innovatehub.inventorymgmt.common.repository.customer.CustomerRepository;
 import com.innovatehub.inventorymgmt.common.repository.pos.SaleRepository;
 import com.innovatehub.inventorymgmt.common.repository.stock.SKURepository;
 
@@ -23,6 +24,9 @@ public class HomeServiceImpl implements HomeService {
 	@Autowired
 	private SKURepository skuRepo;
 
+	@Autowired
+	private CustomerRepository customerRepo;
+	
 	public SaleRepository getSaleRepo() {
 		return saleRepo;
 	}
@@ -39,6 +43,14 @@ public class HomeServiceImpl implements HomeService {
 		this.skuRepo = skuRepo;
 	}
 
+	public CustomerRepository getCustomerRepo() {
+		return customerRepo;
+	}
+
+	public void setCustomerRepo(CustomerRepository customerRepo) {
+		this.customerRepo = customerRepo;
+	}
+	
 	@Override
 	public Home getHomeScreenInfo() {
 		Home home = new Home();
@@ -63,5 +75,8 @@ public class HomeServiceImpl implements HomeService {
 
 		// Populate Profit for current time period.
 		home.setProfit(new BigDecimal(todaySales.stream().mapToDouble(sale -> sale.getProfit().doubleValue()).sum()));
+		
+		// Populate total customer count.
+		home.setCustomerCount(BigDecimal.valueOf(this.getCustomerRepo().count()));
 	}
 }

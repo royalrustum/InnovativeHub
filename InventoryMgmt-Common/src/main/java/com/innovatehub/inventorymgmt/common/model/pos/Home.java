@@ -9,6 +9,8 @@ public class Home {
 
 	private BigDecimal profit;
 
+	private BigDecimal customerCount;
+	
 	public BigDecimal getSaleTotal() {
 		return saleTotal;
 	}
@@ -31,5 +33,13 @@ public class Home {
 
 	public void setProfit(BigDecimal profit) {
 		this.profit = profit;
+	}
+
+	public BigDecimal getCustomerCount() {
+		return customerCount;
+	}
+
+	public void setCustomerCount(BigDecimal customerCount) {
+		this.customerCount = customerCount;
 	}
 }

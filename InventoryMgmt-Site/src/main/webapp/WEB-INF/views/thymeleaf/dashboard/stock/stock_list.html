@@ -14,8 +14,9 @@
 							<tr>
 								<th>Stock Date</th>
 								<th>SKU</th>
-								<th>Units</th>
 								<th>Unit Price</th>
+								<th>Stocked Units</th>
+								<th>Units Available</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -24,8 +25,9 @@
 									<td><span th:text="${item.stockDate}"></span></td>
 									<td><span
 										th:text="|${item.sku.selectedProduct.productName} - ${item.sku.skuName}|"></span></td>
-									<td><span th:text="${item.units}"></span></td>
 									<td><span th:text="${item.unitPrice}"></span></td>
+									<td><span th:text="${item.units}"></span></td>
+									<td><span th:text="${item.unitsAvailable}"></span></td>
 								</tr>
 							</th:block>
 						</tbody>

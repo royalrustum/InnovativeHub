@@ -27,6 +27,8 @@ public class Stock extends ModelBase {
 	@DecimalMin(value = "0.0")
 	private BigDecimal unitPrice;
 	
+	private Long unitsSold;
+	
 	private List<ProductCategory> allProductCategories;
 
 	@NotNull
@@ -128,5 +130,20 @@ public class Stock extends ModelBase {
 
 	public void setAllSKU(List<SKU> allSKU) {
 		this.allSKU = allSKU;
+	}
+
+	public Long getUnitsSold() {
+		return unitsSold;
+	}
+
+	public void setUnitsSold(Long unitsSold) {
+		this.unitsSold = unitsSold;
+	}
+
+	public Long getUnitsAvailable() {
+		Long unitsStocked = this.getUnits() == null ? 0 : this.getUnits();
+		Long stockedUnitsSold = this.getUnitsSold() == null ? 0 : this.getUnitsSold();
+		
+		return unitsStocked - stockedUnitsSold;
 	}
 }
