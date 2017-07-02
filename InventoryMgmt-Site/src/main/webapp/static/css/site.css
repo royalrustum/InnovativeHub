@@ -46,7 +46,15 @@
 }
 
 .login-form {
-	margin-top: 45%;
+	margin-top: 30%;
+}
+
+.titleColor {
+	color: black;
+}
+
+.login-formgroup {
+	height: 50px !important;
 }
 
 form[role=login] {

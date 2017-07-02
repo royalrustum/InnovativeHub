@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}" />
 <link rel="stylesheet" th:href="@{/static/css/site.css}" />
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+			rel="stylesheet">
 
 <title>Innovative Hub</title>
 </head>
@@ -14,19 +16,32 @@
 <body class="loginBackground">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-offset-4 col-md-3">
+			<div class="col-md-offset-4 col-md-4">
 				<section class="login-form">
 					<div th:if="${param.error}" class="alert alert-danger alertStyle">
 						<span class="glyphicon glyphicon-remove-circle"></span> Invalid
 						Username and Password.
 					</div>
 
-					<div th:if="${param.logout}">You have been logged out.</div>
-					<form method="post" th:action="@{/login}" role="login">
-						<img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
-							alt="" />
+					<div th:if="${param.logout}">
+						<div class="">
+							<div class="alert alert-dismissible"
+								th:classappend="alert-success" role="alert">
+								<!-- <button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button> -->
+								<strong><span class="fa fa-check-circle fa-2x top-navbar-right-offset"></span><span>You
+										were successfully logged out.</span></strong>
+							</div>
+						</div>
+					</div>
 
-						<div class="form-group">
+					<form method="post" th:action="@{/login}" role="login">
+						<!-- <img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive"
+							alt="" /> -->
+						<h1 class="text-center titleColor">Leela Enterprises</h1>
+						<div class="form-group login-formgroup">
 							<div class="input-group">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-user"></span> </span> <input type="text"
@@ -35,7 +50,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group login-formgroup">
 							<div class="input-group">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-lock"></span> </span> <input
