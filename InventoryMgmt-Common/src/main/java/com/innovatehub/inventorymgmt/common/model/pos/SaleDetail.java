@@ -15,7 +15,15 @@ public class SaleDetail extends ModelBase {
 	
 	private BigDecimal discountPct;
 	
+	private BigDecimal discount;
+	
+	private BigDecimal saleTax;
+	
 	private BigDecimal total;
+	
+	private BigDecimal subTotal;
+	
+	private BigDecimal profit;
 	
 	private Sale sale;
 	
@@ -85,5 +93,37 @@ public class SaleDetail extends ModelBase {
 
 	public void setSelectedStock(Stock selectedStock) {
 		this.selectedStock = selectedStock;
+	}
+
+	public BigDecimal getSaleTax() {
+		return saleTax;
+	}
+
+	public void setSaleTax(BigDecimal saleTax) {
+		this.saleTax = saleTax;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public BigDecimal getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(BigDecimal subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
 	}
 }

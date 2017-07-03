@@ -96,12 +96,13 @@
 										<td>{{saleDetail.sku.selectedProduct.productName}} -
 											{{saleDetail.sku.skuName}}</td>
 										<td>&#8377;&nbsp;{{saleDetail.sku.sellPrice}}</td>
-										<td>{{saleDetail.sku.selectedProduct.productName}}</td>
-										<td>0%</td>
+										<td><input type="text" ng-model="saleDetail.quantity" size="4"></td>
+										<td><input type="text" ng-model="saleDetail.discountPct" size="3"></td>
 										<td><div class="col-md-2 form-group-sm">
-												<select ng-model="saleDetail.selectedStock.stockId">
+												<select ng-model="saleDetail.selectedStock.stockId" ng-change="configureCheckout()">
 													<option value="-1">Select</option>
-													<option ng-repeat="stock in saleDetail.sku.selectedSKUStockList"
+													<option
+														ng-repeat="stock in saleDetail.sku.selectedSKUStockList"
 														value="{{stock.stockId}}">{{stock.stockDate}}</option>
 												</select>
 											</div></td>
@@ -157,7 +158,8 @@
 								var productEngine = new Bloodhound(
 										{
 											remote : {
-												url : contextRoot + 'stock/sku/matches/%QUERY%',
+												url : contextRoot
+														+ 'stock/sku/matches/%QUERY%',
 												wildcard : '%QUERY%'
 											},
 											datumTokenizer : Bloodhound.tokenizers.whitespace,
@@ -226,7 +228,8 @@
 								var customerEngine = new Bloodhound(
 										{
 											remote : {
-												url : contextRoot + 'customer/profile/matches/%QUERY%',
+												url : contextRoot
+														+ 'customer/profile/matches/%QUERY%',
 												wildcard : '%QUERY%'
 											},
 											datumTokenizer : Bloodhound.tokenizers.whitespace,

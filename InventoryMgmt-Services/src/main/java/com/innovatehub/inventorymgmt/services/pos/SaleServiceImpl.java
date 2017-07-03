@@ -117,26 +117,17 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 		com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntityPersisted = this.getSaleRepo().save(saleEntity);
 
-		BigDecimal profitSaleDetailItems = new BigDecimal(0);
 		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity
 				.getSaleDetails()) {
 			saleDetailEntity.setSale(saleEntityPersisted);
 			this.getSaleDetailsRepo().save(saleDetailEntity);
 
-			//ToDo: Get from UI.
-			saleDetailEntity.setQuantity(1L);
-			
-			// ToDo: update the quantity with the input from the UI.
-			// ToDo: Update the quantity in the Stock table.
 			// ToDo: Parallel Checkout. Do an additional validation to see that
 			// Quantity_Available > 0 before checkout.
 			com.innovatehub.inventorymgmt.common.entity.stock.SKU skuEntity = this.getSkuRepo()
 					.findOne(saleDetailEntity.getSku().getSkuId());
-			profitSaleDetailItems = profitSaleDetailItems
-					.add((saleDetailEntity.getSellPrice().subtract(saleDetailEntity.getStock().getUnitPrice()))
-							.multiply(new BigDecimal(saleDetailEntity.getQuantity())));
 
-			skuEntity.setQuantityAvailable(skuEntity.getQuantityAvailable() - 1);
+			skuEntity.setQuantityAvailable(skuEntity.getQuantityAvailable() - saleDetailEntity.getQuantity());
 			this.getSkuRepo().save(skuEntity);
 
 			// Update the Units sold column of Stock table.
@@ -144,11 +135,12 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 					.getOne(saleDetailEntity.getStock().getStockId());
 			Long unitsSold = stockSelected.getUnitsSold() == null ? 0L : stockSelected.getUnitsSold();
 
-			stockSelected.setUnitsSold(unitsSold + 1);
+			stockSelected.setUnitsSold(unitsSold + saleDetailEntity.getQuantity());
 			this.getStockRepo().save(stockSelected);
 		}
 
-		saleEntityPersisted.setProfit(profitSaleDetailItems);
+		this.calculateSaleTotals(saleEntity);
+
 		this.getSaleRepo().save(saleEntityPersisted);
 
 		return saleEntityPersisted.getId();
@@ -220,9 +212,34 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 
 		saleDetailEntity.setStock(stockEntity);
 
-		saleDetailEntity.setDiscountPct(new BigDecimal(0.0));
-		saleDetailEntity.setTotal(new BigDecimal(0.0));
-		saleDetailEntity.setQuantity(0L);
+		// Set Discount
+		BigDecimal saleDetailDiscount = saleDetailModel.getDiscountPct().multiply(new BigDecimal(".01"));
+		saleDetailDiscount = saleDetailDiscount.multiply(skuEntity.getSellPrice());
+		saleDetailEntity.setDiscount(saleDetailDiscount.multiply(
+				new BigDecimal(saleDetailModel.getQuantity())));
+
+		// Set SubTotal.
+		BigDecimal subTotal = skuEntity.getSellPrice().subtract(saleDetailDiscount);
+		saleDetailEntity.setSubTotal(subTotal.multiply(
+				new BigDecimal(saleDetailModel.getQuantity())));
+
+		// Set Sale Tax.
+		BigDecimal saleTax = subTotal
+				.multiply(skuEntity.getProduct().getProductCategory().getTaxPercent().multiply(new BigDecimal(".01")));
+
+		saleDetailEntity.setSaleTax(saleTax.multiply(
+				new BigDecimal(saleDetailModel.getQuantity())));
+
+		// Set Total.
+		BigDecimal saleDetailTotal = subTotal.add(saleTax);
+		saleDetailEntity.setTotal(saleDetailTotal.multiply(
+				new BigDecimal(saleDetailModel.getQuantity())));
+
+		// Set Profit
+		BigDecimal saleDetailProfit = saleDetailTotal.subtract(saleDetailEntity.getStock().getUnitPrice());
+		saleDetailEntity.setProfit(saleDetailProfit.multiply(
+				new BigDecimal(saleDetailModel.getQuantity())));
+
 		this.populateAuditInfo(saleDetailEntity);
 
 		return saleDetailEntity;
@@ -256,5 +273,59 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		saleDetailModel.setSale(saleModel);
 
 		return saleDetailModel;
+	}
+
+	private void calculateSaleTotals(com.innovatehub.inventorymgmt.common.entity.pos.Sale saleEntity) {
+
+		BigDecimal totalSaleProfit = new BigDecimal(0);
+		BigDecimal totalSaleTax = new BigDecimal(0);
+		BigDecimal totalSubTotal = new BigDecimal(0);
+		BigDecimal totalDiscount = new BigDecimal(0);
+		BigDecimal totalTotal = new BigDecimal(0);
+
+		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity
+				.getSaleDetails()) {
+			
+			totalSaleProfit = totalSaleProfit.add(saleDetailEntity.getProfit());
+			totalSaleTax = totalSaleTax.add(saleDetailEntity.getSaleTax());
+			totalSubTotal = totalSubTotal.add(saleDetailEntity.getSubTotal());
+			totalDiscount = totalDiscount.add(saleDetailEntity.getDiscount());
+			totalTotal = totalTotal.add(saleDetailEntity.getTotal());
+			
+			/*
+			 * BigDecimal saleDetailSubTotal = saleDetailEntity.getSku().getSellPrice();
+			 * 
+			 * BigDecimal saleDetailDiscount = saleDetailEntity.getSku().getSellPrice()
+			 * .multiply(saleDetailEntity.getDiscountPct().multiply(new BigDecimal(".01")));
+			 * 
+			 * BigDecimal saleDetailSaleTax =
+			 * saleDetailEntity.getSku().getSellPrice().subtract(saleDetailDiscount)
+			 * .multiply(saleDetailEntity.getSku().getProduct().getProductCategory().
+			 * getTaxPercent() .multiply(new BigDecimal(".01")));
+			 * 
+			 * BigDecimal saleDetailProfit = saleDetailSubTotal.subtract(saleDetailDiscount)
+			 * .subtract(saleDetailEntity.getStock().getUnitPrice()).subtract(
+			 * saleDetailSaleTax);
+			 * 
+			 * totalSaleProfit = totalSaleProfit .add(saleDetailProfit.multiply(new
+			 * BigDecimal(saleDetailEntity.getQuantity())));
+			 * 
+			 * totalSaleTax = totalSaleTax.add(saleDetailSaleTax.multiply(new
+			 * BigDecimal(saleDetailEntity.getQuantity())));
+			 * 
+			 * totalSubTotal = totalSubTotal .add(saleDetailSubTotal.multiply(new
+			 * BigDecimal(saleDetailEntity.getQuantity())));
+			 * 
+			 * totalDiscount = totalDiscount .add(saleDetailDiscount.multiply(new
+			 * BigDecimal(saleDetailEntity.getQuantity())));
+			 */
+
+		}
+
+		saleEntity.setProfit(totalSaleProfit);
+		saleEntity.setSaleTax(totalSaleTax);
+		saleEntity.setSubTotal(totalSubTotal);
+		saleEntity.setDiscount(totalDiscount);
+		saleEntity.setTotal(totalTotal);
 	}
 }

@@ -45,7 +45,7 @@ public class SKU extends EntityBase {
 		this.skuId = skuId;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRODUCT_ID")
 	public Product getProduct() {
 		return product;

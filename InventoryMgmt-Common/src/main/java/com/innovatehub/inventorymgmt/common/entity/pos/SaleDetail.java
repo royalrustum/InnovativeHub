@@ -30,11 +30,19 @@ public class SaleDetail extends EntityBase {
 	
 	private BigDecimal sellPrice;
 	
+	private BigDecimal saleTax;
+	
 	private Long quantity;
 	
 	private BigDecimal discountPct;
 	
+	private BigDecimal discount;
+	
 	private BigDecimal total;
+	
+	private BigDecimal subTotal;
+	
+	private BigDecimal profit;
 	
 	private Sale sale;
 	
@@ -115,5 +123,41 @@ public class SaleDetail extends EntityBase {
 
 	public void setStock(Stock stock) {
 		this.stock = stock;
+	}
+
+	@Column(name = "SALE_TAX")
+	public BigDecimal getSaleTax() {
+		return saleTax;
+	}
+
+	public void setSaleTax(BigDecimal saleTax) {
+		this.saleTax = saleTax;
+	}
+
+	@Column(name = "DISCOUNT")
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	@Column(name = "SUB_TOTAL")
+	public BigDecimal getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(BigDecimal subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	@Column(name = "PROFIT")
+	public BigDecimal getProfit() {
+		return profit;
+	}
+
+	public void setProfit(BigDecimal profit) {
+		this.profit = profit;
 	}
 }
