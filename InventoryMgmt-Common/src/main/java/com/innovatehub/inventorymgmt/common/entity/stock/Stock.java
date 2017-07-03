@@ -55,7 +55,7 @@ public class Stock extends EntityBase {
 		this.stockDate = stockDate;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.DETACH } , fetch = FetchType.EAGER)
 	@JoinColumn(name = "SKU_ID")
 	public SKU getSku() {
 		return sku;
