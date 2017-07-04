@@ -283,6 +283,8 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		BigDecimal totalDiscount = new BigDecimal(0);
 		BigDecimal totalTotal = new BigDecimal(0);
 
+		int itemCount = 0;
+		
 		for (com.innovatehub.inventorymgmt.common.entity.pos.SaleDetail saleDetailEntity : saleEntity
 				.getSaleDetails()) {
 			
@@ -292,6 +294,7 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 			totalDiscount = totalDiscount.add(saleDetailEntity.getDiscount());
 			totalTotal = totalTotal.add(saleDetailEntity.getTotal());
 			
+			itemCount += saleDetailEntity.getQuantity();
 			/*
 			 * BigDecimal saleDetailSubTotal = saleDetailEntity.getSku().getSellPrice();
 			 * 
@@ -327,5 +330,6 @@ public class SaleServiceImpl extends ServiceBase implements SaleService {
 		saleEntity.setSubTotal(totalSubTotal);
 		saleEntity.setDiscount(totalDiscount);
 		saleEntity.setTotal(totalTotal);
+		saleEntity.setItemCount(itemCount);
 	}
 }

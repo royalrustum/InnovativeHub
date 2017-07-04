@@ -24,6 +24,8 @@ public class Sale extends ModelBase {
 	
 	private List<Stock> stockList;
 	
+	private Integer itemCount;
+	
 	public Long getId() {
 		return id;
 	}
@@ -86,5 +88,13 @@ public class Sale extends ModelBase {
 
 	public void setStockList(List<Stock> stockList) {
 		this.stockList = stockList;
+	}
+
+	public Integer getItemCount() {
+		return itemCount;
+	}
+
+	public void setItemCount(Integer itemCount) {
+		this.itemCount = itemCount;
 	}
 }

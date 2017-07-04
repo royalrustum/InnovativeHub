@@ -40,6 +40,8 @@ public class Sale extends EntityBase {
 	
 	private Customer customer;
 	
+	private Integer itemCount;
+	
 	@Id
 	@Column(name = "SALE_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ID_GEN_SEQ")
@@ -113,5 +115,14 @@ public class Sale extends EntityBase {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	@Column(name = "ITEM_COUNT")
+	public Integer getItemCount() {
+		return itemCount;
+	}
+
+	public void setItemCount(Integer itemCount) {
+		this.itemCount = itemCount;
 	}
 }
