@@ -105,11 +105,20 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 
 			y -= ITEM_VERTICAL_OFFSET;
 
-			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, "Total GST: 12", PdfContentByte.ALIGN_LEFT);
-			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, "Sub Total: 12", PdfContentByte.ALIGN_LEFT);
+			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, String.format("Total GST: %s", sale.getSaleTax()),
+					PdfContentByte.ALIGN_LEFT);
+			
+			y -= ITEM_VERTICAL_OFFSET;
+			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, String.format("Total Discount: %s", sale.getDiscount()),
+					PdfContentByte.ALIGN_LEFT);
+			
+			y -= ITEM_VERTICAL_OFFSET;
+			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, String.format("Sub Total: %s", sale.getSubTotal()),
+					PdfContentByte.ALIGN_LEFT);
 			y -= ITEM_VERTICAL_OFFSET;
 
-			createHeadings(cb, COL3_OFFSET + ITEM_OFFSET, y, "Total: 12", PdfContentByte.ALIGN_LEFT);
+			createHeadings(cb, COL3_OFFSET + ITEM_OFFSET, y, String.format("Total: %s", sale.getTotal()),
+					PdfContentByte.ALIGN_LEFT);
 
 			y -= ITEM_VERTICAL_OFFSET;
 
@@ -230,7 +239,7 @@ public class PrintServiceImpl extends ServiceBase implements PrintService {
 			createContent(cb, COL1_OFFSET + ITEM_OFFSET, y, String.valueOf(saleDetail.getQuantity()),
 					PdfContentByte.ALIGN_LEFT);
 
-			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getSellPrice()),
+			createContent(cb, COL2_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getSaleTax()),
 					PdfContentByte.ALIGN_LEFT);
 			createContent(cb, COL3_OFFSET + ITEM_OFFSET, y, df.format(saleDetail.getSellPrice()),
 					PdfContentByte.ALIGN_LEFT);

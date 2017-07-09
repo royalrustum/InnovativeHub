@@ -18,9 +18,11 @@ erpApp
 						// $scope.checkoutSaleDetailsList.push(selectedItem);
 
 						checkoutSaleDetail = {};
-						
+
 						checkoutSaleDetail.sku = selectedItem;
-						
+						checkoutSaleDetail.sku.saleDetailRowTotal = checkoutSaleDetail.sku.sellPrice;
+						checkoutSaleDetail.sku.saleDetailRowSubTotal = 0;
+
 						// We don't need to send Image data back.
 						checkoutSaleDetail.sku.selectedProduct.productImage = "";
 						checkoutSaleDetail.sku.selectedProduct.base64FileBytesString = "";
@@ -28,12 +30,14 @@ erpApp
 						// Init.
 						checkoutSaleDetail.quantity = 1;
 						checkoutSaleDetail.discountPct = 0;
-						
+
 						checkoutSaleDetail.selectedStock = {};
 						checkoutSaleDetail.selectedStock.stockId = "-1";
 
 						$scope.checkoutSaleDetailsList.push(checkoutSaleDetail);
 
+						$scope.calcuateRowSubTotal(checkoutSaleDetail);
+						
 						$scope.calculateTotals();
 						$scope.configureCheckout();
 						$scope.populateSaleDetailsList();
@@ -61,13 +65,13 @@ erpApp
 
 						for (index = 0; index < $scope.checkoutSaleDetailsList.length; index++) {
 							$scope.checkoutProductsListSubTotal = $scope.checkoutProductsListSubTotal
-									+ $scope.checkoutSaleDetailsList[index].sku.sellPrice;
+									+ $scope.checkoutSaleDetailsList[index].sku.saleDetailRowSubTotal;
 
 							$scope.checkoutProductsListTaxTotal = $scope.checkoutProductsListTaxTotal
-									+ $scope.checkoutSaleDetailsList[index].sku.selectedProduct.selectedProdCategory.taxPercent;
+									+ $scope.checkoutSaleDetailsList[index].sku.sellPriceSaleTax;
 
-							$scope.checkoutProductsListFullTotal = $scope.checkoutProductsListTaxTotal
-									+ $scope.checkoutProductsListSubTotal;
+							$scope.checkoutProductsListFullTotal = $scope.checkoutProductsListFullTotal
+									+ $scope.checkoutSaleDetailsList[index].sku.saleDetailRowTotal;
 						}
 					};
 
@@ -116,7 +120,7 @@ erpApp
 								isStockSelected = false;
 							}
 						}
-						
+
 						return isStockSelected;
 					}
 
@@ -141,6 +145,30 @@ erpApp
 					 * checkoutSaleDetail.selectedStock =
 					 * parseInt(checkoutSaleDetail.selectedStock); } }
 					 */
+					$scope.onTextChange = function(sNo) {
+						checkoutSaleDetail = $scope.checkoutSaleDetailsList[sNo - 1];
+						$scope.calcuateRowSubTotal(checkoutSaleDetail);
+						$scope.calculateTotals();
+						
+						$scope.refresh();
+					}
+
+					$scope.calcuateRowSubTotal = function(checkoutSaleDetail) {
+
+						checkoutSaleDetail.sku.saleDetailRowTotal = checkoutSaleDetail.sku.sellPrice
+								* checkoutSaleDetail.quantity;
+						checkoutSaleDetail.sku.saleDetailRowTotal = checkoutSaleDetail.sku.saleDetailRowTotal
+								- (checkoutSaleDetail.sku.saleDetailRowTotal
+										* checkoutSaleDetail.discountPct * .01);
+
+						checkoutSaleDetail.sku.saleDetailRowSubTotal = checkoutSaleDetail.sku.saleDetailRowTotal;
+						checkoutSaleDetail.sku.sellPriceSaleTax = checkoutSaleDetail.sku.saleDetailRowTotal
+								* checkoutSaleDetail.sku.selectedProduct.selectedProdCategory.taxPercent
+								* .01;
+
+						checkoutSaleDetail.sku.saleDetailRowTotal = checkoutSaleDetail.sku.saleDetailRowTotal
+								+ checkoutSaleDetail.sku.sellPriceSaleTax;
+					}
 
 					$scope.refresh = function() {
 						setInterval(function() {

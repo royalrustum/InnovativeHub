@@ -86,6 +86,7 @@
 										<th>Quantity</th>
 										<th>Disc %</th>
 										<th>Stock</th>
+										<th>Tax%</th>
 										<th>Total</th>
 										<th>Delete</th>
 									</tr>
@@ -96,8 +97,8 @@
 										<td>{{saleDetail.sku.selectedProduct.productName}} -
 											{{saleDetail.sku.skuName}}</td>
 										<td>&#8377;&nbsp;{{saleDetail.sku.sellPrice}}</td>
-										<td><input type="text" ng-model="saleDetail.quantity" size="4"></td>
-										<td><input type="text" ng-model="saleDetail.discountPct" size="3"></td>
+										<td><input type="text" ng-model="saleDetail.quantity" size="4" ng-change="onTextChange(saleDetail.sku.sNo)"></td>
+										<td><input type="text" ng-model="saleDetail.discountPct" size="3" ng-change="onTextChange(saleDetail.sku.sNo)"></td>
 										<td><div class="col-md-2 form-group-sm">
 												<select ng-model="saleDetail.selectedStock.stockId" ng-change="configureCheckout()">
 													<option value="-1">Select</option>
@@ -106,7 +107,8 @@
 														value="{{stock.stockId}}">{{stock.stockDate}}</option>
 												</select>
 											</div></td>
-										<td>&#8377;&nbsp;{{saleDetail.sku.sellPrice}}</td>
+										<td>{{saleDetail.sku.selectedProduct.selectedProdCategory.taxPercent}}%</td>
+										<td>&#8377;&nbsp;{{saleDetail.sku.saleDetailRowTotal}}</td>
 										<td><a ng-href="#"
 											ng-click="removeProductItem(saleDetail.sku.sNo)"><p
 													class="text-center">
